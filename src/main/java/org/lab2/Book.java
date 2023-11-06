@@ -7,14 +7,16 @@ public class Book {
     private String author;
     private String publisher;
     private int quantity;
+    private double price;
 
 
-    public Book(String isbn, String bookName, String author, String publisher, int quantity) {
+    public Book(String isbn, String bookName, String author, String publisher, int quantity, double price) {
         this.isbn = isbn;
         this.bookName = bookName;
         this.author = author;
         this.publisher = publisher;
         this.quantity = quantity;
+        this.price = price;
     }
 
     public String getIsbn() {
@@ -36,6 +38,8 @@ public class Book {
     public int getQuantity() {
         return quantity;
     }
+
+    public double getPrice() {return price;}
 
     public void addQuantity(int amount){
         this.quantity = quantity + amount;

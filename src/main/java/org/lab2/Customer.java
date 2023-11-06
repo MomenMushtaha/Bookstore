@@ -6,10 +6,11 @@ public class Customer extends User{
 
     ArrayList<Book> purchaseHistory = new ArrayList<>();
 
-    private String cart;
+    private Cart cart;
 
     public Customer(String email, String phoneNumber, String username, String password, int id, String name, String address) {
         super(email, phoneNumber, username, password, id, name, address);
+        this.cart = new Cart();
     }
 
     public void addToPurchaseHistory(Book book){

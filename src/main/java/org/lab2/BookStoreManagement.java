@@ -11,8 +11,8 @@ public class BookStoreManagement {
         bookList = new ArrayList<>();
     }
 
-    public void createBook(String isbn, String bookName, String author, String publisher, int quantity) {
-        Book book = new Book(isbn, bookName, author, publisher, quantity);
+    public void createBook(String isbn, String bookName, String author, String publisher, int quantity, float price) {
+        Book book = new Book(isbn, bookName, author, publisher, quantity,price);
         this.addBook(book);
     }
 

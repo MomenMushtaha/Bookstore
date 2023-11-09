@@ -2,7 +2,6 @@ package org.lab2;
 
 /**
  * Instances of PaymentProcessor are responsible for processing transactions of items in shopping cart.
- *
  * @author: Mahtab Ameli
  */
 public class PaymentProcessor {
@@ -14,17 +13,20 @@ public class PaymentProcessor {
 
     /**
      * Unique 5-digit transaction number for each payment processing attempt.
+     * todo make test for transaction number correctly incrementing
      */
     private static int transactionCounter = 10000;
 
 
+
     /**
-     * Constructor for the class
+     * Constructor for the class.
      * @param cart to be checked out.
      */
     public PaymentProcessor(Cart cart) {
         this.cart = cart;
     }
+
 
 
     //todo add transaction number to each payment processing attempt
@@ -63,14 +65,17 @@ public class PaymentProcessor {
     }
 
 
+
     //todo ask group if inventory check should be done from here
     private boolean checkInventory() {
         return false;
     }
 
 
+
     /**
      * Updates inventory by removing items for which payment was successful.
+     * // todo ask group about inventory implementation
      */
     private boolean updateInventory() {
         // remove items that were successfully paid for form cart
@@ -78,21 +83,30 @@ public class PaymentProcessor {
     }
 
 
-    //todo ask group if should do different payment methods for this milestone
+
+    /**
+     * Returns true if payment method is successful.
+     * todo ask group if should do different payment methods for this milestone
+     * todo ask group about user's payment method
+     */
     private boolean authorizePaymentMethod() {
         return false;
     }
 
 
+
     /**
      * Generates a unique 5-digit transaction number returned as a string.
-     * @return
      */
     private String generateTransactionNumber() {
         return String.format("%05d", transactionCounter);
     }
 
 
+    /**
+     * for temporary "testing".
+     * @param args
+     */
     public static void main(String[] args) {
         /**
          * case 1: cart is empty.
@@ -117,5 +131,4 @@ public class PaymentProcessor {
         PaymentProcessor p3 = new PaymentProcessor(cart_2);
         p3.processPayment();
     }
-
 }

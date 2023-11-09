@@ -7,11 +7,25 @@ package org.lab2;
  */
 public class PaymentProcessor {
 
+    /**
+     * The shopping cart for which payment is being processed.
+     */
     private Cart cart;
 
+    /**
+     * Unique 5-digit transaction number for each payment processing attempt.
+     */
+    private static int transactionCounter = 10000;
+
+
+    /**
+     * Constructor for the class
+     * @param cart to be checked out.
+     */
     public PaymentProcessor(Cart cart) {
         this.cart = cart;
     }
+
 
     //todo add transaction number to each payment processing attempt
     public boolean processPayment() {
@@ -25,13 +39,16 @@ public class PaymentProcessor {
         // if an item is not available in inventory, remove it from the cart and prompt user
 
         // process payment if items are available in inventory
+        String transactionNumber = generateTransactionNumber(); 
         double cartTotal = cart.calculateTotal();
         String line = "*******************************************************\n";
-        System.out.println(line + "Processing payment of $" + cartTotal + "...\n\n" + cart);
+        System.out.println(line + "Transaction #: " + transactionNumber + "\n");
+        System.out.println("Processing payment of $" + cartTotal + "...\n\n" + cart);
 
         // todo authorize payment method
 
         boolean paymentApproved = authorizePaymentMethod();
+        transactionCounter++;
 
         // if payment method approved
         if (paymentApproved) {
@@ -51,6 +68,7 @@ public class PaymentProcessor {
         return false;
     }
 
+
     /**
      * Updates inventory by removing items for which payment was successful.
      */
@@ -59,10 +77,22 @@ public class PaymentProcessor {
         return false;
     }
 
+
     //todo ask group if should do different payment methods for this milestone
     private boolean authorizePaymentMethod() {
         return false;
     }
+
+
+    /**
+     * Generates a unique 5-digit transaction number returned as a string.
+     * @return
+     */
+    private String generateTransactionNumber() {
+        return String.format("%05d", transactionCounter);
+    }
+
+
     public static void main(String[] args) {
         /**
          * case 1: cart is empty.

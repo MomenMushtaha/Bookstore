@@ -73,6 +73,10 @@ public class Cart {
         return total;
     }
 
+    public void checkout(){
+        PaymentProcessor.processPayment(this);
+    }
+
 
     /**
      * Returns items hashmap as a String.

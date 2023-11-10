@@ -7,51 +7,49 @@ public class Main {
 
 
     public static void main(String[] args) {
-        // Create an owner and a customer
-        Owner owner = new Owner("owneremail", "12345", "Owner", "ImTheBoss", 1, "Boss", "bossstreet");
-        Customer customer = new Customer("test@mail", "12345", "testMan", "password", 3, "Man", "testAddress");
 
-        // Owner adds books to the store
-        Book book1 = new Book(123, "TEST", "Hamza Zafar", "Carleton", 10, 1.99);
-        Book book2 = new Book(128, ":D", "Hamza Zafar", "Carleton", 10, 1.99);
+        System.out.println("START");
+        Owner owner = new Owner("owner@email.com", "123456789", "owner123", "ownerpass", 1, "Owner Name", "Owner Address");
+
+        // Add books to the bookstore
+        Book book1 = new Book(1001, "Book1", "Author1", "Publisher1", 10, 20.99);
+        Book book2 = new Book(1002, "Book2", "Author2", "Publisher2", 15, 15.99);
 
         owner.addBookToStore(book1);
         owner.addBookToStore(book2);
 
-        // Display initial state
-        System.out.println("Initial state:");
-        System.out.println("Owner's store: " + owner.getBookStore().size() + " books");
-        System.out.println("Customer's purchase history: " + customer.purchaseHistory.size() + " books");
-
-        // Display the contents of the owner's store
-        System.out.println("\nOwner's Store Contents:");
+        // Display the bookstore inventory
+        System.out.println("Bookstore Inventory:");
         for (Book book : owner.getBookStore()) {
-            System.out.println(book.getBookName() + " - Quantity: " + book.getQuantity());
+            System.out.println("ISBN: " + book.getIsbn() + ", Name: " + book.getBookName() +
+                    ", Quantity: " + book.getQuantity() + ", Price: $" + book.getPrice());
         }
+
+        // Create a customer
+        Customer customer = new Customer("customer@email.com", "987654321", "customer123", "customerpass", 2, "Customer Name", "Customer Address");
 
         // Customer adds books to the cart
-        customer.addBookToCart(book1, 2);
-        customer.addBookToCart(book2, 1);
+        customer.addBookToCart(book1, 3);
+        customer.addBookToCart(book2, 2);
 
-        // Display the cart contents
-        System.out.println("\nCart Contents:");
+        // Display the cart contents before checkout
+        System.out.println("\nCart Contents before Checkout:");
         customer.getCart().printCartContents();
-        System.out.println("Total price: $" + customer.getCart().calculateTotal());
 
-        // Clear the cart after the purchase is completed
+        // Customer checks out
+        System.out.println("\nChecking out...\n");
         customer.getCart().checkout();
 
-        // Display updated state
-        System.out.println("\nUpdated state:");
-        System.out.println("Owner's store: " + owner.getBookStore().size() + " books");
-        System.out.println("Customer's purchase history: " + customer.purchaseHistory.size() + " books");
+        // Display the cart contents after checkout
+        System.out.println("\nCart Contents after Checkout:");
+        customer.getCart().printCartContents();
 
-        // Display the updated contents of the owner's store
-        System.out.println("\nOwner's Store Contents (after purchase):");
+        // Display the bookstore inventory after checkout
+        System.out.println("\nBookstore Inventory after Checkout:");
         for (Book book : owner.getBookStore()) {
-            System.out.println(book.getBookName() + " - Quantity: " + book.getQuantity());
+            System.out.println("ISBN: " + book.getIsbn() + ", Name: " + book.getBookName() +
+                    ", Quantity: " + book.getQuantity() + ", Price: $" + book.getPrice());
         }
-
-
+        System.out.println("finish");
     }
 }

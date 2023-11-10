@@ -8,6 +8,8 @@ public class Customer extends User{
 
     private Cart cart;
 
+
+
     public Customer(String email, String phoneNumber, String username, String password, int id, String name, String address) {
         super(email, phoneNumber, username, password, id, name, address);
         this.cart = new Cart();
@@ -18,6 +20,7 @@ public class Customer extends User{
     }
 
     public void addBookToCart(Book book, int quantity){
+
         cart.addBook(book, quantity);
     }
 

@@ -6,6 +6,7 @@ import java.util.Map;
 public class Cart {
     // The cart uses a map to keep track of the books and their quantities.
     private Map<Book, Integer> items;
+    private Customer customer;
 
     public Cart() {
         items = new HashMap<>();

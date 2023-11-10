@@ -44,11 +44,18 @@ public class PaymentProcessor {
             // Update the inventory after a successful payment
             updateInventory(cart);
             cart.clearCart();
+            updateUserPurchaseHistory();
         } else {
             System.out.println("***** PAYMENT DECLINED *****");
         }
 
         System.out.println("*******************************************************");
+    }
+
+    /**
+     * need access to customer purchase history
+     */
+    private static void updateUserPurchaseHistory() {
     }
 
     /**

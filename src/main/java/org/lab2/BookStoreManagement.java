@@ -43,16 +43,16 @@ public class BookStoreManagement {
 
     public void removeBook(String isbn){
         Book bookToDelete = null;
-            for (Book book : bookList) {
-                if (book.getIsbn().equals(isbn)) {
-                    bookToDelete = book;
-                    break; // Stop searching once the book is found
-                }
-            }if(bookToDelete != null){
-                getBookList().remove(bookToDelete);
-                System.out.println("book deleted successfully.");
+        for (Book book : bookList) {
+            if (book.getIsbn().equals(isbn)) {
+                bookToDelete = book;
+                break; // Stop searching once the book is found
             }
-            else{System.out.println("Book with ISBN " + isbn + " not found in inventory.");}
+        }if(bookToDelete != null){
+            getBookList().remove(bookToDelete);
+            System.out.println("book deleted successfully.");
+        }
+        else{System.out.println("Book with ISBN " + isbn + " not found in inventory.");}
     }
 
 

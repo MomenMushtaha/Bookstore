@@ -44,7 +44,7 @@ public class Customer extends User{
      * Setter for cart.
      * @param cart
      */
-    public void setCart(Cart cart) {
+    public void setCart(Customer Cart, Cart self) {
         this.cart = cart;
     }
 

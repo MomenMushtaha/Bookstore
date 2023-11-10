@@ -8,6 +8,8 @@ public class Customer extends User{
 
     private Cart cart;
 
+
+
     public Customer(String email, String phoneNumber, String username, String password, int id, String name, String address) {
         super(email, phoneNumber, username, password, id, name, address);
         this.cart = new Cart();
@@ -17,15 +19,9 @@ public class Customer extends User{
         purchaseHistory.add(book);
     }
 
+    public void addBookToCart(Book book, int quantity){
 
-
-    public void removeFromPurchaseHistory(Book book){
-        if(purchaseHistory.contains(book)){
-            purchaseHistory.remove(book);
-        }
-        else{
-            System.out.println("The given book is not in the purchase history!");
-        }
+        cart.addBook(book, quantity);
     }
 
     public void printOutPurchaseHistory(){
@@ -47,5 +43,8 @@ public class Customer extends User{
     public void setCart(Customer Cart, Cart self) {
         this.cart = cart;
     }
-
+    public Cart getCart() {
+        return cart;
+    }
 }
+

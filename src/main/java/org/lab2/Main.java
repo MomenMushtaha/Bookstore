@@ -3,17 +3,53 @@ package org.lab2;
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
 public class Main {
+
+
+
     public static void main(String[] args) {
-        // Press Alt+Enter with your caret at the highlighted text to see how
-        // IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
 
-        // Press Shift+F10 or click the green arrow button in the gutter to run the code.
-        for (int i = 1; i <= 5; i++) {
+        System.out.println("START");
+        Owner owner = new Owner("owner@email.com", "123456789", "owner123", "ownerpass", 1, "Owner Name", "Owner Address");
 
-            // Press Shift+F9 to start debugging your code. We have set one breakpoint
-            // for you, but you can always add more by pressing Ctrl+F8.
-            System.out.println("i = " + i);
+        // Add books to the bookstore
+        Book book1 = new Book(1001, "Book1", "Author1", "Publisher1", 10, 20.99);
+        Book book2 = new Book(1002, "Book2", "Author2", "Publisher2", 15, 15.99);
+
+        owner.addBookToStore(book1);
+        owner.addBookToStore(book2);
+
+        // Display the bookstore inventory
+        System.out.println("Bookstore Inventory:");
+        for (Book book : owner.getBookStore()) {
+            System.out.println("ISBN: " + book.getIsbn() + ", Name: " + book.getBookName() +
+                    ", Quantity: " + book.getQuantity() + ", Price: $" + book.getPrice());
         }
+
+        // Create a customer
+        Customer customer = new Customer("customer@email.com", "987654321", "customer123", "customerpass", 2, "Customer Name", "Customer Address");
+
+        // Customer adds books to the cart
+        customer.addBookToCart(book1, 3);
+        customer.addBookToCart(book2, 2);
+
+        // Display the cart contents before checkout
+        System.out.println("\nCart Contents before Checkout:");
+        customer.getCart().printCartContents();
+
+        // Customer checks out
+        System.out.println("\nChecking out...\n");
+        customer.getCart().checkout();
+
+        // Display the cart contents after checkout
+        System.out.println("\nCart Contents after Checkout:");
+        customer.getCart().printCartContents();
+
+        // Display the bookstore inventory after checkout
+        System.out.println("\nBookstore Inventory after Checkout:");
+        for (Book book : owner.getBookStore()) {
+            System.out.println("ISBN: " + book.getIsbn() + ", Name: " + book.getBookName() +
+                    ", Quantity: " + book.getQuantity() + ", Price: $" + book.getPrice());
+        }
+        System.out.println("finish");
     }
 }

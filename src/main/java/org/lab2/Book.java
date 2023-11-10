@@ -2,7 +2,7 @@ package org.lab2;
 
 public class Book {
 
-    private String isbn;
+    private int isbn;
     private String bookName;
     private String author;
     private String publisher;
@@ -10,7 +10,7 @@ public class Book {
     private double price;
 
 
-    public Book(String isbn, String bookName, String author, String publisher, int quantity, double price) {
+    public Book(int isbn, String bookName, String author, String publisher, int quantity, double price) {
         this.isbn = isbn;
         this.bookName = bookName;
         this.author = author;
@@ -19,7 +19,7 @@ public class Book {
         this.price = price;
     }
 
-    public String getIsbn() {
+    public int getIsbn() {
         return isbn;
     }
 

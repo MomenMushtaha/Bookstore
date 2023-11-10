@@ -37,7 +37,7 @@ public class PaymentProcessorTest {
     public void testProcessPaymentSuccessful() {
         // Set up Book, Cart, and Customer for testing
         BookStoreManagement bookStoreManagement = new BookStoreManagement();
-        Book book = new Book("ISBN123", "Book 1", "Author 1", "Publisher 1", 10, 30);
+        Book book = new Book(123, "Book 1", "Author 1", "Publisher 1", 10, 30);
         bookStoreManagement.addBook(book);
 
         Cart cart = new Cart();
@@ -76,7 +76,7 @@ public class PaymentProcessorTest {
     public void testProcessPaymentEmptyCart() {
         // Set up Book, empty Cart, and Customer for testing
         BookStoreManagement bookStoreManagement = new BookStoreManagement();
-        Book book = new Book("ISBN123", "Book 1", "Author 1", "Publisher 1", 10, 29.99);
+        Book book = new Book(123, "Book 1", "Author 1", "Publisher 1", 10, 29.99);
         bookStoreManagement.addBook(book);
 
         Cart cart = new Cart();

@@ -43,6 +43,7 @@ public class PaymentProcessor {
             System.out.println("***** PAYMENT APPROVED *****");
             // Update the inventory after a successful payment
             updateInventory(cart);
+            cart.clearCart();
         } else {
             System.out.println("***** PAYMENT DECLINED *****");
         }

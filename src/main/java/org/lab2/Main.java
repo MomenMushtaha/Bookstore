@@ -39,7 +39,7 @@ public class Main {
         System.out.println("Total price: $" + customer.getCart().calculateTotal());
 
         // Clear the cart after the purchase is completed
-        customer.getCart().clearCart();
+        customer.getCart().checkout();
 
         // Display updated state
         System.out.println("\nUpdated state:");

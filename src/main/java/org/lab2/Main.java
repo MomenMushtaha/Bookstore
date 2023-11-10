@@ -42,8 +42,8 @@ public class Main {
 
         // Customer checks out
         System.out.println("\nChecking out...\n");
-        //customer.getCart().checkout(customer); //todo revisit
-        customer.checkoutCart();
+        customer.getCart().checkout(customer);
+
 
         // Display the cart contents after checkout
         System.out.println("\nCart Contents after Checkout:");

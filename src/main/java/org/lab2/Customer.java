@@ -12,7 +12,7 @@ public class Customer extends User{
 
     public Customer(String email, String phoneNumber, String username, String password, int id, String name, String address) {
         super(email, phoneNumber, username, password, id, name, address);
-        this.cart = new Cart();
+        this.cart = new Cart(this);
     }
 
     public void addToPurchaseHistory(Book book){
@@ -40,16 +40,18 @@ public class Customer extends User{
      * Setter for cart.
      * @param
      */
-    public void setCart(Customer Cart, Cart self) {
+/*    public void setCart(Customer Cart, Cart self) {
         this.cart = cart;
-    }
+    }*/
+
+
     public Cart getCart() {
         return cart;
     }
 
-    public void checkoutCart(){
-        PaymentProcessor.processPayment(this, cart);
-    }
+
+
+
 
 
 }

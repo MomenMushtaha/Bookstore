@@ -18,7 +18,7 @@ public class PaymentProcessor {
      * Processes the payment for the given shopping cart.
      *
      * @param cart     The shopping cart to process.
-     * @param customer
+     * @param customer The customer paying.
      */
     public static void processPayment(Customer customer, Cart cart) {
         // Check if the cart is null or empty
@@ -39,16 +39,9 @@ public class PaymentProcessor {
         // Display the contents of the cart
         printCartContents(cart);
 
-        // Check if the payment is approved
-        if (isPaymentApproved()) {
-            System.out.println("***** PAYMENT APPROVED *****");
-            // Update the inventory after a successful payment
-            // updateInventory(cart); //todo revisit later. For now not being done from PaymentProcessor
-            updateCustomerPurchaseHistory(customer, cart);
-            cart.clearCart();
-        } else {
-            System.out.println("***** PAYMENT DECLINED *****");
-        }
+        System.out.println("***** PAYMENT APPROVED *****");
+        updateCustomerPurchaseHistory(customer, cart);
+        cart.clearCart();
 
         System.out.println("*******************************************************");
     }
@@ -78,30 +71,4 @@ public class PaymentProcessor {
     private static void printCartContents(Cart cart) {
         System.out.println(cart.toString());
     }
-
-    /**
-     * Simulates payment approval logic.
-     * All payment is approved for milestone 1.
-     *
-     * @return true if the payment is approved, false otherwise.
-     */
-    private static boolean isPaymentApproved() {
-        // Simulate payment approval logic in future milestones
-        return true;
-    }
-
-    /**
-     * Updates the inventory after a successful payment.
-     *
-     * @param cart The shopping cart containing items to update the inventory.
-     */
-/*    private static void updateInventory(Cart cart) {
-        BookStoreManagement bookStoreManagement = new BookStoreManagement();
-        for (Map.Entry<Book, Integer> entry : cart.getItems().entrySet()) {
-            Book book = entry.getKey();
-            int quantity = entry.getValue();
-            // Update the quantity of each book in the inventory
-            bookStoreManagement.updateQuantity(book.getIsbn(), -quantity);
-        }
-    }*/
 }

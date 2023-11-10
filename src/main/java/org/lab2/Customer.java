@@ -17,6 +17,8 @@ public class Customer extends User{
         purchaseHistory.add(book);
     }
 
+
+
     public void removeFromPurchaseHistory(Book book){
         if(purchaseHistory.contains(book)){
             purchaseHistory.remove(book);
@@ -37,4 +39,13 @@ public class Customer extends User{
             val++;
         }
     }
+
+    /**
+     * Setter for cart.
+     * @param cart
+     */
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+
 }

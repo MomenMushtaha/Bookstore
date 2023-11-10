@@ -73,11 +73,6 @@ public class Cart {
         return total;
     }
 
-    // todo: methods added by mahtab for PaymentProcessor
-    public boolean isEmpty () {
-        return items.isEmpty();
-    }
-
 
     /**
      * Returns items hashmap as a String.

@@ -11,7 +11,7 @@ public class BookStoreManagement {
         bookList = new ArrayList<>();
     }
 
-    public void createBook(String isbn, String bookName, String author, String publisher, int quantity, float price) {
+    public void createBook(int isbn, String bookName, String author, String publisher, int quantity, float price) {
         Book book = new Book(isbn, bookName, author, publisher, quantity,price);
         this.addBook(book);
     }
@@ -21,7 +21,7 @@ public class BookStoreManagement {
     }
 
     //
-    public void updateQuantity(String isbn, int amountToAdd) {
+    public void updateQuantity(int isbn, int amountToAdd) {
         if (amountToAdd <= 0) {
             System.out.println("Please enter a number greater than 0");
         }
@@ -29,7 +29,7 @@ public class BookStoreManagement {
         else {
             Book bookToUpdate = null;
             for (Book book : bookList) {
-                if (book.getIsbn().equals(isbn)) {
+                if (book.getIsbn() == isbn) {
                     bookToUpdate = book;
                     break; // Stop searching once the book is found
                 }
@@ -41,10 +41,10 @@ public class BookStoreManagement {
         }
     }
 
-    public void removeBook(String isbn){
+    public void removeBook(int isbn){
         Book bookToDelete = null;
             for (Book book : bookList) {
-                if (book.getIsbn().equals(isbn)) {
+                if (book.getIsbn()== isbn) {
                     bookToDelete = book;
                     break; // Stop searching once the book is found
                 }

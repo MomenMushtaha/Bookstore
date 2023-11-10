@@ -12,8 +12,8 @@ public class Main {
         Customer customer = new Customer("test@mail", "12345", "testMan", "password", 3, "Man", "testAddress");
 
         // Owner adds books to the store
-        Book book1 = new Book("ISBN123", "TEST", "Hamza Zafar", "Carleton", 10, 1.99);
-        Book book2 = new Book("ISBN128", ":D", "Hamza Zafar", "Carleton", 10, 1.99);
+        Book book1 = new Book(123, "TEST", "Hamza Zafar", "Carleton", 10, 1.99);
+        Book book2 = new Book(128, ":D", "Hamza Zafar", "Carleton", 10, 1.99);
 
         owner.addBookToStore(book1);
         owner.addBookToStore(book2);

@@ -16,7 +16,7 @@ public class Owner extends User{
         ownersStore.removeBook(book.getIsbn());
     }
 
-    public void updateStoreQuantity(String isbn, int amount){
+    public void updateStoreQuantity(int isbn, int amount){
         ownersStore.updateQuantity(isbn, amount);
     }
 

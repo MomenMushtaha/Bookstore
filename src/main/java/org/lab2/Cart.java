@@ -6,7 +6,7 @@ import java.util.Map;
 public class Cart {
     // The cart uses a map to keep track of the books and their quantities.
     private Map<Book, Integer> items;
-    private Customer customer;
+    //private Customer customer; //todo revisit
 
     public Cart() {
         items = new HashMap<>();
@@ -74,9 +74,9 @@ public class Cart {
         return total;
     }
 
-    public void checkout(){
-        PaymentProcessor.processPayment(this);
-    }
+/*    public void checkout(Customer customer){
+        PaymentProcessor.processPayment(this, customer);
+    }*/
 
 
     /**

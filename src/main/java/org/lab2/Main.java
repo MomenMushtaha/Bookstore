@@ -36,13 +36,22 @@ public class Main {
         System.out.println("\nCart Contents before Checkout:");
         customer.getCart().printCartContents();
 
+        // Display the customer's purchase history before checkout
+        System.out.println("\nCustomer's purchase history before Checkout:");
+        customer.printOutPurchaseHistory();
+
         // Customer checks out
         System.out.println("\nChecking out...\n");
-        customer.getCart().checkout();
+        //customer.getCart().checkout(customer); //todo revisit
+        customer.checkoutCart();
 
         // Display the cart contents after checkout
         System.out.println("\nCart Contents after Checkout:");
         customer.getCart().printCartContents();
+
+        // Display the customer's purchase history after checkout
+        System.out.println("\nCustomer's purchase history after Checkout:");
+        customer.printOutPurchaseHistory();
 
         // Display the bookstore inventory after checkout
         System.out.println("\nBookstore Inventory after Checkout:");

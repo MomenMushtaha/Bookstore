@@ -38,7 +38,7 @@ public class Customer extends User{
 
     /**
      * Setter for cart.
-     * @param cart
+     * @param
      */
     public void setCart(Customer Cart, Cart self) {
         this.cart = cart;
@@ -46,5 +46,11 @@ public class Customer extends User{
     public Cart getCart() {
         return cart;
     }
+
+    public void checkoutCart(){
+        PaymentProcessor.processPayment(this, cart);
+    }
+
+
 }
 

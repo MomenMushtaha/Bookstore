@@ -72,4 +72,34 @@ public class Cart {
         }
         return total;
     }
+
+    // todo: methods added by mahtab for PaymentProcessor
+    public boolean isEmpty () {
+        return items.isEmpty();
+    }
+
+
+    /**
+     * Returns items hashmap as a String.
+     *
+     * @author: Mahtab Ameli
+     */
+    @Override
+    public String toString() {
+        StringBuilder cartString = new StringBuilder("Items:\n");
+        if (items.isEmpty()) {
+            cartString.append("The cart is empty.\n");
+        } else {
+            for (Map.Entry<Book, Integer> entry : items.entrySet()) {
+                Book book = entry.getKey();
+                Integer quantity = entry.getValue();
+                cartString.append("Book: ")
+                        .append(book.getBookName())
+                        .append(", Quantity: ")
+                        .append(quantity)
+                        .append("\n");
+            }
+        }
+        return cartString.toString();
+    }
 }

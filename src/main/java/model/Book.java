@@ -1,7 +1,11 @@
 package model;
-
+import javax.persistence.*;
+@Entity
 public class Book {
 
+    @Id
+    @GeneratedValue
+    private Long id;
     private int isbn;
     private String bookName;
     private String author;
@@ -9,7 +13,10 @@ public class Book {
     private int quantity;
     private double price;
 
+    //empty constructor for JPA
+    public Book() {
 
+    }
     public Book(int isbn, String bookName, String author, String publisher, int quantity, double price) {
         this.isbn = isbn;
         this.bookName = bookName;
@@ -47,5 +54,9 @@ public class Book {
 
     public void reduceQuantity(int amount){
         this.quantity = quantity - amount;
+    }
+
+    public Long getId() {
+        return id;
     }
 }

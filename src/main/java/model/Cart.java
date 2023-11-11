@@ -1,16 +1,24 @@
 package model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Cart {
     // The cart uses a map to keep track of the books and their quantities.
     private Map<Book, Integer> items;
+
     private Customer customer;
+    private Long id;
 
     public Cart(Customer customer) {
         items = new HashMap<>();
         this.customer = customer;
+    }
+
+    public Cart() {
+
     }
 
     // Adds a book to the cart or increments the quantity if it already exists.
@@ -82,8 +90,8 @@ public class Cart {
         return total;
     }
 
-    public void checkout(Customer customer){
-        PaymentProcessor.processPayment(customer, this);
+    public void checkout(){
+        PaymentProcessor.processPayment(getCustomer(), this);
     }
 
 
@@ -109,5 +117,17 @@ public class Cart {
             }
         }
         return cartString.toString();
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
     }
 }

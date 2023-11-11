@@ -42,7 +42,7 @@ public class Main {
 
         // Customer checks out
         System.out.println("\nChecking out...\n");
-        customer.getCart().checkout(customer);
+        customer.getCart().checkout();
 
 
         // Display the cart contents after checkout

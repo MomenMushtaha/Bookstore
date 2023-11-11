@@ -1,11 +1,14 @@
 package model;
-
+import javax.persistence.*;
 import java.util.ArrayList;
-
-
+@Entity
 public class BookStoreManagement {
-    private ArrayList <Book> bookList;
 
+    @Id
+    private Long id;
+    @GeneratedValue
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private ArrayList <Book> bookList;
     public BookStoreManagement() {
         bookList = new ArrayList<>();
     }
@@ -59,4 +62,11 @@ public class BookStoreManagement {
         return bookList;
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getId() {
+        return id;
+    }
 }

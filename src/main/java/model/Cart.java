@@ -2,66 +2,49 @@ package model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Cart {
     // The cart uses a map to keep track of the books and their quantities.
-    private Map<Book, Integer> items;
+    private List<Book> items;
 
     private Customer customer;
     private Long id;
 
     public Cart(Customer customer) {
-        items = new HashMap<>();
+        this.items = new ArrayList<>();
         this.customer = customer;
     }
 
-    public Cart() {
-
-    }
-
     // Adds a book to the cart or increments the quantity if it already exists.
-    public void addBook(Book book, int quantity) {
-        if (quantity <= 0) {
+    public void addBook(Book book) {
+        if(book.getQuantity()<=0){
             throw new IllegalArgumentException("Quantity must be greater than zero.");
         }
-        // Check if there are enough books in the inventory
-        if (book.getQuantity() >= quantity) {
-            // Add the book to the cart or update the quantity if it already exists
-            book.reduceQuantity(quantity);
-            items.merge(book, quantity, Integer::sum);
-        } else {
-            System.out.println("Not enough stock available for the selected book: " + book.getBookName());
-        }
+        else{
+            book.reduceQuantity();
+            items.add(book);}
     }
 
     // Removes a certain quantity of the specified book from the cart.
-    public void removeBook(Book book, int quantity) {
-        if (!items.containsKey(book)) {
-            System.out.println("Book not found in the cart.");
-            return;
-        }
-        if (quantity <= 0 || quantity > items.get(book)) {
-            throw new IllegalArgumentException("Invalid quantity.");
-        }
-        int currentQuantity = items.get(book);
-
-        if (quantity >= currentQuantity) {
-            // If the quantity to remove is equal to or greater than the current quantity, remove the book from the cart.
-            items.remove(book);
-        } else {
-            items.put(book, currentQuantity - quantity);
-        }
+    public void removeBook(Book book) {
+        book.addQuantity(1);
+        items.remove(book);
     }
 
     // Retrieves the cart's contents.
-    public Map<Book, Integer> getItems() {
+    public List<Book> getItems() {
         return items;
     }
 
     // Empties the cart.
     public void clearCart() {
+        for(Book book : items){
+        book.addQuantity(1);
+    }
         items.clear();
     }
 
@@ -71,10 +54,8 @@ public class Cart {
             System.out.println("The cart is empty.");
         } else {
             System.out.println("Cart Contents:");
-            for (Map.Entry<Book, Integer> entry : items.entrySet()) {
-                Book book = entry.getKey();
-                Integer quantity = entry.getValue();
-                System.out.println("Book: " + book.getBookName() + ", Quantity: " + quantity);
+            for (Book book : items){
+                System.out.println("Book: " + book.getBookName());
             }
         }
     }
@@ -82,16 +63,15 @@ public class Cart {
     // Calculates the total price for the items in the cart.
     public double calculateTotal() {
         double total = 0.0;
-        for (Map.Entry<Book, Integer> entry : items.entrySet()) {
-            Book book = entry.getKey();
-            Integer quantity = entry.getValue();
-            total += book.getPrice() * quantity;
+        for (Book book: items) {
+            total += book.getPrice();
         }
         return total;
     }
 
     public void checkout(){
         PaymentProcessor.processPayment(getCustomer(), this);
+        items.clear();
     }
 
 
@@ -106,13 +86,9 @@ public class Cart {
         if (items.isEmpty()) {
             cartString.append("The cart is empty.\n");
         } else {
-            for (Map.Entry<Book, Integer> entry : items.entrySet()) {
-                Book book = entry.getKey();
-                Integer quantity = entry.getValue();
+            for (Book book : items) {
                 cartString.append("Book: ")
                         .append(book.getBookName())
-                        .append(", Quantity: ")
-                        .append(quantity)
                         .append("\n");
             }
         }

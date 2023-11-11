@@ -52,8 +52,8 @@ public class Book {
         this.quantity = quantity + amount;
     }
 
-    public void reduceQuantity(int amount){
-        this.quantity = quantity - amount;
+    public void reduceQuantity(){
+        this.quantity = quantity - 1;
     }
 
     public Long getId() {

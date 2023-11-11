@@ -1,4 +1,4 @@
-package org.lab2;
+package model;
 
 import java.util.Map;
 

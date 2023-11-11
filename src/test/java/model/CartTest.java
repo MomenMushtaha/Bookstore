@@ -1,6 +1,5 @@
-package org.lab2;
+package model;
 
-import junit.framework.TestCase;
 import org.junit.Test;
 
 import java.util.HashMap;

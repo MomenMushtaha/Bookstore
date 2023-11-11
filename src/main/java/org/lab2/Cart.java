@@ -6,7 +6,6 @@ import java.util.Map;
 public class Cart {
     // The cart uses a map to keep track of the books and their quantities.
     private Map<Book, Integer> items;
-    //private Customer customer; //todo revisit
     private Customer customer;
 
     public Cart(Customer customer) {
@@ -19,7 +18,14 @@ public class Cart {
         if (quantity <= 0) {
             throw new IllegalArgumentException("Quantity must be greater than zero.");
         }
-        items.merge(book, quantity, Integer::sum);
+        // Check if there are enough books in the inventory
+        if (book.getQuantity() >= quantity) {
+            // Add the book to the cart or update the quantity if it already exists
+            book.reduceQuantity(quantity);
+            items.merge(book, quantity, Integer::sum);
+        } else {
+            System.out.println("Not enough stock available for the selected book: " + book.getBookName());
+        }
     }
 
     // Removes a certain quantity of the specified book from the cart.

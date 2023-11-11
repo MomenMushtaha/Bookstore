@@ -15,7 +15,7 @@ public class Customer extends User implements Serializable {
     private Cart cart;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private int id;
 
 
     public Customer(){
@@ -61,7 +61,7 @@ public class Customer extends User implements Serializable {
     }
 
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 

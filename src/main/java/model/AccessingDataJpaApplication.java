@@ -45,18 +45,17 @@ public class AccessingDataJpaApplication {
             bookRepository.findByBookName("testbook1").forEach(bauer -> {
                 log.info(bauer.toString());
             });
-            // for (Customer bauer : repository.findByLastName("Bauer")) {
-            //  log.info(bauer.toString());
-            // }
             log.info("");
-
 
             //Save a BookStoreManagement that contains a Book
             BookStoreManagement bookStoreTest = new BookStoreManagement();
             bookStoreTest.addBook(bookRepository.findById(1));
+            log.info("LINE 55");
+            log.info(bookStoreTest.toString());
             bookStoreRepository.save(bookStoreTest);
+            log.info("LINE 57");
 
-
+            log.info("LINE 56");
             // fetch an individual AddressBook by ID
             BookStoreManagement bookStore2 = bookStoreRepository.findById(1);
             log.info("BookStoreManagement found with findById(1):");

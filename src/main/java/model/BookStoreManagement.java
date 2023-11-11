@@ -5,17 +5,16 @@ import java.util.Collection;
 import java.util.HashSet;
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
 @Entity
 public class BookStoreManagement implements Serializable{
 
     @Id
-    private Integer id = null;
+    private Integer id;
 
-    private ArrayList<Book> bookList;
+    private Collection<Book> bookList;
 
     public BookStoreManagement() {
-        bookList = new ArrayList<>();
+        bookList = new HashSet();
     }
 
     @Id
@@ -25,9 +24,9 @@ public class BookStoreManagement implements Serializable{
     public void setId(Integer id) {this.id = id;}
 
     @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-    public ArrayList<Book> getBookList() {return bookList;}
+    public Collection<Book> getBookList() {return bookList;}
 
-    public void setBookList(ArrayList<Book> BookList) {this.bookList = BookList;}
+    public void setBookList(Collection<Book> BookList) {this.bookList = BookList;}
 
     public void createBook(int isbn, String bookName, String author, String publisher, int quantity, float price) {
         Book book = new Book(isbn, bookName, author, publisher, quantity,price);
@@ -79,4 +78,18 @@ public class BookStoreManagement implements Serializable{
                 "BookStoreManagement[id=%d, books='%s']",
                 id, bookList);
     }
+
+    public void getBookStoreManagement(){
+        if (bookList.isEmpty()){
+            System.out.print("The Book Store is empty!" + "\n");
+        }
+        else{
+            for (Book book : bookList){
+                System.out.println("ISBN= " + book.getIsbn() + "Name= " + book.getBookName() + "Author = " + book.getAuthor() +
+                        "Publisher = " + book.getPublisher() + "Quantity = " + book.getQuantity() + "Price = " + book.getPrice());
+            }
+        }
+    }
+
+
 }

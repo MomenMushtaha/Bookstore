@@ -1,11 +1,15 @@
 package model;
-import javax.persistence.*;
+
+import jakarta.persistence.*;
+
+import java.io.Serializable;
+
 @Entity
-public class Book {
+public class Book implements Serializable{
 
     @Id
-    @GeneratedValue
-    private Long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
     private int isbn;
     private String bookName;
     private String author;
@@ -56,7 +60,15 @@ public class Book {
         this.quantity = quantity - 1;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
+
+    @Override
+    public String toString(){
+        return String.format(
+                "Book[id=%d, isbn='%s' bookName='%s', bookAuthor='%s', bookPublisher='%s', bookQuantity='%s', bookPrice='%s']",
+                id, isbn, bookName, author, publisher, quantity, price);
+    }
+
 }

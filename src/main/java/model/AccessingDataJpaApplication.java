@@ -7,6 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+@SpringBootApplication
 public class AccessingDataJpaApplication {
     private static final Logger log = LoggerFactory.getLogger(AccessingDataJpaApplication.class);
 
@@ -15,7 +16,7 @@ public class AccessingDataJpaApplication {
     }
 
     @Bean
-    public CommandLineRunner demo(BookRepository bookRepository, BookStoreManagementRepository bookStoreRepository) {
+    public CommandLineRunner group22Demo(BookRepository bookRepository, BookStoreManagementRepository bookStoreRepository) {
         return (args) -> {
             // save a few Books
             bookRepository.save(new Book(123,"testbook1","kyler","group22",3,30.00));
@@ -57,10 +58,10 @@ public class AccessingDataJpaApplication {
 
 
             // fetch an individual AddressBook by ID
-            BookStoreManagement bookStore = bookStoreRepository.findById(1);
+            BookStoreManagement bookStore2 = bookStoreRepository.findById(1);
             log.info("BookStoreManagement found with findById(1):");
             log.info("--------------------------------");
-            log.info(bookStore.getBookList().toString());
+            log.info(bookStore2.getBookList().toString());
             log.info("");
         };
     }

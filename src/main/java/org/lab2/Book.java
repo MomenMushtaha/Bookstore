@@ -44,4 +44,8 @@ public class Book {
     public void addQuantity(int amount){
         this.quantity = quantity + amount;
     }
+
+    public void reduceQuantity(int amount){
+        this.quantity = quantity - amount;
+    }
 }

@@ -29,8 +29,8 @@ public class Main {
         Customer customer = new Customer("customer@email.com", "987654321", "customer123", "customerpass", 2, "Customer Name", "Customer Address");
 
         // Customer adds books to the cart
-        customer.addBookToCart(book1, 3);
-        customer.addBookToCart(book2, 2);
+        customer.getCart().addBook(book1, 3);
+        customer.getCart().addBook(book2, 2);
 
         // Display the cart contents before checkout
         System.out.println("\nCart Contents before Checkout:");

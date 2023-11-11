@@ -19,11 +19,6 @@ public class Customer extends User{
         purchaseHistory.add(book);
     }
 
-    public void addBookToCart(Book book, int quantity){
-
-        cart.addBook(book, quantity);
-    }
-
     public void printOutPurchaseHistory(){
         int val = 0;
         if(purchaseHistory.isEmpty()){

@@ -24,4 +24,8 @@ public class Owner extends User{
         return ownersStore.getBookList();
     }
 
+    public BookStoreManagement getOwnersStore() {
+        return ownersStore;
+    }
+
 }

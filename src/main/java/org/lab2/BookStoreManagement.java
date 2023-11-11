@@ -6,7 +6,6 @@ import java.util.ArrayList;
 public class BookStoreManagement {
     private ArrayList <Book> bookList;
 
-
     public BookStoreManagement() {
         bookList = new ArrayList<>();
     }

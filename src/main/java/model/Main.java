@@ -1,4 +1,4 @@
-package org.lab2;
+package model;
 
 // Press Shift twice to open the Search Everywhere dialog and type `show whitespaces`,
 // then press Enter. You can now see whitespace characters in your code.
@@ -29,8 +29,8 @@ public class Main {
         Customer customer = new Customer("customer@email.com", "987654321", "customer123", "customerpass", 2, "Customer Name", "Customer Address");
 
         // Customer adds books to the cart
-        customer.addBookToCart(book1, 3);
-        customer.addBookToCart(book2, 2);
+        customer.getCart().addBook(book1);
+        customer.getCart().addBook(book2);
 
         // Display the cart contents before checkout
         System.out.println("\nCart Contents before Checkout:");
@@ -42,7 +42,7 @@ public class Main {
 
         // Customer checks out
         System.out.println("\nChecking out...\n");
-        customer.getCart().checkout(customer);
+        customer.getCart().checkout();
 
 
         // Display the cart contents after checkout

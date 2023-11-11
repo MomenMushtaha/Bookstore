@@ -1,7 +1,15 @@
-package org.lab2;
+package model;
 
-public class Book {
+import jakarta.persistence.*;
 
+import java.io.Serializable;
+
+@Entity
+public class Book implements Serializable{
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Integer id;
     private int isbn;
     private String bookName;
     private String author;
@@ -9,7 +17,10 @@ public class Book {
     private int quantity;
     private double price;
 
+    //empty constructor for JPA
+    public Book() {
 
+    }
     public Book(int isbn, String bookName, String author, String publisher, int quantity, double price) {
         this.isbn = isbn;
         this.bookName = bookName;
@@ -44,4 +55,20 @@ public class Book {
     public void addQuantity(int amount){
         this.quantity = quantity + amount;
     }
+
+    public void reduceQuantity(){
+        this.quantity = quantity - 1;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    @Override
+    public String toString(){
+        return String.format(
+                "Book[id=%d, isbn='%s' bookName='%s', bookAuthor='%s', bookPublisher='%s', bookQuantity='%s', bookPrice='%s']",
+                id, isbn, bookName, author, publisher, quantity, price);
+    }
+
 }

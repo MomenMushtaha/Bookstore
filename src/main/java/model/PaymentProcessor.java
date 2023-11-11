@@ -1,4 +1,4 @@
-package org.lab2;
+package model;
 
 import java.util.Map;
 
@@ -47,8 +47,7 @@ public class PaymentProcessor {
     }
 
     private static void updateCustomerPurchaseHistory(Customer customer, Cart cart) {
-        for (Map.Entry<Book, Integer> entry : cart.getItems().entrySet()) {
-            Book book = entry.getKey();
+        for (Book book : cart.getItems()) {
             // Update the quantity of each book in the inventory
             customer.addToPurchaseHistory(book);
         }

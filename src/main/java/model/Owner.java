@@ -1,6 +1,8 @@
-package org.lab2;
+package model;
 
 import java.util.ArrayList;
+import java.util.Collection;
+
 public class Owner extends User{
 
     BookStoreManagement ownersStore = new BookStoreManagement();
@@ -20,8 +22,12 @@ public class Owner extends User{
         ownersStore.updateQuantity(isbn, amount);
     }
 
-    public ArrayList<Book> getBookStore(){
+    public Collection<Book> getBookStore(){
         return ownersStore.getBookList();
+    }
+
+    public BookStoreManagement getOwnersStore() {
+        return ownersStore;
     }
 
 }

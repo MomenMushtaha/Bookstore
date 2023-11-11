@@ -1,4 +1,4 @@
-package org.lab2;
+package model;
 
 import java.util.ArrayList;
 
@@ -17,11 +17,6 @@ public class Customer extends User{
 
     public void addToPurchaseHistory(Book book){
         purchaseHistory.add(book);
-    }
-
-    public void addBookToCart(Book book, int quantity){
-
-        cart.addBook(book, quantity);
     }
 
     public void printOutPurchaseHistory(){
@@ -48,11 +43,5 @@ public class Customer extends User{
     public Cart getCart() {
         return cart;
     }
-
-
-
-
-
-
 }
 

@@ -12,7 +12,6 @@ public class CartController {
 
     @GetMapping("/view/{cartId}")
     public Cart viewCart(@PathVariable Long cartId) {
-        // Replace this with your logic to retrieve and return cart information
         return cartRepository.findById(cartId).orElse(null);
     }
 
@@ -22,7 +21,7 @@ public class CartController {
         Cart cart = cartRepository.findById(cartId).orElse(null);
         if (cart != null) {
             cart.addBook(book);
-            cartRepository.save(cart); // Save the updated cart
+            cartRepository.save(cart);
         }
     }
 
@@ -32,7 +31,7 @@ public class CartController {
         Cart cart = cartRepository.findById(cartId).orElse(null);
         if (cart != null) {
             cart.removeBook(book);
-            cartRepository.save(cart); // Save the updated cart
+            cartRepository.save(cart);
         }
     }
 
@@ -42,7 +41,7 @@ public class CartController {
         Cart cart = cartRepository.findById(cartId).orElse(null);
         if (cart != null) {
             cart.checkout();
-            cartRepository.save(cart); // Save the updated cart
+            cartRepository.save(cart);
         }
     }
 }

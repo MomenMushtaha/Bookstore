@@ -8,15 +8,18 @@ import java.util.ArrayList;
 @Entity
 public class Customer extends User implements Serializable {
 
+    @OneToMany
     ArrayList<Book> purchaseHistory = new ArrayList<>();
 
     @OneToOne
     private Cart cart;
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
 
     public Customer(){
+        super();
     };
 
     public Customer(String email, String phoneNumber, String username, String password, int id, String name, String address) {
@@ -52,6 +55,11 @@ public class Customer extends User implements Serializable {
     public Cart getCart() {
         return cart;
     }
+
+    public void setCart(Cart cart){
+        this.cart = cart;
+    }
+
 
     public void setId(Integer id) {
         this.id = id;

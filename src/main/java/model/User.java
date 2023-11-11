@@ -1,5 +1,7 @@
 package model;
 
+import jakarta.persistence.Id;
+
 public class User {
 
 
@@ -7,6 +9,7 @@ public class User {
     private String phoneNumber;
     private String username;
     private String password;
+
     private int id;
     private String name;
     private String address;
@@ -41,6 +44,9 @@ public class User {
 
     public int getId(){
         return id;
+    }
+    public void setId(Integer id){
+        this.id = id;
     }
 
     public String getName(){

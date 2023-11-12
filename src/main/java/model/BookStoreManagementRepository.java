@@ -1,7 +1,9 @@
 package model;
 
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-public interface BookStoreManagementRepository extends CrudRepository<BookStoreManagement, Integer>{
-    BookStoreManagement findById(int id);
+@Repository
+public interface BookStoreManagementRepository extends CrudRepository<BookStoreManagement, Long>{
+    BookStoreManagement findById(long id);
 }

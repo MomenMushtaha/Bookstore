@@ -2,8 +2,10 @@ package model;
 
 import org.springframework.data.repository.CrudRepository;
 
-public interface CustomerRepository extends CrudRepository<Customer, Long> {
-    Customer findById(int id);
+import java.util.Optional;
+
+public interface CustomerRepository extends CrudRepository<Customer, Integer> {
+    Optional<Customer> findById(long id);
 
 }
 

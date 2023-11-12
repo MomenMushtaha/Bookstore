@@ -16,16 +16,17 @@ public class Customer extends User implements Serializable {
     private Cart cart;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private long id;
 
 
     public Customer(){
         super();
     };
 
-    public Customer(String email, String phoneNumber, String username, String password, int id, String name, String address) {
-        super(email, phoneNumber, username, password, id, name, address);
+    public Customer(String email, String phoneNumber, String username, String password, String name, String address) {
+        super(email, phoneNumber, username, password, name, address);
         this.cart = new Cart(this);
+        this.purchaseHistory = null;
     }
 
     public void addToPurchaseHistory(Book book){
@@ -44,15 +45,6 @@ public class Customer extends User implements Serializable {
         }
     }
 
-    /**
-     * Setter for cart.
-     * @param
-     */
-/*    public void setCart(Customer Cart, Cart self) {
-        this.cart = cart;
-    }*/
-
-
     public Cart getCart() {
         return cart;
     }
@@ -61,12 +53,11 @@ public class Customer extends User implements Serializable {
         this.cart = cart;
     }
 
-
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

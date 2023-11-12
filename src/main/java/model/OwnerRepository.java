@@ -1,9 +1,12 @@
 package model;
 
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-public interface OwnerRepository extends CrudRepository<Owner, Integer> {
-    Owner findById(int id);
+import java.util.Optional;
+
+public interface OwnerRepository extends CrudRepository<Owner, Long> {
+    Optional<Owner> findById(long id);
 
 }
 

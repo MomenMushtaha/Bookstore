@@ -11,14 +11,14 @@ import java.util.Map;
 @Entity
 public class Cart implements Serializable {
     // The cart uses a map to keep track of the books and their quantities.
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Book> items;
 
     @OneToOne
     private Customer customer;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private long id;
 
     public Cart(){};
     public Cart(Customer customer) {
@@ -112,11 +112,11 @@ public class Cart implements Serializable {
         this.items = items;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 }

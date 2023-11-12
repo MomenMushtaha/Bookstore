@@ -6,8 +6,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
+@ComponentScan(basePackages = {"model", "controller"})
 public class AccessingDataJpaApplication {
     private static final Logger log = LoggerFactory.getLogger(AccessingDataJpaApplication.class);
 
@@ -22,96 +24,60 @@ public class AccessingDataJpaApplication {
                                          OwnerRepository ownerRepository,
                                          CustomerRepository customerRepository) {
         return (args) -> {
-            // save a few Books
-            bookRepository.save(new Book(123,"testbook1","kyler","group22",3,30.00));
-            bookRepository.save(new Book(1234,"testbook2","kyler","group22",3,30.00));
-            bookRepository.save(new Book(1235,"testbook3","kyler","group22",3,30.00));
+// Create a new Owner with initial details
+            Owner owner1 = new Owner("owneremail", "12345", "Owner", "ImTheBoss", "Boss", "bossstreet");
+            System.out.println("Owner made");
 
+// Retrieve the BookStoreManagement associated with the owner
+            BookStoreManagement owner1BookStore = owner1.getOwnersStore();
+// Save the BookStoreManagement to the database
+            bookStoreRepository.save(owner1BookStore);
+            System.out.println("bookstore saved");
 
-            // fetch all Boooks
-            log.info("Books found with findAll():");
-            log.info("-------------------------------");
-            for (Book book : bookRepository.findAll()) {
-                log.info(book.toString());
-            }
-            log.info("");
+// Save the owner to the database
+            ownerRepository.save(owner1);
+            System.out.println("owner saved");
 
-            // fetch an individual BuddyInfo by ID
-            Book book1 = bookRepository.findById(1);
-            log.info("Book found with findById(1):");
-            log.info("--------------------------------");
-            log.info(book1.toString());
-            log.info("");
+// Create and save two books to the database
+            Book book1 = new Book(123, "TEST", "Hamza Zafar", "Carleton", 10, 1.99);
+            bookRepository.save(book1);
+            Book book2 = new Book(128, ":D", "Hamza Zafar", "Carleton", 10, 1.99);
+            bookRepository.save(book2);
 
-            // fetch Books by bookName
-            log.info("Books found with findByBookName('testbook1'):");
-            log.info("--------------------------------------------");
-            bookRepository.findByBookName("testbook1").forEach(bauer -> {
-                log.info(bauer.toString());
-            });
-            log.info("");
-
-            //Save a BookStoreManagement that contains a Book
-            BookStoreManagement bookStoreTest = new BookStoreManagement();
-            bookStoreTest.addBook(bookRepository.findById(1));
-            log.info("LINE 55");
-            log.info(bookStoreTest.toString());
-            bookStoreRepository.save(bookStoreTest);
-            log.info("LINE 57");
-
-            log.info("LINE 56");
-            // fetch an individual AddressBook by ID
-            BookStoreManagement bookStore2 = bookStoreRepository.findById(1);
-            log.info("BookStoreManagement found with findById(1):");
-            log.info("--------------------------------");
-            log.info(bookStore2.getBookList().toString());
-            log.info("");
-
-            // Save owner and make bookStoreTest his store
-            Owner owner1 = new Owner("owneremail", "12345", "Owner", "ImTheBoss",1, "Boss", "bossstreet");
-            owner1.setOwnersStore(bookStoreTest);
+// Associate the first book with the owner's BookStoreManagement and save changes
+            owner1.getOwnersStore().addBook(book1);
+            bookStoreRepository.save(owner1BookStore);
             ownerRepository.save(owner1);
 
-            //Fetch owner by id
-            Owner ownerTest = ownerRepository.findById(1);
-            log.info("Owner found with findById(1):");
-            log.info("--------------------------------");
-            log.info(ownerTest.getName());
-            log.info("");
-
-            Cart cart1 = new Cart();
-            cartRepository.save(cart1);
-            cart1.setItems(null);
-
-            //Save customer
-            Customer customer1 = new Customer("teste@mail", "12345", "testMan", "password", 3, "Man", "testAddress");
-            customer1.setPurchaseHistory(null);
-            customer1.setCart(cart1);
-            cart1.setCustomer(customer1);
-            //cartRepository.save(cart1);
-
-            customerRepository.save(customer1);
-
-            //Fetch customer by id
-            Customer customerTest = customerRepository.findById(1);
-            log.info("Customer found with findById(1):");
-            log.info("--------------------------------");
-            log.info(customerTest.getName());
-            log.info("");
-
-            /*
-            //Fetch cart by id
-            Cart cartTest = cartRepository.findById(1);
-            log.info("Cart found with findById(1):");
-            log.info("--------------------------------");
-            log.info(cartTest.getCustomer().getName());
-            log.info("");
-
-             */
-
-            //Fetch cart by customer
+// Associate the second book with the owner's BookStoreManagement
+            owner1.getOwnersStore().addBook(book2);
+            System.out.println(owner1.getOwnersStore().getBookList());
 
 
+            Cart cart = new Cart();
+            cartRepository.save(cart);
+            System.out.println("Cart saved with ID: " + cart.getId());
+
+            Customer customer = new Customer("teste@mail", "12345", "testMan", "password", "Man", "testAddress");
+            customer.setCart(cart);
+            customerRepository.save(customer);
+            System.out.println("Customer saved with ID: " + customer.getId());
+            Customer retrievedCustomer = customerRepository.findById(customer.getId()).orElseThrow(() -> new IllegalArgumentException("Invalid address book ID"));
+
+            if (retrievedCustomer != null) {
+                // Check if the associated Cart is not null
+                Cart retrievedCart = retrievedCustomer.getCart();
+
+                if (retrievedCart != null) {
+                    System.out.println("Customer and associated Cart retrieved successfully:");
+                    System.out.println("Customer Name: " + retrievedCustomer.getName());
+                    System.out.println("Cart ID: " + retrievedCart.getId());
+                } else {
+                    System.out.println("Error: Associated Cart is null.");
+                }
+            } else {
+                System.out.println("Error: Customer not found.");
+            }
 
         };
     }

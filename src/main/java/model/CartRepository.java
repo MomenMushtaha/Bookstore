@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface CartRepository extends CrudRepository<Cart, Integer> {
     Cart findByCustomer(Customer customer);
-    Cart findById(int id);
+    Cart findById(long id);
 
 }
 

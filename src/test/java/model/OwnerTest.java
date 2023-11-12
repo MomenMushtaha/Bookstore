@@ -10,7 +10,7 @@ public class OwnerTest {
     public void addBookToStoreTest() {
         //Create new bookstore and Owner
         BookStoreManagement bookstore = new BookStoreManagement();
-        Owner testOwner = new Owner("owneremail", "12345", "Owner", "ImTheBoss", 1, "Boss", "bossstreet");
+        Owner testOwner = new Owner("owneremail", "12345", "Owner", "ImTheBoss", "Boss", "bossstreet");
 
         //Create test books
         Book book = new Book(123, "TEST", "Hamza Zafar", "Carleton", 10,1.99);
@@ -27,7 +27,7 @@ public class OwnerTest {
     public void removeBookFromStoreTest(){
         //Create new bookstore and Owner
         BookStoreManagement bookstore = new BookStoreManagement();
-        Owner testOwner = new Owner("owneremail", "12345", "Owner", "ImTheBoss", 1, "Boss", "bossstreet");
+        Owner testOwner = new Owner("owneremail", "12345", "Owner", "ImTheBoss", "Boss", "bossstreet");
 
         //Create test books
         Book book = new Book(123, "TEST", "Hamza Zafar", "Carleton", 10,1.99);
@@ -48,7 +48,7 @@ public class OwnerTest {
     public void updateStoreQuantityTest(){
         //Create new bookstore and Owner
         BookStoreManagement bookstore = new BookStoreManagement();
-        Owner testOwner = new Owner("owneremail", "12345", "Owner", "ImTheBoss", 1, "Boss", "bossstreet");
+        Owner testOwner = new Owner("owneremail", "12345", "Owner", "ImTheBoss", "Boss", "bossstreet");
 
         //Create test books
         Book book = new Book(123, "TEST", "Hamza Zafar", "Carleton", 10,1.99);

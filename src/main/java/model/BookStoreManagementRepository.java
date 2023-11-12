@@ -2,6 +2,6 @@ package model;
 
 import org.springframework.data.repository.CrudRepository;
 
-public interface BookStoreManagementRepository extends CrudRepository<BookStoreManagement, Integer>{
-    BookStoreManagement findById(int id);
+public interface BookStoreManagementRepository extends CrudRepository<BookStoreManagement, Long>{
+    BookStoreManagement findById(long id);
 }

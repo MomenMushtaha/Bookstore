@@ -9,7 +9,7 @@ public class CartTest{
 
     @Test
     public void testAddBook() {
-        Customer customer = new Customer("teste@mail", "12345", "testMan", "password", 3, "Man", "testAddress");
+        Customer customer = new Customer("teste@mail", "12345", "testMan", "password", "Man", "testAddress");
         Book book = new Book(123, "TEST", "Hamza Zafar", "Carleton", 10,1.99);
         customer.getCart().addBook(book);
 
@@ -18,7 +18,7 @@ public class CartTest{
     }
     @Test
     public void testRemoveBook() {
-        Customer customer = new Customer("teste@mail", "12345", "testMan", "password", 3, "Man", "testAddress");
+        Customer customer = new Customer("teste@mail", "12345", "testMan", "password", "Man", "testAddress");
         Book book = new Book(123, "TEST", "Hamza Zafar", "Carleton", 10,1.99);
         customer.getCart().addBook(book);
 
@@ -29,7 +29,7 @@ public class CartTest{
     }
     @Test
     public void testClearCart() {
-        Customer customer = new Customer("teste@mail", "12345", "testMan", "password", 3, "Man", "testAddress");
+        Customer customer = new Customer("teste@mail", "12345", "testMan", "password", "Man", "testAddress");
         Book book1 = new Book(123, "TEST", "Hamza Zafar", "Carleton", 10,1.99);
         Book book2 = new Book(123, "TEST", "Hamza Zafar", "Carleton", 10,1.99);
         customer.getCart().addBook(book1);
@@ -45,7 +45,7 @@ public class CartTest{
 
     @Test
     public void testCalculateTotal() {
-        Customer customer = new Customer("teste@mail", "12345", "testMan", "password", 3, "Man", "testAddress");
+        Customer customer = new Customer("teste@mail", "12345", "testMan", "password", "Man", "testAddress");
         Book book = new Book(10111,"SYSC","Carleton","Carleton",1,2);
         Book book2 = new Book(10112,"COMP", "Carleton", "Carleton",1, 3);
         customer.getCart().addBook(book);

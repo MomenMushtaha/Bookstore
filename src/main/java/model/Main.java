@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) {
 
         System.out.println("START");
-        Owner owner = new Owner("owner@email.com", "123456789", "owner123", "ownerpass", 1, "Owner Name", "Owner Address");
+        Owner owner = new Owner("owner@email.com", "123456789", "owner123", "ownerpass", "Owner Name", "Owner Address");
 
         // Add books to the bookstore
         Book book1 = new Book(1001, "Book1", "Author1", "Publisher1", 10, 20.99);
@@ -26,7 +26,7 @@ public class Main {
         }
 
         // Create a customer
-        Customer customer = new Customer("customer@email.com", "987654321", "customer123", "customerpass", 2, "Customer Name", "Customer Address");
+        Customer customer = new Customer("customer@email.com", "987654321", "customer123", "customerpass", "Customer Name", "Customer Address");
 
         // Customer adds books to the cart
         customer.getCart().addBook(book1);

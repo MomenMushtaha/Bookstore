@@ -9,7 +9,7 @@ public class Book implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
+    private long id;
     private int isbn;
     private String bookName;
     private String author;
@@ -60,7 +60,7 @@ public class Book implements Serializable{
         this.quantity = quantity - 1;
     }
 
-    public Integer getId() {
+    public long getId() {
         return id;
     }
 

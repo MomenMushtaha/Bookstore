@@ -10,7 +10,7 @@ public class CustomerTest {
     public void testCustomerPurchaseHistory(){
 
         //Create test Customer and test Books
-        Customer customer = new Customer("teste@mail", "12345", "testMan", "password", 3, "Man", "testAddress");
+        Customer customer = new Customer("teste@mail", "12345", "testMan", "password", "Man", "testAddress");
         Book book1 = new Book(123, "TEST", "Hamza Zafar", "Carleton", 10,1.99);
         Book book2 = new Book(128, ":D", "Hamza Zafar", "Carleton", 10,1.99);
 

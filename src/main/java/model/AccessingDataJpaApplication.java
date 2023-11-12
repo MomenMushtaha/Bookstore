@@ -6,8 +6,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
+@ComponentScan(basePackages = {"model", "controller"})
 public class AccessingDataJpaApplication {
     private static final Logger log = LoggerFactory.getLogger(AccessingDataJpaApplication.class);
 

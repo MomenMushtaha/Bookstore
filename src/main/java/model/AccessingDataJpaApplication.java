@@ -51,39 +51,31 @@ public class AccessingDataJpaApplication {
             owner1.getOwnersStore().addBook(book2);
             System.out.println(owner1.getOwnersStore().getBookList());
 
-// Create a new Cart and save it to the database
-            Cart cart1 = new Cart();
-            cartRepository.save(cart1);
 
-// Create a new Customer and associate it with the Cart, then save to the database
-            Customer customer1 = new Customer("teste@mail", "12345", "testMan", "password", "Man", "testAddress");
-            customer1.setPurchaseHistory(null);
-            customer1.setCart(cart1);
-            cart1.setCustomer(customer1);
-            customerRepository.save(customer1);
-            cartRepository.save(cart1);
+            Cart cart = new Cart();
+            cartRepository.save(cart);
+            System.out.println("Cart saved with ID: " + cart.getId());
 
-// Fetch a customer by ID
-            Customer customerTest = customerRepository.findById(1);
-            log.info("Customer found with findById(1):");
-            log.info("--------------------------------");
-            log.info("Customer Name: " + customerTest.getName());
-            log.info("");
+            Customer customer = new Customer("teste@mail", "12345", "testMan", "password", "Man", "testAddress");
+            customer.setCart(cart);
+            customerRepository.save(customer);
+            System.out.println("Customer saved with ID: " + customer.getId());
+            Customer retrievedCustomer = customerRepository.findById(customer.getId()).orElseThrow(() -> new IllegalArgumentException("Invalid address book ID"));
 
-// Fetch a cart by ID
-            Cart cartTest = cartRepository.findById(1L);
-            log.info("Cart found with findById(1):");
-            log.info("--------------------------------");
-            log.info("Customer Name: " + cartTest.getCustomer().getName());
-            log.info("");
+            if (retrievedCustomer != null) {
+                // Check if the associated Cart is not null
+                Cart retrievedCart = retrievedCustomer.getCart();
 
-// Fetch a cart by customer
-            Cart cartTest2 = cartRepository.findByCustomer(customer1);
-            log.info("Cart found with findByCustomer(customer1):");
-            log.info("--------------------------------");
-            log.info("Customer Name: " + cartTest2.getCustomer().getName());
-            log.info("");
-
+                if (retrievedCart != null) {
+                    System.out.println("Customer and associated Cart retrieved successfully:");
+                    System.out.println("Customer Name: " + retrievedCustomer.getName());
+                    System.out.println("Cart ID: " + retrievedCart.getId());
+                } else {
+                    System.out.println("Error: Associated Cart is null.");
+                }
+            } else {
+                System.out.println("Error: Customer not found.");
+            }
 
         };
     }

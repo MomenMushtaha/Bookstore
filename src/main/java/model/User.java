@@ -1,5 +1,11 @@
 package model;
 
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.MappedSuperclass;
+
+@MappedSuperclass
 public class User {
 
 
@@ -7,6 +13,9 @@ public class User {
     private String phoneNumber;
     private String username;
     private String password;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String name;
     private String address;
@@ -20,6 +29,8 @@ public class User {
         this.name = name;
         this.address = address;
     }
+
+    public User(){};
 
     public String getEmail(){
         return email;
@@ -39,6 +50,9 @@ public class User {
 
     public int getId(){
         return id;
+    }
+    public void setId(Integer id){
+        this.id = id;
     }
 
     public String getName(){

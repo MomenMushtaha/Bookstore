@@ -1,17 +1,32 @@
 package model;
-import javax.persistence.*;
-import java.util.ArrayList;
+
+import java.io.Serializable;
+import java.util.Collection;
+import java.util.HashSet;
+import jakarta.persistence.*;
+
 @Entity
-public class BookStoreManagement {
+public class BookStoreManagement implements Serializable{
 
     @Id
-    private Long id;
-    @GeneratedValue
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private ArrayList <Book> bookList;
+    private Integer id;
+
+    private Collection<Book> bookList;
+
     public BookStoreManagement() {
-        bookList = new ArrayList<>();
+        bookList = new HashSet();
     }
+
+    @Id
+    @GeneratedValue
+    public Integer getId() {return this.id;}
+
+    public void setId(Integer id) {this.id = id;}
+
+    @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    public Collection<Book> getBookList() {return bookList;}
+
+    public void setBookList(Collection<Book> BookList) {this.bookList = BookList;}
 
     public void createBook(int isbn, String bookName, String author, String publisher, int quantity, float price) {
         Book book = new Book(isbn, bookName, author, publisher, quantity,price);
@@ -57,16 +72,24 @@ public class BookStoreManagement {
             else{System.out.println("Book with ISBN " + isbn + " not found in inventory.");}
     }
 
-
-    public ArrayList<Book> getBookList() {
-        return bookList;
+    @Override
+    public String toString(){
+        return String.format(
+                "BookStoreManagement[id=%d, books='%s']",
+                id, bookList);
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void getBookStoreManagement(){
+        if (bookList.isEmpty()){
+            System.out.print("The Book Store is empty!" + "\n");
+        }
+        else{
+            for (Book book : bookList){
+                System.out.println("ISBN= " + book.getIsbn() + "Name= " + book.getBookName() + "Author = " + book.getAuthor() +
+                        "Publisher = " + book.getPublisher() + "Quantity = " + book.getQuantity() + "Price = " + book.getPrice());
+            }
+        }
     }
 
-    public Long getId() {
-        return id;
-    }
+
 }

@@ -1,9 +1,22 @@
 package model;
 
-import java.util.ArrayList;
-public class Owner extends User{
+import jakarta.persistence.*;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+
+@Entity
+public class Owner extends User implements Serializable {
+
+    @OneToOne
     BookStoreManagement ownersStore = new BookStoreManagement();
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+
+    public Owner(){};
     public Owner(String email, String phoneNumber, String username, String password, int id, String name, String address) {
         super(email, phoneNumber, username, password, id, name, address);
     }
@@ -20,12 +33,21 @@ public class Owner extends User{
         ownersStore.updateQuantity(isbn, amount);
     }
 
-    public ArrayList<Book> getBookStore(){
+    public Collection<Book> getBookStore(){
         return ownersStore.getBookList();
     }
 
     public BookStoreManagement getOwnersStore() {
         return ownersStore;
     }
+    public void setOwnersStore(BookStoreManagement store){
+        this.ownersStore = store;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+    public int getId() {
+        return id;
+    }
 }

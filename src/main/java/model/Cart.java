@@ -1,21 +1,28 @@
 package model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import jakarta.persistence.*;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Cart {
+@Entity
+public class Cart implements Serializable {
     // The cart uses a map to keep track of the books and their quantities.
+    @OneToMany
     private List<Book> items;
 
+    @OneToOne
     private Customer customer;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    public Cart(){};
     public Cart(Customer customer) {
-        this.items = new ArrayList<>();
+        //this.items = new ArrayList<>();
         this.customer = customer;
     }
 
@@ -33,11 +40,6 @@ public class Cart {
     public void removeBook(Book book) {
         book.addQuantity(1);
         items.remove(book);
-    }
-
-    // Retrieves the cart's contents.
-    public List<Book> getItems() {
-        return items;
     }
 
     // Empties the cart.
@@ -83,7 +85,7 @@ public class Cart {
     @Override
     public String toString() {
         StringBuilder cartString = new StringBuilder("Items:\n");
-        if (items.isEmpty()) {
+        if (items == null || items.isEmpty()) {
             cartString.append("The cart is empty.\n");
         } else {
             for (Book book : items) {
@@ -97,6 +99,17 @@ public class Cart {
 
     public Customer getCustomer() {
         return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+    // Retrieves the cart's contents.
+    public List<Book> getItems() {
+        return items;
+    }
+    public void setItems(List<Book> items){
+        this.items = items;
     }
 
     public void setId(Long id) {

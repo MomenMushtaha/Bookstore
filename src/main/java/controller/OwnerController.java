@@ -13,7 +13,7 @@ public class OwnerController {
     private BookStoreManagementRepository bookStoreManagementRepository;
 
 
-    @PostMapping("/owner")
+    @PostMapping("/createOwner")
     public Owner createOwner(@RequestBody Owner newOwner){
 
         BookStoreManagement ownerBookStore = new BookStoreManagement();

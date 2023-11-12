@@ -5,16 +5,16 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 </head>
 <body>
-    <h1>Owner Inventory Display and Adder</h1>
-    <form action="#" method="post" th:action="@{/owner/1/addBookFront}" th:object="${model.Book}">
-        <p>Book ISBN: <input type="text" th:field="*{isbn}"/></p>
-        <p>Book Name: <input type="text" th:field="*{bookName}"/></p>
-        <p>Book Author: <input type="text" th:field="*{author}"/></p>
-        <p>Book Publisher: <input type="text" th:field="*{publisher}"/></p>
-        <p>Book Quantity: <input type="text" th:field="*{quantity}"/></p>
-        <p>Book Price: <input type="text" th:field="*{price}"/></p>
+    <h1>Owner Creator</h1>
+    <form action="#" method="post" th:action="@{/owner}" th:object="${model.Owner}">
+        <p>Owner Email: <input type="text" th:field="*{email}"/></p>
+        <p>Owner Phone Number: <input type="text" th:field="*{phoneNumber}"/></p>
+        <p>Owner Username <input type="text" th:field="*{username}"/></p>
+        <p>Owner Password: <input type="text" th:field="*{password}"/></p>
+        <p>Owner Name: <input type="text" th:field="*{name}"/></p>
+        <p>Owner Address: <input type="text" th:field="*{address}"/></p>
         <p><input type="submit" value="Submit"/> <input type="reset" value ="Reset"/></p>
     </form>
-<p th:text="${model.BookStoreManagementRepository}" />
+<p th:text="${model.OwnerRepository}" />
 </body>
 </html>

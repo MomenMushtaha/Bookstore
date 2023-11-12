@@ -4,12 +4,13 @@ import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Customer extends User implements Serializable {
 
     @OneToMany
-    ArrayList<Book> purchaseHistory = new ArrayList<>();
+    List<Book> purchaseHistory;
 
     @OneToOne
     private Cart cart;
@@ -67,6 +68,14 @@ public class Customer extends User implements Serializable {
 
     public int getId() {
         return id;
+    }
+
+    public void setPurchaseHistory(List history){
+        this.purchaseHistory = history;
+    }
+
+    public List <Book> getPurchaseHistory(){
+        return purchaseHistory;
     }
 }
 

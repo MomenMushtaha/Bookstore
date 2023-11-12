@@ -16,7 +16,11 @@ public class AccessingDataJpaApplication {
     }
 
     @Bean
-    public CommandLineRunner group22Demo(BookRepository bookRepository, BookStoreManagementRepository bookStoreRepository) {
+    public CommandLineRunner group22Demo(BookRepository bookRepository,
+                                         BookStoreManagementRepository bookStoreRepository,
+                                         CartRepository cartRepository,
+                                         OwnerRepository ownerRepository,
+                                         CustomerRepository customerRepository) {
         return (args) -> {
             // save a few Books
             bookRepository.save(new Book(123,"testbook1","kyler","group22",3,30.00));
@@ -62,6 +66,53 @@ public class AccessingDataJpaApplication {
             log.info("--------------------------------");
             log.info(bookStore2.getBookList().toString());
             log.info("");
+
+            // Save owner and make bookStoreTest his store
+            Owner owner1 = new Owner("owneremail", "12345", "Owner", "ImTheBoss",1, "Boss", "bossstreet");
+            owner1.setOwnersStore(bookStoreTest);
+            ownerRepository.save(owner1);
+
+            //Fetch owner by id
+            Owner ownerTest = ownerRepository.findById(1);
+            log.info("Owner found with findById(1):");
+            log.info("--------------------------------");
+            log.info(ownerTest.getName());
+            log.info("");
+
+            Cart cart1 = new Cart();
+            cartRepository.save(cart1);
+            cart1.setItems(null);
+
+            //Save customer
+            Customer customer1 = new Customer("teste@mail", "12345", "testMan", "password", 3, "Man", "testAddress");
+            customer1.setPurchaseHistory(null);
+            customer1.setCart(cart1);
+            cart1.setCustomer(customer1);
+            //cartRepository.save(cart1);
+
+            customerRepository.save(customer1);
+
+            //Fetch customer by id
+            Customer customerTest = customerRepository.findById(1);
+            log.info("Customer found with findById(1):");
+            log.info("--------------------------------");
+            log.info(customerTest.getName());
+            log.info("");
+
+            /*
+            //Fetch cart by id
+            Cart cartTest = cartRepository.findById(1);
+            log.info("Cart found with findById(1):");
+            log.info("--------------------------------");
+            log.info(cartTest.getCustomer().getName());
+            log.info("");
+
+             */
+
+            //Fetch cart by customer
+
+
+
         };
     }
 

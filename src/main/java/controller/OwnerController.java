@@ -16,10 +16,9 @@ public class OwnerController {
     @PostMapping
     public Owner createOwner(@RequestBody Owner newOwner){
 
-        BookStoreManagement ownerBookStore = newOwner.getOwnersStore();
-
+        BookStoreManagement ownerBookStore = new BookStoreManagement();
         bookStoreManagementRepository.save(ownerBookStore);
-        System.out.println("bookstore saved");
+        newOwner.setOwnersStore(ownerBookStore);
         return ownerRepository.save(newOwner);
     }
     @GetMapping("/{id}")
@@ -27,5 +26,9 @@ public class OwnerController {
         return ownerRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid owner ID"));
     }
+
+    //public BookStoreManagement getBookStore(){
+
+    //}
 
 }

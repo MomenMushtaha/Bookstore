@@ -10,7 +10,7 @@ import java.util.Collection;
 public class Owner extends User implements Serializable {
 
     @OneToOne
-    BookStoreManagement ownersStore = new BookStoreManagement();
+    BookStoreManagement ownersStore;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,6 +19,7 @@ public class Owner extends User implements Serializable {
     public Owner(){};
     public Owner(String email, String phoneNumber, String username, String password, String name, String address) {
         super(email, phoneNumber, username, password, name, address);
+        this.setOwnersStore(new BookStoreManagement());
     }
 
     public void addBookToStore(Book book){

@@ -44,15 +44,6 @@ public class Customer extends User implements Serializable {
         }
     }
 
-    /**
-     * Setter for cart.
-     * @param
-     */
-/*    public void setCart(Customer Cart, Cart self) {
-        this.cart = cart;
-    }*/
-
-
     public Cart getCart() {
         return cart;
     }
@@ -60,7 +51,6 @@ public class Customer extends User implements Serializable {
     public void setCart(Cart cart){
         this.cart = cart;
     }
-
 
     public void setId(int id) {
         this.id = id;

@@ -11,7 +11,7 @@ import java.util.Map;
 @Entity
 public class Cart implements Serializable {
     // The cart uses a map to keep track of the books and their quantities.
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER)
     private List<Book> items;
 
     @OneToOne

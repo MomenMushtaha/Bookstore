@@ -28,7 +28,7 @@ public class AccessingDataJpaApplication {
             bookRepository.save(new Book(1235,"testbook3","kyler","group22",3,30.00));
 
 
-            // fetch all Boooks
+            // fetch all Books
             log.info("Books found with findAll():");
             log.info("-------------------------------");
             for (Book book : bookRepository.findAll()) {
@@ -88,28 +88,33 @@ public class AccessingDataJpaApplication {
             customer1.setPurchaseHistory(null);
             customer1.setCart(cart1);
             cart1.setCustomer(customer1);
-            //cartRepository.save(cart1);
 
             customerRepository.save(customer1);
+            cartRepository.save(cart1);
+
 
             //Fetch customer by id
             Customer customerTest = customerRepository.findById(1);
             log.info("Customer found with findById(1):");
             log.info("--------------------------------");
-            log.info(customerTest.getName());
+            log.info("Customer Name: " + customerTest.getName());
             log.info("");
 
-            /*
+
             //Fetch cart by id
             Cart cartTest = cartRepository.findById(1);
             log.info("Cart found with findById(1):");
             log.info("--------------------------------");
-            log.info(cartTest.getCustomer().getName());
+            log.info("Customer Name: " + cartTest.getCustomer().getName());
             log.info("");
 
-             */
-
             //Fetch cart by customer
+            Cart cartTest2 = cartRepository.findByCustomer(customer1);
+            log.info("Cart found with findByCustomer(customer1):");
+            log.info("--------------------------------");
+            log.info("Customer Name: " + cartTest2.getCustomer().getName());
+            log.info("");
+
 
 
 

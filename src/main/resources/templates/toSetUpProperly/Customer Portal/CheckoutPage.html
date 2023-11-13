@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="">
+<head>
+  <title>Checkout Cart</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 32px;
+      color: #333;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    a.button {
+      background-color: #007BFF;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+      display: inline-block;
+      font-size: 16px;
+      margin: 10px 2px;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: background-color 0.3s;
+    }
+
+  </style>
+</head>
+<body>
+  <h1>Shopping Cart</h1>
+<div class="container">
+    <div th:each="item : ${cart}">
+        <a th:text="${item.name}">Item name</p>
+        <a th:text="${item.price}">Item price</p>
+        <!-- Add more item details -->
+    </div>
+  <a class="button" th:href="@{/add-more-items}">Add More Items</a>
+  <a class="button" th:href="@{/checkout}">Checkout</a>
+</div>
+
+</body>
+</html>

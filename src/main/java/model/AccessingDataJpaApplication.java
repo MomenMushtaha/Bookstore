@@ -24,12 +24,14 @@ public class AccessingDataJpaApplication {
                                          OwnerRepository ownerRepository,
                                          CustomerRepository customerRepository) {
         return (args) -> {
+
 // Create a new Owner with initial details
             Owner owner1 = new Owner("owneremail", "12345", "Owner", "ImTheBoss", "Boss", "bossstreet");
             System.out.println("Owner made");
 
 // Retrieve the BookStoreManagement associated with the owner
             BookStoreManagement owner1BookStore = owner1.getOwnersStore();
+
 // Save the BookStoreManagement to the database
             bookStoreRepository.save(owner1BookStore);
             System.out.println("bookstore saved");

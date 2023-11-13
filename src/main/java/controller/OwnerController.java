@@ -11,6 +11,8 @@ public class OwnerController {
     @Autowired
     private OwnerRepository ownerRepository;
     @Autowired
+    private BookRepository bookRepository;
+    @Autowired
     private BookStoreManagementRepository bookStoreManagementRepository;
 
 
@@ -61,5 +63,19 @@ public class OwnerController {
         model.addAttribute("users", ownerRepository.findAll());
         return "users";
     }
+
+    @GetMapping("/new_book")
+    public String createNewBook(Model model){
+        model.addAttribute("book", new Book());
+        return ""; //
+    }
+    @PostMapping("/new_book")
+    public String startAdding(@ModelAttribute Book book){
+        bookRepository.save(book);
+        Long id = book.getId();
+        return ("redirect:/books/"+id);
+    }
+
+
 
 }

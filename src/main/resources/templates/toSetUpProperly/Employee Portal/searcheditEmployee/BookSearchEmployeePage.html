@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="">
+<head>
+  <title>Book Search Employee Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    h1 {
+      font-size: 32px;
+      color: #333;
+      margin-bottom: 30px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      border-radius: 4px;
+      border: 1px solid #ccc;
+    }
+
+
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>Employee Portal: Search for books to edit</h1>
+  <form th:action="@{/edit}" th:object="${book}" method="post">
+    <!-- Book Name -->
+    <div>
+      <label for="bookName">Book Name</label>
+	<input type="text" id="search-bar" th:oninput="performSearch()" />
+
+    <script th:inline="javascript">
+
+        /*<![CDATA[*/
+        function performSearch() {
+            // AJAX call to get suggestions based on the input text
+	   // has to somehow invoke edit action that would redirect the employee into the editPage 
+        }
+        /*]]>*/
+
+    </script>
+    
+</div>
+    </div>
+
+  </form>
+
+
+</div>
+</body>
+</html>

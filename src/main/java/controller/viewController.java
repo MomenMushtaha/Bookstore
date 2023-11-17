@@ -18,6 +18,8 @@ public class viewController {
     @Autowired
     BookStoreManagementRepository bookStoreRepository;
 
+    @GetMapping("/")
+    public String Homepage() {return "HomePage";}
 
     //@GetMapping("/owners")
     //public String owners(Model model){

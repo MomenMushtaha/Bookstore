@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <title>owner_login</title>
+    <title>customer_signup</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <style>
@@ -57,10 +57,10 @@
     }
 </style>
 <body>
-<h1 style="margin: 50px">Owner Login</h1>
+<h1 style="margin: 50px">Customer Signup</h1>
 
 <div style="margin: 50px">
-    <form method="post" action="" th:object="${owner}">
+    <form method="post" action="" th:object="${customer}">
         <label
         >Username:
             <input
@@ -76,15 +76,10 @@
                     name="password"
             /></label>
         <p style="color: red" th:text="${login_error}"></p>
-        <input type="submit" value="Login" name="owner_login"/>
+        <input type="submit" value="signup" name="customer_signup"/>
     </form>
 </div>
 
-<div>
-    <p>
-        Do not have an account? Sign up here:
-        <a th:href="@{/owner_signup}">Sign Up</a>
-    </p>
-</div>
+
 </body>
 </html>

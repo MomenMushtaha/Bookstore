@@ -14,8 +14,8 @@ public class OwnerController {
     private BookRepository bookRepository;
     @Autowired
     private BookStoreManagementRepository bookStoreManagementRepository;
-
-
+    @Autowired
+    private CustomerRepository customerRepository;
 
 
     @GetMapping("/{id}")
@@ -27,12 +27,12 @@ public class OwnerController {
     //----------------------------------------------------------------------------------------------------------------
     //Momin Mushtaha Update
     @GetMapping("/owner_login")
-    public String loadlogin(){
+    public String Ownerloadlogin(){
         return "owner_login";
     }
 
     @PostMapping("/owner_login")
-    public String login(@ModelAttribute String username,@ModelAttribute String password){
+    public String OwnerLogin(@ModelAttribute String username,@ModelAttribute String password){
         Owner tempOwner = ownerRepository.findByUsername(username);
         if(tempOwner.getPassword()!=password){
             return "login_error";
@@ -45,7 +45,7 @@ public class OwnerController {
 
 
     @GetMapping("/owner_signup")
-    public String signup(Model model){
+    public String OwnerSignup(Model model){
         model.addAttribute("owner", new Owner());
         return "owner_signup";
     }
@@ -76,6 +76,41 @@ public class OwnerController {
         return ("redirect:/books/"+id);
     }
 
+
+
+
+
+
+    //----------------------------------------------------------------------------------------------------------------
+    //Momin Mushtaha Update
+    @GetMapping("/customer_login")
+    public String CustomerLoadLogin(){
+        return "customer_login";
+    }
+
+    @PostMapping("/customer_login")
+    public String CustomerLogin(@ModelAttribute String username,@ModelAttribute String password){
+        Customer tempCustomer = customerRepository.findByUsername(username);
+        if(tempCustomer.getPassword()!=password){
+            return "login_error";
+        }else {
+            return "index";
+        }
+    }
+
+
+
+
+    @GetMapping("/customer_signup")
+    public String CustomerSignup(Model model){
+        model.addAttribute("customer", new Customer());
+        return "customer_signup";
+    }
+    @PostMapping(path = "/customer_signup")
+    public String createCustomer(@ModelAttribute Customer customer){
+        customerRepository.save(customer);
+        return "users";
+    }
 
 
 }

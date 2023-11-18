@@ -61,20 +61,22 @@
 
 <div style="margin: 50px">
     <form method="post" action="" th:object="${owner}">
-        <label
-        >Username:
+        <label>
+            Username:
             <input
                     type="text"
                     placeholder="Enter username"
-                    name="username" /></label
-        ><br />
-        <label
-        >Password:
+                    name="username" />
+        </label>
+        <br />
+        <label>
+            Password:
             <input
                     type="text"
                     placeholder="Enter password"
                     name="password"
-            /></label>
+            />
+        </label>
         <p style="color: red" th:text="${login_error}"></p>
         <input type="submit" value="Login" name="owner_login"/>
     </form>

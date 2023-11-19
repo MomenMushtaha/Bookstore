@@ -1,11 +1,7 @@
 package controller;
-<<<<<<< HEAD
 import model.Book;
 import model.Cart;
 import model.CartRepository;
-=======
-import model.*;
->>>>>>> origin/master
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

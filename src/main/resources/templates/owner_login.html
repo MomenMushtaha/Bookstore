@@ -61,32 +61,15 @@
 
 <div style="margin: 50px">
     <form method="post" action="" th:object="${owner}">
-        <label>
-            Username:
-            <input
-                    type="text"
-                    placeholder="Enter username"
-                    name="username" />
-        </label>
+        <label>Username:<input type="text" placeholder="Enter username" name="username" /></label>
         <br />
-        <label>
-            Password:
-            <input
-                    type="text"
-                    placeholder="Enter password"
-                    name="password"
-            />
-        </label>
-        <p style="color: red" th:text="${login_error}"></p>
-        <input type="submit" value="Login" name="owner_login"/>
+        <label>Password:<input type="text" placeholder="Enter password" name="password"/>
+        </label><p style="color: red" th:text="${login_error}"></p><input type="submit" value="Login" name="owner_login"/>
     </form>
 </div>
 
 <div>
-    <p>
-        Do not have an account? Sign up here:
-        <a th:href="@{/owner_signup}">Sign Up</a>
-    </p>
+    <p>New To The Book Store? Sign Up Here:<a th:href="@{/owner_signup}">Sign Up</a></p>
 </div>
 </body>
 </html>

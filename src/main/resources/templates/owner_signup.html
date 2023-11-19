@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <title>owner_signup</title>
+    <title>Owner Signup</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <style>
@@ -58,63 +58,22 @@
 </style>
 <body>
 <h1 style="margin: 50px">Owner Signup</h1>
-
-
 <div style="margin: 50px">
     <form method="post" action="/owner_signup" th:object="${owner}">
-        <label>
-            Username:
-            <input
-                    type="text"
-                    placeholder="Enter username"
-                    name="username" />
-        </label>
+        <label>Username:<input type="text" placeholder="Enter username" name="username" /></label>
         <br />
-        <label>
-            Password:
-            <input
-                    type="text"
-                    placeholder="Enter password"
-                    name="password"
-            />
-        </label>
+        <label>Password:<input type="text" placeholder="Enter password" name="password"/></label>
         <br />
-        <label>
-            name:
-            <input
-                    type="text"
-                    placeholder="Enter your full name"
-                    name="name"
-            /></label>
+        <label>name:<input type="text" placeholder="Enter your full name" name="name"/></label>
         <br />
-        <label>
-            phoneNumber:
-            <input
-                    type="text"
-                    placeholder="Enter your phone number"
-                    name="phoneNumber"
-            /></label>
+        <label>phoneNumber:<input type="text" placeholder="Enter your phone number" name="phoneNumber"/></label>
         <br />
-        <label>
-            email:
-            <input
-                    type="text"
-                    placeholder="Enter your email address"
-                    name="email"
-            /></label>
+        <label>email:<input type="text" placeholder="Enter your email address" name="email"/></label>
         <br />
-        <label>
-            address:
-            <input
-                    type="text"
-                    placeholder="Enter your physical address"
-                    name="address"
-            /></label>
+        <label>address:<input type="text" placeholder="Enter your physical address" name="address"/></label>
         <p style="color: red" th:text="${signup_error}"></p>
         <input type="submit" value="Signup" name="owner_signup"/>
     </form>
 </div>
-
-
 </body>
 </html>

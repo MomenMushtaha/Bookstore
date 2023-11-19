@@ -37,8 +37,8 @@ public class BookStoreManagement implements Serializable{
 
 
 
-    public void createBook(int isbn, String bookName, String author, String publisher, int quantity, float price) {
-        Book book = new Book(isbn, bookName, author, publisher, quantity,price);
+    public void createBook(int isbn,int version, String bookname, String author, String publisher, int quantity, float price) {
+        Book book = new Book(isbn,version, bookname, author, publisher, quantity,price);
         this.addBook(book);
     }
 

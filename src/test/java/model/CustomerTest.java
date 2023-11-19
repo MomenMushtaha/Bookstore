@@ -11,8 +11,8 @@ public class CustomerTest {
 
         //Create test Customer and test Books
         Customer customer = new Customer("teste@mail", "12345", "testMan", "password", "Man", "testAddress");
-        Book book1 = new Book(123, "TEST", "Hamza Zafar", "Carleton", 10,1.99);
-        Book book2 = new Book(128, ":D", "Hamza Zafar", "Carleton", 10,1.99);
+        Book book1 = new Book(123,1, "TEST", "Hamza Zafar", "Carleton", 10,1.99);
+        Book book2 = new Book(128,1, ":D", "Hamza Zafar", "Carleton", 10,1.99);
 
         //Test Adding books to purchaseHistory
         customer.addToPurchaseHistory(book1);

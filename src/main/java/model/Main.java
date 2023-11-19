@@ -12,8 +12,8 @@ public class Main {
         Owner owner = new Owner("owner@email.com", "123456789", "owner123", "ownerpass", "Owner Name", "Owner Address");
 
         // Add books to the bookstore
-        Book book1 = new Book(1001, "Book1", "Author1", "Publisher1", 10, 20.99);
-        Book book2 = new Book(1002, "Book2", "Author2", "Publisher2", 15, 15.99);
+        Book book1 = new Book(1001,1, "Book1", "Author1", "Publisher1", 10, 20.99);
+        Book book2 = new Book(1002,1, "Book2", "Author2", "Publisher2", 15, 15.99);
 
         owner.addBookToStore(book1);
         owner.addBookToStore(book2);

@@ -11,31 +11,38 @@ public class Book implements Serializable{
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private int isbn;
-    private String bookName;
+    private int version;
+    public String bookname;
     private String author;
     private String publisher;
     private int quantity;
     private double price;
+    private boolean recommended;
 
     //empty constructor for JPA
     public Book() {
 
     }
-    public Book(int isbn, String bookName, String author, String publisher, int quantity, double price) {
+    public Book(int isbn,int version, String bookname, String author, String publisher, int quantity, double price) {
         this.isbn = isbn;
-        this.bookName = bookName;
+        this.version = version;
+        this.bookname = bookname;
         this.author = author;
         this.publisher = publisher;
         this.quantity = quantity;
         this.price = price;
+        this.recommended = false;
     }
 
     public int getIsbn() {
         return isbn;
     }
+    public int getVersion() {
+        return version;
+    }
 
     public String getBookName() {
-        return bookName;
+        return bookname;
     }
 
     public String getAuthor() {
@@ -63,12 +70,13 @@ public class Book implements Serializable{
     public long getId() {
         return id;
     }
-
+    public boolean getRecommended() {return recommended;}
+    public void setRecommended(boolean recommended) {this.recommended = recommended;}
     @Override
     public String toString(){
         return String.format(
-                "Book[id=%d, isbn='%s' bookName='%s', bookAuthor='%s', bookPublisher='%s', bookQuantity='%s', bookPrice='%s']",
-                id, isbn, bookName, author, publisher, quantity, price);
+                "Book[id=%d, isbn='%s' bookname='%s', version=%s, bookAuthor='%s', bookPublisher='%s', bookQuantity='%s', bookPrice='%s']",
+                id, isbn, bookname,version, author, publisher, quantity, price);
     }
 
 }

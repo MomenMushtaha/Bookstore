@@ -1,5 +1,6 @@
 package model;
 
+import model.Customer;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;

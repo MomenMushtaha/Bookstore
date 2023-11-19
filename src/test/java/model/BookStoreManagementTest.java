@@ -10,8 +10,8 @@ public class BookStoreManagementTest {
     public void addBookTest() {
         BookStoreManagement bookstore = new BookStoreManagement();
 
-        Book book = new Book(123, "TEST", "Hamza Zafar", "Carleton", 10,1.99);
-        Book book2 = new Book(128, ":D", "Hamza Zafar", "Carleton", 10,1.99);
+        Book book = new Book(123, 1,"TEST", "Hamza Zafar", "Carleton", 10,1.99);
+        Book book2 = new Book(128, 1,":D", "Hamza Zafar", "Carleton", 10,1.99);
 
         bookstore.addBook(book);
         bookstore.addBook(book2);
@@ -21,7 +21,7 @@ public class BookStoreManagementTest {
     @Test
     public void updateQuantityTestPositive() {
         BookStoreManagement bookstore = new BookStoreManagement();
-        Book book = new Book(123, "TEST", "Hamza Zafar", "Carleton", 10,1.99);
+        Book book = new Book(123,1, "TEST", "Hamza Zafar", "Carleton", 10,1.99);
         bookstore.addBook(book);
         bookstore.updateQuantity(123, 20);
 
@@ -30,7 +30,7 @@ public class BookStoreManagementTest {
     @Test
     public void updateQuantityTestNegative() {
         BookStoreManagement bookstore = new BookStoreManagement();
-        Book book = new Book(123, "TEST", "Hamza Zafar", "Carleton", 10,1.99);
+        Book book = new Book(123,1, "TEST", "Hamza Zafar", "Carleton", 10,1.99);
         bookstore.addBook(book);
         bookstore.updateQuantity(123, -3);
         bookstore.updateQuantity(123, 0);
@@ -41,10 +41,10 @@ public class BookStoreManagementTest {
     public void removeBookTest() {
         BookStoreManagement bookstore = new BookStoreManagement();
 
-        Book book = new Book(123, "TEST", "Hamza Zafar", "Carleton", 10,1.99);
-        Book book2 = new Book(128, ":D", "Hamza Zafar", "Carleton", 10,1.99);
-        Book book3 = new Book(125, ":D", "Hamza Zafar", "Carleton", 10,1.99);
-        Book book4 = new Book(120, ":D", "Hamza Zafar", "Carleton", 10,1.99);
+        Book book = new Book(123,1, "TEST", "Hamza Zafar", "Carleton", 10,1.99);
+        Book book2 = new Book(128, 1,":D", "Hamza Zafar", "Carleton", 10,1.99);
+        Book book3 = new Book(125,1, ":D", "Hamza Zafar", "Carleton", 10,1.99);
+        Book book4 = new Book(120,1, ":D", "Hamza Zafar", "Carleton", 10,1.99);
 
         bookstore.addBook(book);
         bookstore.addBook(book2);

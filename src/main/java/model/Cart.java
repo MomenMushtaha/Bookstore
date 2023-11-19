@@ -14,17 +14,25 @@ public class Cart implements Serializable {
     @OneToMany(fetch = FetchType.EAGER)
     private List<Book> items;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER)
     private Customer customer;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    private String username;
+
 
     public Cart(){};
     public Cart(Customer customer) {
         //this.items = new ArrayList<>();
         this.customer = customer;
     }
+    public Cart(String username) {
+        this.username = username;
+        this.items = new ArrayList<>();
+    }
+
+
 
     // Adds a book to the cart or increments the quantity if it already exists.
     public void addBook(Book book) {

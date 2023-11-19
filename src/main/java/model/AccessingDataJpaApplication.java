@@ -14,6 +14,7 @@ public class AccessingDataJpaApplication {
     private static final Logger log = LoggerFactory.getLogger(AccessingDataJpaApplication.class);
 
     public static void main(String[] args) {
+
         SpringApplication.run(AccessingDataJpaApplication.class);
     }
 
@@ -41,9 +42,9 @@ public class AccessingDataJpaApplication {
             System.out.println("owner saved");
 
 // Create and save two books to the database
-            Book book1 = new Book(123, "TEST", "Hamza Zafar", "Carleton", 10, 1.99);
+            Book book1 = new Book(123,1, "TEST", "Hamza Zafar", "Carleton", 10, 1.99);
             bookRepository.save(book1);
-            Book book2 = new Book(128, ":D", "Hamza Zafar", "Carleton", 10, 1.99);
+            Book book2 = new Book(128,1, ":D", "Hamza Zafar", "Carleton", 10, 1.99);
             bookRepository.save(book2);
 
 // Associate the first book with the owner's BookStoreManagement and save changes

@@ -29,6 +29,8 @@ public class Customer extends User implements Serializable {
         this.purchaseHistory = null;
     }
 
+
+
     public void addToPurchaseHistory(Book book){
         purchaseHistory.add(book);
     }

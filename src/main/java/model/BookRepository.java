@@ -10,14 +10,9 @@ import org.springframework.stereotype.Repository;
 public interface BookRepository extends CrudRepository <Book, Long>{
 
     Book findById(long id);
-    Iterable<Book> findBooksByBookName(String bookname);
     Iterable<Book> findBooksByIsbn(int isbn);
-    Iterable<Book> findBooksByPublisher(String publisher);
-    Iterable<Book> findBooksByAuthor(String author);
-
     //Find All Books and order by recommended First
     Iterable<Book> findAllByOrderByRecommendedDesc();
     Optional<Book> findByIsbn(int isbn);
-    Optional<Book> findByBookName(String bookname);
 
 }

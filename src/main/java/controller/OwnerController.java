@@ -80,6 +80,7 @@ public class OwnerController {
             @RequestParam(name="quantity", required=false, defaultValue = "") String quantity,
             @RequestParam(name="price", required=false, defaultValue = "") String price, HttpSession session, Model model) {
 
+
         // Retrieve the username from the session
         String username = (String) session.getAttribute("username");
         // Fetch the owner details from the repository

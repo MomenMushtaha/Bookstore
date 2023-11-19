@@ -10,7 +10,6 @@ public class BookStoreManagement implements Serializable{
 
     @Id
     private long id;
-
     private Collection<Book> bookList;
 
 
@@ -24,18 +23,12 @@ public class BookStoreManagement implements Serializable{
     @GeneratedValue(strategy = GenerationType.AUTO)
     public long getId() {return this.id;}
 
-
     public void setId(long id) {this.id = id;}
-
-
 
     @OneToMany(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     public Collection<Book> getBookList() {return bookList;}
 
     public void setBookList(Collection<Book> BookList) {this.bookList = BookList;}
-
-
-
 
     public void createBook(int isbn,int version, String bookname, String author, String publisher, int quantity, float price) {
         Book book = new Book(isbn,version, bookname, author, publisher, quantity,price);

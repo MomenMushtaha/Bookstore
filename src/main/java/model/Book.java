@@ -18,12 +18,14 @@ public class Book implements Serializable{
     private int quantity;
     private double price;
     private boolean recommended;
+    private int cartQuantity; // Quantity of this book in the cart
+    private long cartId; // Identifier for the cart this book is in
 
     //empty constructor for JPA
     public Book() {
 
     }
-    public Book(int isbn,int version, String bookname, String author, String publisher, int quantity, double price) {
+    public Book(int isbn, int version, String bookname, String author, String publisher, int quantity, double price) {
         this.isbn = isbn;
         this.version = version;
         this.bookname = bookname;
@@ -32,6 +34,7 @@ public class Book implements Serializable{
         this.quantity = quantity;
         this.price = price;
         this.recommended = false;
+        this.cartQuantity = 0; // Default quantity in cart is 0
     }
 
     public int getIsbn() {
@@ -72,11 +75,28 @@ public class Book implements Serializable{
     }
     public boolean getRecommended() {return recommended;}
     public void setRecommended(boolean recommended) {this.recommended = recommended;}
-    @Override
-    public String toString(){
-        return String.format(
-                "Book[id=%d, isbn='%s' bookname='%s', version=%s, bookAuthor='%s', bookPublisher='%s', bookQuantity='%s', bookPrice='%s']",
-                id, isbn, bookname,version, author, publisher, quantity, price);
+
+    // Cart-related methods
+    public void addToCart(int quantity) {
+        // Check if sufficient stock is available
+        if (this.quantity < quantity) {
+            throw new IllegalArgumentException("Not enough stock available");
+        }
+        this.quantity -= quantity;
+        this.cartQuantity += quantity;
     }
 
+    public void removeFromCart(int quantity) {
+        this.quantity += quantity;
+        this.cartQuantity -= quantity;
+        if (this.cartQuantity < 0) {
+            this.cartQuantity = 0;
+        }
+    }
+    @Override
+    public String toString() {
+        return String.format(
+                "Book[id=%d, isbn='%s', bookname='%s', version=%s, author='%s', publisher='%s', quantity='%s', price='%s', cartQuantity='%s']",
+                id, isbn, bookname, version, author, publisher, quantity, price, cartQuantity);
+    }
 }

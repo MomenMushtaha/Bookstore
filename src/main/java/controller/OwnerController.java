@@ -1,9 +1,9 @@
 package controller;
 
-import model.BookRepository;
-import model.OwnerRepository;
-import model.Owner;
-import model.Book;
+import repository.BookRepository;
+import repository.OwnerRepository;
+import entity.Owner;
+import entity.Book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

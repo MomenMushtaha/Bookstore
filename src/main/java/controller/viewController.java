@@ -1,11 +1,14 @@
 package controller;
 
+import entity.BookStoreManagement;
+import entity.Cart;
+import entity.Customer;
+import entity.Owner;
 import jakarta.servlet.http.HttpSession;
-import model.*;
-import model.BookStoreManagementRepository;
-import model.CartRepository;
-import model.CustomerRepository;
-import model.OwnerRepository;
+import repository.BookStoreManagementRepository;
+import repository.CartRepository;
+import repository.CustomerRepository;
+import repository.OwnerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

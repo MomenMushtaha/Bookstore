@@ -1,10 +1,14 @@
 package model;
 
-
-
+import entity.Book;
+import entity.Customer;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+//TEST CLASS
+//Tests functions of the Cart class
+//Currently Bugged.
+//ToDo FIX this.items is null error
 public class CartTest{
 
     @Test

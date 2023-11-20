@@ -1,10 +1,16 @@
-package model;
+package entity;
 
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
+
+import entity.Book;
 import jakarta.persistence.*;
 
+//BookStoreManagement Entity Class
+//This class contains a Collection of Books OneToMany
+//The BookStores Owner can use methods like adding or removing books from the BookStore
+//ToDo FIX REMOVE BOOKS
 @Entity
 public class BookStoreManagement implements Serializable{
 
@@ -12,12 +18,9 @@ public class BookStoreManagement implements Serializable{
     private long id;
     private Collection<Book> bookList;
 
-
-
     public BookStoreManagement() {
         bookList = new HashSet();
     }
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -35,11 +38,9 @@ public class BookStoreManagement implements Serializable{
         this.addBook(book);
     }
 
-
     public void addBook(Book book) {
         bookList.add(book);
     }
-
 
     public void removeBook(long id){
         Book bookToDelete = null;
@@ -54,8 +55,6 @@ public class BookStoreManagement implements Serializable{
         }
         else{System.out.println("Book with ISBN " + id + " not found in inventory.");}
     }
-
-
 
     public void updateQuantity(long id, int amountToAdd) {
         if (amountToAdd <= 0) {
@@ -95,6 +94,4 @@ public class BookStoreManagement implements Serializable{
             }
         }
     }
-
-
 }

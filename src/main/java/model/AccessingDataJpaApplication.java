@@ -1,15 +1,25 @@
 package model;
 
+import entity.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import repository.*;
 
+//AccessingDataJpaApplication
+//The main class that gets ran to generate repositories and populate them with test objects
+//Running this class is mandatory to testing the program as a whole: Model, View, Controller
+//Keep the application running while testing functions of the bookstore website
 @SpringBootApplication
-@ComponentScan(basePackages = {"model", "controller"})
+@ComponentScan(basePackages = {"model", "controller", "repository"})
+@EntityScan("entity")
+@EnableJpaRepositories("repository")
 public class AccessingDataJpaApplication {
     private static final Logger log = LoggerFactory.getLogger(AccessingDataJpaApplication.class);
 

@@ -1,13 +1,16 @@
-package model;
+package entity;
 
 import jakarta.persistence.*;
+import model.PaymentProcessor;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+//Cart Entity Class
+//The Cart has a OneToMany relationship with Books and a OneToOne with a Customer
+//The Cart is used to add/remove books in it and bringing itself into checkout with what Books it currently holds
+//ToDo FIX BUGS WITH CART
 @Entity
 public class Cart implements Serializable {
     // The cart uses a map to keep track of the books and their quantities.

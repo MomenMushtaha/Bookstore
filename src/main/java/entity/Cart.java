@@ -17,25 +17,20 @@ public class Cart implements Serializable {
     @OneToMany(fetch = FetchType.EAGER)
     private List<Book> items;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne
     private Customer customer;
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    private String username;
-
 
     public Cart(){};
+    /*
     public Cart(Customer customer) {
         //this.items = new ArrayList<>();
         this.customer = customer;
     }
-    public Cart(String username) {
-        this.username = username;
-        this.items = new ArrayList<>();
-    }
-
-
+     */
 
     // Adds a book to the cart or increments the quantity if it already exists.
     public void addBook(Book book) {
@@ -56,8 +51,8 @@ public class Cart implements Serializable {
     // Empties the cart.
     public void clearCart() {
         for(Book book : items){
-        book.addQuantity(1);
-    }
+            book.addQuantity(1);
+        }
         items.clear();
     }
 
@@ -82,11 +77,9 @@ public class Cart implements Serializable {
         return total;
     }
 
-    public void checkout(){
-        PaymentProcessor.processPayment(getCustomer(), this);
+    public void clearItems(){
         items.clear();
     }
-
 
     /**
      * Returns items hashmap as a String.
@@ -108,6 +101,7 @@ public class Cart implements Serializable {
         return cartString.toString();
     }
 
+    /*
     public Customer getCustomer() {
         return customer;
     }
@@ -115,6 +109,8 @@ public class Cart implements Serializable {
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
+
+     */
     // Retrieves the cart's contents.
     public List<Book> getItems() {
         return items;

@@ -1,9 +1,13 @@
-package model;
+package entity;
 
 import jakarta.persistence.*;
 
 import java.io.Serializable;
 
+//Book Entity Class
+//A Book is an object that has several fields to describe one such as its isbn, name, author, ect.
+//This class has getters for all the Books fields, providing a means for other Entities such as Owner
+//to adding or removing specific books from their bookStore based on their isbn for example.
 @Entity
 public class Book implements Serializable{
 

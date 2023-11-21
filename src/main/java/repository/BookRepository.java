@@ -1,18 +1,26 @@
-package model;
+package repository;
 
 import java.util.Optional;
 
-import model.Book;
+import entity.Book;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+//Repository Class
+//CRUD Repository that contains Books, with each assigned a Long id
+//ToDo There are two find by Isbn, figure out which one is needed
 @Repository
 public interface BookRepository extends CrudRepository <Book, Long>{
-
+    //Find a Book in the repository by their assigned id
     Book findById(long id);
+
+    //Find a Book in the repository by their isbn
     Iterable<Book> findBooksByIsbn(int isbn);
+
     //Find All Books and order by recommended First
     Iterable<Book> findAllByOrderByRecommendedDesc();
+
+    //Find a Book in the repository by their isbn
     Optional<Book> findByIsbn(int isbn);
 
 }

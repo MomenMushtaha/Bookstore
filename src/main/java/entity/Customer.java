@@ -1,11 +1,18 @@
-package model;
+package entity;
 
+import entity.Book;
+import entity.Cart;
 import jakarta.persistence.*;
+import model.User;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
+//Customer Entity Class
+//The Customer has User fields along with its exclusive purchaseHistory and cart
+//The Customer has a OneToOne relationship with the Cart and OneToMany with Books
+//The Customer has several methods to add Books into their cart and their purchaseHistory
+//ToDo FIX MANY BUGS WITH CUSTOMER (Aim for milestone 2)
 @Entity
 public class Customer extends User implements Serializable {
 

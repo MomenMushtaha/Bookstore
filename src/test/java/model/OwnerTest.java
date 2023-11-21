@@ -1,9 +1,16 @@
 package model;
 
+import entity.Book;
+import entity.BookStoreManagement;
+import entity.Owner;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+//TEST CLASS
+//Tests functions of the Owner class
+//addBook and updateQuantity are functioning
+//ToDo FIX REMOVE BOOK FROM BOOKSTORE
 public class OwnerTest {
 
     @Test
@@ -17,7 +24,7 @@ public class OwnerTest {
         Book book2 = new Book(128,1, ":D", "Hamza Zafar", "Carleton", 10,1.99);
 
         //Assign the created bookstore to the Owners ownerStore variable then test adding books to the owners bookstore
-        testOwner.ownersStore = bookstore;
+        testOwner.setOwnersStore(bookstore);
         testOwner.addBookToStore(book);
         testOwner.addBookToStore(book2);
         assertEquals(2, testOwner.getBookStore().size());
@@ -34,7 +41,7 @@ public class OwnerTest {
         Book book2 = new Book(128, 1,":D", "Hamza Zafar", "Carleton", 10,1.99);
 
         //Assign the created bookstore to the Owners ownerStore variable then add books to the owners bookstore, after test removing the books
-        testOwner.ownersStore = bookstore;
+        testOwner.setOwnersStore(bookstore);
         testOwner.addBookToStore(book);
         testOwner.addBookToStore(book2);
         assertEquals(2, testOwner.getBookStore().size());
@@ -54,7 +61,7 @@ public class OwnerTest {
         Book book = new Book(123,1, "TEST", "Hamza Zafar", "Carleton", 10,1.99);
 
         //Assign the created bookstore to the Owners ownerStore variable then add books to the owners bookstore, after test removing the books
-        testOwner.ownersStore = bookstore;
+        testOwner.setOwnersStore(bookstore);
         testOwner.addBookToStore(book);
         testOwner.updateStoreQuantity(123, -3);
         testOwner.updateStoreQuantity(128, 0);

@@ -1,9 +1,14 @@
 package model;
 
+import entity.Book;
+import entity.BookStoreManagement;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
-
+//TEST CLASS
+//Tests functions of the BookStoreManagement class
+//addBook and updateQuantityNegative work
+//ToDo FIX REMOVE BOOK AND UPDATE QUANTITY POSITIVE
 public class BookStoreManagementTest {
 
     @Test

@@ -1,8 +1,17 @@
 package model;
 
+import entity.Book;
+import entity.Customer;
+import repository.BookRepository;
+import repository.CustomerRepository;
+
 import java.util.ArrayList;
 import java.util.List;
 
+//Recommendations class
+//This class provides the methods to arranging a Customers recommendation list.
+//Uses repositories to set the recommendation list
+//ToDo Implement into the project (For Milestone 3)
 public class Recommendations {
 private BookRepository bookRepository;
 private CustomerRepository customerRepository;

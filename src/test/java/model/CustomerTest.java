@@ -1,9 +1,15 @@
 package model;
 
+import entity.Book;
+import entity.Customer;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+//TEST CLASS
+//Tests functions of the Customer class
+//Currently Bugged.
+//ToDo FIX PURCHASE HISTORY FUNCTIONALITY
 public class CustomerTest {
 
     @Test
@@ -16,11 +22,11 @@ public class CustomerTest {
 
         //Test Adding books to purchaseHistory
         customer.addToPurchaseHistory(book1);
-        assertEquals(1, customer.purchaseHistory.size());
+        assertEquals(1, customer.getPurchaseHistory().size());
         customer.printOutPurchaseHistory();
 
         customer.addToPurchaseHistory(book2);
-        assertEquals(2, customer.purchaseHistory.size());
+        assertEquals(2, customer.getPurchaseHistory().size());
         customer.printOutPurchaseHistory();
 
     }

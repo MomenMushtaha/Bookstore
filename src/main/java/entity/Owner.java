@@ -1,11 +1,18 @@
-package model;
+package entity;
 
+import entity.Book;
+import entity.BookStoreManagement;
 import jakarta.persistence.*;
+import model.User;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collection;
 
+//Owner Entity Class
+//The Owner has User fields along with its exclusive BookStoreManagement
+//The Owner has a OneToOne relationship with the BookStoreManagement
+//The Owner has several methods to edit their respective bookstore such as adding or removing books
+//ToDo FIX REMOVE BOOKS AND UPDATE STORE QUANTITY
 @Entity
 public class Owner extends User implements Serializable {
 

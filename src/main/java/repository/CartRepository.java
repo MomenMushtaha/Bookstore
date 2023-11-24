@@ -12,7 +12,7 @@ public interface CartRepository extends CrudRepository<Cart, Long> {
     Optional<Cart> findById(long id);
 
     //Find a Customer in the repository by their username
-    Optional<Cart> findByUsername(String username);
+    //Optional<Cart> findByUsername(String username);
 
     //Delete a Cart in the repository by their assigned id
     Optional<Cart> deleteCartById(long id);

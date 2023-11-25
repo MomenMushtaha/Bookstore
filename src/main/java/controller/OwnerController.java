@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import jakarta.servlet.http.HttpSession;
 import java.util.Optional;
 
-@RestController
+@Controller
 public class OwnerController {
     // Injecting dependencies for book and owner repositories
     @Autowired

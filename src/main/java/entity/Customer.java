@@ -3,7 +3,6 @@ package entity;
 import entity.Book;
 import entity.Cart;
 import jakarta.persistence.*;
-import model.PaymentProcessor;
 import model.User;
 
 import java.io.Serializable;
@@ -38,6 +37,8 @@ public class Customer extends User implements Serializable {
         this.purchaseHistory = new ArrayList<>();
     }
 
+
+
     public void addToPurchaseHistory(Book book){
         purchaseHistory.add(book);
     }
@@ -52,11 +53,6 @@ public class Customer extends User implements Serializable {
             System.out.println(purchaseHistory.get(val).getBookName());
             val++;
         }
-    }
-
-    public void checkout(){
-        PaymentProcessor.processPayment(this,cart);
-        cart.clearItems();
     }
 
     public Cart getCart() {

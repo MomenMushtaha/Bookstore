@@ -173,7 +173,7 @@ public class viewController {
         if (result.isEmpty()) {
             if(!username.equals("") && !password.equals("")) {
                 // Creating and saving a new cart for the customer
-                Cart cart = new Cart(username);
+                Cart cart = new Cart();
                 cartRepository.save(cart);
                 // Creating and saving a new customer
                 Customer customer = new Customer(email,phonenumber,username,password,name,address);
@@ -214,19 +214,20 @@ public class viewController {
             @RequestParam(name="password", required=false, defaultValue="") String password,
                     HttpSession session, Model model) {
         Optional<Customer> result = customerRepository.findByUsername(username);
-        Optional<Cart> cartResult = cartRepository.findByUsername(username);
-        // Add appropriate handling and redirections based on login success or failure
-        if (result.isPresent() && cartResult.isPresent()) {
+        //Optional<Cart> cartResult = cartRepository.findByCustomer(username);
+
+        //Add appropriate handling and redirections based on login success or failure
+        if (result.isPresent()) {
             Customer customer = result.get();
             String customerPassword = customer.getPassword();
             if(customerPassword.equals(password)) {
-                Long cartId = cartResult.get().getId();
+                Long cartId = customer.getCart().getId();
                 model.addAttribute("username", username);
                 model.addAttribute("cartId", cartId);
                 session.setAttribute("username", username);
-                session.setAttribute("cartId", cartId);
-                return "redirect:/bookstore_portal";
-            }
+               session.setAttribute("cartId", cartId);
+               return "redirect:/bookstore_portal";
+           }
         }
         model.addAttribute("login_error", "Invalid username or password");
         return "customer_login";

@@ -7,6 +7,7 @@ import model.PaymentProcessor;
 import model.User;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 //Customer Entity Class
@@ -34,7 +35,7 @@ public class Customer extends User implements Serializable {
     public Customer(String email, String phoneNumber, String username, String password, String name, String address) {
         super(email, phoneNumber, username, password, name, address);
         //this.cart = new Cart(this);
-        this.purchaseHistory = null;
+        this.purchaseHistory = new ArrayList<>();
     }
 
     public void addToPurchaseHistory(Book book){

@@ -173,7 +173,7 @@ public class viewController {
         if (result.isEmpty()) {
             if(!username.equals("") && !password.equals("")) {
                 // Creating and saving a new cart for the customer
-                Cart cart = new Cart();
+                Cart cart = new Cart(username);
                 cartRepository.save(cart);
                 // Creating and saving a new customer
                 Customer customer = new Customer(email,phonenumber,username,password,name,address);

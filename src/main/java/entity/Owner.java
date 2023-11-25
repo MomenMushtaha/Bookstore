@@ -34,7 +34,7 @@ public class Owner extends User implements Serializable {
     }
 
     public void removeBookFromStore(Book book){
-        ownersStore.removeBook(book.getIsbn());
+        ownersStore.removeBook(book.getId());
     }
 
     public void updateStoreQuantity(int isbn, int amount){

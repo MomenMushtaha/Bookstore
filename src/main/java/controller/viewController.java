@@ -10,11 +10,12 @@ import repository.CartRepository;
 import repository.CustomerRepository;
 import repository.OwnerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
-@RestController
+@Controller
 public class viewController {
     // Injecting dependencies for the used repositories
     @Autowired
@@ -213,20 +214,21 @@ public class viewController {
             @RequestParam(name="password", required=false, defaultValue="") String password,
                     HttpSession session, Model model) {
         Optional<Customer> result = customerRepository.findByUsername(username);
-        //Optional<Cart> cartResult = cartRepository.findByUsername(username);
+        //Optional<Cart> cartResult = cartRepository.findByCustomer(username);
+
         //Add appropriate handling and redirections based on login success or failure
-//        if (result.isPresent() && cartResult.isPresent()) {
-//            Customer customer = result.get();
-//            String customerPassword = customer.getPassword();
-//            if(customerPassword.equals(password)) {
-//                Long cartId = cartResult.get().getId();
-//                model.addAttribute("username", username);
-//                model.addAttribute("cartId", cartId);
-//                session.setAttribute("username", username);
-//                session.setAttribute("cartId", cartId);
-//                return "redirect:/bookstore_portal";
-//            }
-//        }
+        if (result.isPresent()) {
+            Customer customer = result.get();
+            String customerPassword = customer.getPassword();
+            if(customerPassword.equals(password)) {
+                Long cartId = customer.getCart().getId();
+                model.addAttribute("username", username);
+                model.addAttribute("cartId", cartId);
+                session.setAttribute("username", username);
+               session.setAttribute("cartId", cartId);
+               return "redirect:/bookstore_portal";
+           }
+        }
         model.addAttribute("login_error", "Invalid username or password");
         return "customer_login";
     }

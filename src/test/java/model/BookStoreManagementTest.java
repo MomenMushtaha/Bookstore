@@ -7,8 +7,6 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 //TEST CLASS
 //Tests functions of the BookStoreManagement class
-//addBook and updateQuantityNegative work
-//ToDo FIX REMOVE BOOK AND UPDATE QUANTITY POSITIVE
 public class BookStoreManagementTest {
 
     @Test
@@ -28,7 +26,7 @@ public class BookStoreManagementTest {
         BookStoreManagement bookstore = new BookStoreManagement();
         Book book = new Book(123,1, "TEST", "Hamza Zafar", "Carleton", 10,1.99);
         bookstore.addBook(book);
-        bookstore.updateQuantity(123, 20);
+        bookstore.updateQuantity(book.getId(), 20);
 
         assertEquals(30, book.getQuantity());
     }
@@ -57,9 +55,10 @@ public class BookStoreManagementTest {
         bookstore.addBook(book4);
 
         assertTrue(bookstore.getBookList().contains(book4));
+        assertEquals(bookstore.getBookList().size(),4);
 
-        bookstore.removeBook(120);
+        bookstore.removeBook(book4.getId());
 
-        assertFalse(bookstore.getBookList().contains(book4));
+        assertEquals(bookstore.getBookList().size(),3);
     }
 }

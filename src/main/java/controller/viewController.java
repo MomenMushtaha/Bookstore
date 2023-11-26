@@ -175,16 +175,14 @@ public class viewController {
         if (result.isEmpty()) {
             if (!username.isEmpty() && !password.isEmpty()) {
                 // Creating and saving a new customer
-                Customer customer = new Customer(email, phonenumber, username, password, name, address);
-                customerRepository.save(customer);
-
-                // Creating and saving a new cart for the customer
                 Cart cart = new Cart();
-
-                // Associate the cart with the customer
+                Customer customer = new Customer(email, phonenumber, username, password, name, address);
+                cartRepository.save(cart);
                 customer.setCart(cart);
                 customerRepository.save(customer);
+                cart.setCustomer(customer);
                 cartRepository.save(cart);
+                customerRepository.save(customer);
 
                 return "redirect:/customer_login";
             } else {

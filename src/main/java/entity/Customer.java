@@ -34,7 +34,6 @@ public class Customer extends User implements Serializable {
 
     public Customer(String email, String phoneNumber, String username, String password, String name, String address) {
         super(email, phoneNumber, username, password, name, address);
-        //this.cart = new Cart(this);
         this.purchaseHistory = new ArrayList<>();
     }
 
@@ -52,11 +51,6 @@ public class Customer extends User implements Serializable {
             System.out.println(purchaseHistory.get(val).getBookName());
             val++;
         }
-    }
-
-    public void checkout(){
-        PaymentProcessor.processPayment(this,cart);
-        cart.clearItems();
     }
 
     public Cart getCart() {

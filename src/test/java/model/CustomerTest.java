@@ -31,18 +31,4 @@ public class CustomerTest {
         customer.printOutPurchaseHistory();
 
     }
-
-    @Test
-    public void testCheckout(){
-        Customer customer = new Customer("teste@mail", "12345", "testMan", "password", "Man", "testAddress");
-        Book book1 = new Book(123,1, "TEST", "Hamza Zafar", "Carleton", 10,1.99);
-        Book book2 = new Book(128,1, ":D", "Hamza Zafar", "Carleton", 10,1.99);
-        Cart cart = new Cart();
-        cart.addBook(book1);
-        assertEquals(cart.getItems().size(),1);
-        customer.setCart(cart);
-        customer.checkout();
-        assertEquals(cart.getItems().size(),0);
-
-    }
 }

@@ -1,4 +1,4 @@
-package model;
+package application;
 
 import entity.*;
 import org.slf4j.Logger;

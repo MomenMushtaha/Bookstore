@@ -180,11 +180,11 @@ public class viewController {
 
                 // Creating and saving a new cart for the customer
                 Cart cart = new Cart();
-                cartRepository.save(cart);
 
                 // Associate the cart with the customer
                 customer.setCart(cart);
                 customerRepository.save(customer);
+                cartRepository.save(cart);
 
                 return "redirect:/customer_login";
             } else {

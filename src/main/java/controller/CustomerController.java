@@ -17,6 +17,8 @@ public class CustomerController {
     @Autowired
     private CartRepository cartRepository;
 
+    //Don't need moved to viewController
+    /*
     @PostMapping
     public Customer createCustomer(@RequestBody Customer newCustomer){
         Cart customerCart = new Cart();
@@ -24,6 +26,8 @@ public class CustomerController {
         newCustomer.setCart(customerCart);
         return customerRepository.save(newCustomer);
     }
+
+     */
 
     @GetMapping("/{customerId}")
     public Customer viewCustomer(@PathVariable Integer customerId) {
@@ -55,14 +59,5 @@ public class CustomerController {
             return customer.getCart();
         }
         return null;
-    }
-
-    @PostMapping("/{customerId}/checkout")
-    public void checkout(@PathVariable Integer customerId){
-        Customer customer = customerRepository.findById(customerId).orElse(null);
-        if(customer !=null){
-            customer.checkout();
-            customerRepository.save(customer);
-        }
     }
 }

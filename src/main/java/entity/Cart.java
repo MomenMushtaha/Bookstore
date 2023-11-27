@@ -31,7 +31,10 @@ public class Cart implements Serializable {
         this.items = new ArrayList<>();
     }
 
-
+    public Cart(Customer customer) {
+        //this.items = new ArrayList<>();
+        this.customer = customer;
+    }
     // Adds a book to the cart or increments the quantity if it already exists.
     public void addBook(Book book) {
         if(book.getQuantity()<=0){

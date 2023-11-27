@@ -37,6 +37,7 @@ public class CartController {
         }
     }
 
+    /*
     // Checkout the cart
     @PostMapping("/checkout/{cartId}")
     public void checkoutCart(@PathVariable Long cartId) {
@@ -46,4 +47,6 @@ public class CartController {
             cartRepository.save(cart);
         }
     }
+
+     */
 }

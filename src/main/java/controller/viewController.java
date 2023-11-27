@@ -167,39 +167,31 @@ public class viewController {
             @RequestParam(name="email", required=false, defaultValue="") String email,
             @RequestParam(name="phonenumber", required=false, defaultValue="") String phonenumber,
             Model model) {
-
         // Check if the username already exists in the database
         Optional<Customer> result = customerRepository.findByUsername(username);
-
         // Validation for non-empty username and password
         if (result.isEmpty()) {
-            if (!username.isEmpty() && !password.isEmpty()) {
-                // Creating and saving a new customer
+            if(!username.equals("") && !password.equals("")) {
+                // Creating and saving a new cart for the customer
                 Cart cart = new Cart();
-                Customer customer = new Customer(email, phonenumber, username, password, name, address);
                 cartRepository.save(cart);
+                // Creating and saving a new customer
+                Customer customer = new Customer(email,phonenumber,username,password,name,address);
                 customer.setCart(cart);
                 customerRepository.save(customer);
-                cart.setCustomer(customer);
-                cartRepository.save(cart);
-                customerRepository.save(customer);
-
                 return "redirect:/customer_login";
-            } else {
-                // Handling empty username and password:
+            } else {// Handling empty username and password:
                 // 1. the controller will show the error message below
                 // 2. the controller will stay on the customer_sign page
                 model.addAttribute("signup_error", "Username or Password input is empty. Please set something.");
                 return "customer_signup";
             }
-        } else {
-            // Handling already used username:
+        } else {// Handling already used username:
             // similar protocol as above
             model.addAttribute("signup_error", "Username already used, choose a different username!");
             return "customer_signup";
         }
     }
-
 
 
     /**

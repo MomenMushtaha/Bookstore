@@ -16,5 +16,6 @@
 - Controllers (Finished, with additions and polish planned)
 - View (Needs more work and polish)
 
+- ## UML Diagram
+### Title: BookStoreUML drawio-2
 ![BookStoreUML drawio-2](https://github.com/Hamzaman10/BookstoreSYSC4806/assets/91337509/ad16276c-b34d-4cc5-9500-30c0e7705931)
-

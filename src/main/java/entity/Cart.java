@@ -29,6 +29,13 @@ public class Cart implements Serializable {
 
     public Cart() {
         this.items = new ArrayList<>();
+
+    };
+
+    public Cart(Customer customer) {
+        //this.items = new ArrayList<>();
+        this.customer = customer;
+
     }
 
 

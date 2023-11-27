@@ -3,6 +3,7 @@
 <head>
   <title>Owner Upload Book</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link rel="stylesheet" th:href="@{/css/styles.css}"/>
   <style>
     body {
       display: flex;
@@ -46,13 +47,13 @@
         <form method="post" action="" th:object="${book}">
           <label>Isbn:<input type="text" placeholder="Enter Isbn" name="isbn" /></label
           ><br />
-          <label>Name:<input type="text" placeholder="Enter Name" name="bookName" /></label
+          <label>Name:<input type="text" placeholder="Enter Name" name="bookname" /></label
           ><br />
           <label>Publisher:<input type="text" placeholder="Enter Publisher" name="publisher" /></label>
           <br />
           <label>Author:<input type="text" placeholder="Enter Author" name="author" /></label>
           <br />
-          <label>Quantity:<input type="text" placeholder="Enter Quantity" name="quantity" /></label>
+          <label>Stock:<input type="text" placeholder="Enter Quantity" name="quantity" /></label>
           <br />
           <label>Price:<input type="text" placeholder="Enter Price" name="price" /></label
           ><br />

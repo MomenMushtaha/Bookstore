@@ -3,6 +3,7 @@
 <head>
   <title>Owner Portal</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link rel="stylesheet" th:href="@{/css/styles.css}"/>
   <style>
     body {
       display: flex;
@@ -54,7 +55,7 @@
     <tr th:each="book: ${books}">
       <td th:text="${book.isbn}" />
       <td th:text="${book.version}" />
-      <td th:text="${book.bookName}" />
+      <td th:text="${book.bookname}" />
       <td th:text="${book.publisher}" />
       <td th:text="${book.author}" />
       <td th:text="${book.price}" />

@@ -21,7 +21,7 @@ private CustomerRepository customerRepository;
         //Reset all books to not recommended
         Iterable<Book> allBooks = bookRepository.findAll();
         for(Book book: allBooks){
-            //book.setRecommended(false);
+            book.setRecommended(false);
             bookRepository.save(book);
         }
     }
@@ -57,7 +57,7 @@ private CustomerRepository customerRepository;
                 for (Book otherPurchasedBook: otherPurchasedBooks){
                     //Set recommended only if current customer didn't already purchase the other book
                     if(!purchasedBooks.contains(otherPurchasedBook)){
-                        //otherPurchasedBook.setRecommended(true);
+                        otherPurchasedBook.setRecommended(true);
                         bookRepository.save(otherPurchasedBook);
                     }
                 }

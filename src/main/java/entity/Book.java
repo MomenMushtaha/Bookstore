@@ -16,12 +16,12 @@ public class Book implements Serializable{
     private long id;
     private int isbn;
     private int version;
-    public String bookName;
+    public String bookname;
     private String author;
     private String publisher;
     private int quantity;
     private double price;
-    private boolean recommended;// to indicate if the book is recommended
+    private boolean recommended;
     private int cartQuantity; // Quantity of this book in the cart
     private long cartId; // Identifier for the cart this book is in
 
@@ -29,15 +29,16 @@ public class Book implements Serializable{
     public Book() {
 
     }
-    public Book(int isbn, int version, String bookName, String author, String publisher, int quantity, double price) {
+    public Book(int isbn, int version, String bookname, String author, String publisher, int quantity, double price) {
         this.isbn = isbn;
         this.version = version;
-        this.bookName = bookName;
+        this.bookname = bookname;
         this.author = author;
         this.publisher = publisher;
         this.quantity = quantity;
         this.price = price;
-        this.cartQuantity = 0; // Default quantity in cart is 0, it indicates how many books of the same title is in a customer's cart
+        this.recommended = false;
+        this.cartQuantity = 0; // Default quantity in cart is 0
     }
 
     public int getIsbn() {
@@ -48,7 +49,7 @@ public class Book implements Serializable{
     }
 
     public String getBookName() {
-        return bookName;
+        return bookname;
     }
 
     public String getAuthor() {
@@ -76,6 +77,8 @@ public class Book implements Serializable{
     public long getId() {
         return id;
     }
+    public boolean getRecommended() {return recommended;}
+    public void setRecommended(boolean recommended) {this.recommended = recommended;}
 
     // Cart-related methods
     public void addToCart(int quantity) {
@@ -97,7 +100,7 @@ public class Book implements Serializable{
     @Override
     public String toString() {
         return String.format(
-                "Book[id=%d, isbn='%s', bookName='%s', version=%s, author='%s', publisher='%s', quantity='%s', price='%s', cartQuantity='%s']",
-                id, isbn, bookName, version, author, publisher, quantity, price, cartQuantity);
+                "Book[id=%d, isbn='%s', bookname='%s', version=%s, author='%s', publisher='%s', quantity='%s', price='%s', cartQuantity='%s']",
+                id, isbn, bookname, version, author, publisher, quantity, price, cartQuantity);
     }
 }

@@ -12,8 +12,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import repository.*;
 
-//test
-
 //AccessingDataJpaApplication
 //The main class that gets ran to generate repositories and populate them with test objects
 //Running this class is mandatory to testing the program as a whole: Model, View, Controller

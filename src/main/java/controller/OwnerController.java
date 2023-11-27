@@ -74,7 +74,7 @@ public class OwnerController {
     @PostMapping(value="/upload_book", params = "AddBook")
     public String UploadBookControl(
             @RequestParam(name="isbn", required=false, defaultValue = "") int isbn,
-            @RequestParam(name="bookName", required=false, defaultValue = "") String bookName,
+            @RequestParam(name="bookname", required=false, defaultValue = "") String bookname,
             @RequestParam(name="publisher", required=false, defaultValue = "") String publisher,
             @RequestParam(name="author", required=false, defaultValue = "") String author,
             @RequestParam(name="quantity", required=false, defaultValue = "") String quantity,
@@ -89,7 +89,7 @@ public class OwnerController {
         if (owner.isEmpty()) {return "redirect:/owner_login";}
         model.addAttribute("owner", owner.get());
         // Handle missing input fields
-        if (Integer.toString(isbn).equals("") || bookName.equals("") || author.equals("") || publisher.equals("") || quantity.equals("") || price.equals("")) {
+        if (Integer.toString(isbn).equals("") || bookname.equals("") || author.equals("") || publisher.equals("") || quantity.equals("") || price.equals("")) {
             model.addAttribute("upload_book_error", "some inputs are missing!");
             return "upload_book";
         }
@@ -107,7 +107,7 @@ public class OwnerController {
             // Handle negative values for price and quantity
             if (newPrice >= 0 && newQuantity >= 0) {
                 int version = booksIdenticalIsbn + 1;
-                Book newBook = new Book(isbn, version, bookName, author, publisher, newQuantity, newPrice);
+                Book newBook = new Book(isbn, version, bookname, author, publisher, newQuantity, newPrice);
                 bookRepository.save(newBook);
                 return "redirect:/owner_portal";
             } else {
@@ -146,7 +146,7 @@ public class OwnerController {
     public String EditBookControl(
             @RequestParam(name="isbn", required=true, defaultValue = "") int isbn,
             @RequestParam(name="version", required=true, defaultValue = "0") String version,
-            @RequestParam(name="bookName", required=false, defaultValue = "") String bookName,
+            @RequestParam(name="bookname", required=false, defaultValue = "") String bookname,
             @RequestParam(name="publisher", required=false, defaultValue = "") String publisher,
             @RequestParam(name="author", required=false, defaultValue = "") String author,
             @RequestParam(name="quantity", required=false, defaultValue = "") String quantity,
@@ -159,7 +159,7 @@ public class OwnerController {
         try {
             // Check if the book exists and handle field validation
             Optional<Book> book = bookRepository.findByIsbn(isbn);
-            if (Integer.toString(isbn).equals("") || version.equals("0") || bookName.equals("") || publisher.equals("") || author.equals("") || quantity.equals("") || price.equals("")) {
+            if (Integer.toString(isbn).equals("") || version.equals("0") || bookname.equals("") || publisher.equals("") || author.equals("") || quantity.equals("") || price.equals("")) {
                 model.addAttribute("book_search_error", "some inputs are missing!");
                 return "owner_edit";
             }
@@ -172,7 +172,7 @@ public class OwnerController {
             // Validate and parse numerical input
             if (newPrice >= 0 && newQuantity >= 0) {
                 //Update book details and redirection
-                Book newBook = new Book(isbn, Integer.parseInt(version), bookName, author, publisher, Integer.parseInt(quantity), Integer.parseInt(price));
+                Book newBook = new Book(isbn, Integer.parseInt(version), bookname, author, publisher, Integer.parseInt(quantity), Integer.parseInt(price));
                 bookRepository.save(newBook);
                 return "redirect:/owner_portal";
             } else {

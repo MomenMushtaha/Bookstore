@@ -24,13 +24,18 @@ public class Cart implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    public Cart(){
+    //public Cart(){
+    //}
+
+    public Cart() {
         this.items = new ArrayList<>();
+
     };
 
     public Cart(Customer customer) {
         //this.items = new ArrayList<>();
         this.customer = customer;
+
     }
 
 
@@ -103,7 +108,7 @@ public class Cart implements Serializable {
         return cartString.toString();
     }
 
-    /*
+
     public Customer getCustomer() {
         return customer;
     }
@@ -112,7 +117,12 @@ public class Cart implements Serializable {
         this.customer = customer;
     }
 
-     */
+    public void checkout(){
+        PaymentProcessor.processPayment(getCustomer(), this);
+        this.clearCart();
+    }
+
+
     // Retrieves the cart's contents.
     public List<Book> getItems() {
         return items;

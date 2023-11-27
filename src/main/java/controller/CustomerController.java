@@ -29,6 +29,7 @@ public class CustomerController {
     private CartRepository cartRepository;
 
 
+
     @GetMapping("/bookstore_portal")
     public String customer(Model model, HttpSession session) {
         String username = (String) session.getAttribute("username");
@@ -235,6 +236,7 @@ public class CustomerController {
         return "redirect:/customer_login";
     }
 /*
+
     @PostMapping
     public Customer createCustomer(@RequestBody Customer newCustomer){
         Cart customerCart = new Cart();
@@ -242,6 +244,8 @@ public class CustomerController {
         newCustomer.setCart(customerCart);
         return customerRepository.save(newCustomer);
     }
+
+     */
 
     @GetMapping("/{customerId}")
     public Customer viewCustomer(@PathVariable Integer customerId) {
@@ -275,6 +279,7 @@ public class CustomerController {
         return null;
     }
 
+
     @PostMapping("/{customerId}/checkout")
     public void checkout(@PathVariable Integer customerId){
         Customer customer = customerRepository.findById(customerId).orElse(null);
@@ -284,3 +289,4 @@ public class CustomerController {
         }
     }*/
 }
+

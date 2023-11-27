@@ -65,4 +65,19 @@ public class CartTest{
         customer.getCart().addBook(book2);
         assertEquals(5, customer.getCart().calculateTotal(), 0.001);
     }
+
+    @Test
+    public void testCheckout(){
+        Customer customer = new Customer("teste@mail", "12345", "testMan", "password", "Man", "testAddress");
+        Book book1 = new Book(123,1, "TEST", "Hamza Zafar", "Carleton", 10,1.99);
+        Book book2 = new Book(128,1, ":D", "Hamza Zafar", "Carleton", 10,1.99);
+        Cart cart = new Cart();
+        cart.addBook(book1);
+        assertEquals(cart.getItems().size(),1);
+        customer.setCart(cart);
+        cart.setCustomer(customer);
+        cart.checkout();
+        assertEquals(cart.getItems().size(),0);
+
+    }
 }

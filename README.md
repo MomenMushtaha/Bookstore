@@ -16,10 +16,10 @@
 - View (Needs more work and polish)
 
 ## Milestone 2 (November 27, 2023)
--Fixed bug with customers and controllers where the cart and customer weren't linked by id
--added a moccMVC
--linked our controllers to our views
--finished most of the required functionality
+- Fixed bug with customers and controllers where the cart and customer weren't linked by id
+- added a moccMVC
+- linked our controllers to our views
+- finished most of the required functionality
 
 - ## UML Diagram
 ### Title: BookStoreUML drawio-2

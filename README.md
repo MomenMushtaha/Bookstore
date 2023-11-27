@@ -2,7 +2,6 @@
 
 ## Group 22
 ### Project: Book Store
-### Oral Topic: RESTful CRUD out-of-the-box with PostgREST or SQLer
 
 ## Group Members:
 - Hamza Zafar 101119026
@@ -14,6 +13,10 @@
 - Model (Finished, polish planned)
 - Controllers (Finished, with additions and polish planned)
 - View (Needs more work and polish)
+
+### Oral Topic: RESTful CRUD out-of-the-box with PostgREST or SQLer
+- Created slideshow presentation along with demo to showcase PostgREST
+
 
 ## Milestone 2 (November 27, 2023)
 - Fixed bug with customers and controllers where the cart and customer weren't linked by id

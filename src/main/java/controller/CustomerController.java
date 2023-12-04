@@ -67,12 +67,13 @@ public class CustomerController {
             @RequestParam(name="search", required=false, defaultValue = "") String search,
             @RequestParam(name="filter", required=false, defaultValue = "") String filter,
             Model model, HttpSession session){
-        if(!search.equals("")){
-            Iterable<Book> books;
-            if(filter.equals("by-publisher")){books = bookRepository.findBooksByPublisher(search);}
-            else if(filter.equals("by-author")){books = bookRepository.findBooksByAuthor(search);}
-            else if(filter.equals("by-name")){books = bookRepository.findBooksByBookName(search);}
-            else {books = bookRepository.findAllByOrderByRecommendedDesc();}
+        if(!search.isEmpty()){
+            Iterable<Book> books = switch (filter) {
+                case "by-publisher" -> bookRepository.findBooksByPublisher(search);
+                case "by-author" -> bookRepository.findBooksByAuthor(search);
+                case "by-name" -> bookRepository.findBooksByBookName(search);
+                default -> bookRepository.findAllByOrderByRecommendedDesc();
+            };
             //If any book is Found
             if(books.iterator().hasNext()){model.addAttribute("books",books);}
             else {model.addAttribute("search_error", "No Books Found With that Name.");}

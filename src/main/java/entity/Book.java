@@ -16,6 +16,7 @@ public class Book implements Serializable{
     private long id;
     private int isbn;
     private int version;
+
     public String bookName;
     private String author;
     private String publisher;

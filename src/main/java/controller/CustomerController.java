@@ -121,28 +121,32 @@ public class CustomerController {
             @RequestParam(name="version", required=false, defaultValue = "") int version,
             @RequestParam(name="quantity", required=false, defaultValue = "") int quantity,
             HttpSession session){
-        //Needs work
-        // should look for the id of the book and add it to the cart
-        Book.BookId id = new Book.BookId(isbn,version);
-        Optional<Book> book = bookRepository.findById(id);
+        // Fetch customer and book
         String username = (String) session.getAttribute("username");
         Optional<Customer> customer = customerRepository.findByUsername(username);
-
         Long cartId = (Long) session.getAttribute("cartId");
         Optional<Cart> cart = cartRepository.findById(cartId);
+        Optional<Book> book = bookRepository.findById(new Book.BookId(isbn, version));
 
-        if(book.isPresent() && customer.isPresent() && cart.isPresent()){
+        if (book.isPresent() && customer.isPresent() && cart.isPresent()) {
             Book bookToAdd = book.get();
+            Customer currentCustomer = customer.get();
             Cart currentCart = cart.get();
 
-            bookToAdd.addToCart(quantity); // Adjusting book quantity
-            currentCart.addBook(bookToAdd); // Adding book to the cart
+            // Adjusting book quantity
+            bookToAdd.addToCart(quantity);
+            // Adding book to the cart
+            currentCart.addBook(bookToAdd);
 
             bookRepository.save(bookToAdd);
             cartRepository.save(currentCart);
+
+            return "redirect:/bookstore_portal";
+        } else {
+            return "redirect:/bookstore_portal";
         }
-        return "redirect:/bookstore_portal";
     }
+
 
     // Method to display the shopping cart
     @GetMapping("/cart")

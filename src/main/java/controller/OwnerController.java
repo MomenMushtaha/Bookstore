@@ -4,6 +4,7 @@ import entity.Book;
 import entity.BookStoreManagement;
 import entity.Owner;
 import jakarta.servlet.http.HttpSession;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,89 +31,6 @@ public class OwnerController {
      * Method OwnerSignup to direct users to the owner signup page
      * @return a direction to the next appropriate page
      */
-    @GetMapping("/owner_signup")
-    public String OwnerSignup() {return "owner_signup";}
-
-
-    /**
-     * Method OwnerSignUpControl to handle the owner signup form submission
-     * @return a direction to the next appropriate page
-     */
-    @PostMapping("/owner_signup")
-    public String OwnerSignupControl(
-            @RequestParam(name="username", required=false, defaultValue="") String username,
-            @RequestParam(name="password", required=false, defaultValue="") String password,
-            @RequestParam(name="name", required=false, defaultValue="") String name,
-            @RequestParam(name="address", required=false, defaultValue="") String address,
-            @RequestParam(name="email", required=false, defaultValue="") String email,
-            @RequestParam(name="phonenumber", required=false, defaultValue="") String phonenumber,
-            Model model) {
-        // does username already exist
-        Optional<Owner> result = ownerRepository.findByUsername(username);
-        if (result.isEmpty()) {
-            // Add appropriate handling and redirections based on signup success or failure
-            if(!username.equals("") && !password.equals("")) {
-                Owner owner = new Owner(email, phonenumber, username, password, name, address);
-                BookStoreManagement ownerBookStore = new BookStoreManagement();
-                bookStoreRepository.save(ownerBookStore);
-                owner.setOwnersStore(ownerBookStore);
-                ownerRepository.save(owner);
-                return "redirect:/owner_login";
-            } else {
-                model.addAttribute("signup_error", "Username or Password input is empty. Please set something.");
-                return "owner_signup";
-            }
-        } else {
-            model.addAttribute("signup_error", "Username already used, choose a different username!");
-            return "owner_signup";
-        }}
-
-
-    /**
-     * Method OwnerLogin to direct users to the owner login page
-     * @return a direction to the next appropriate page
-     */
-    @GetMapping("/owner_login")
-    public String OwnerLogin() {
-        return "owner_login";
-    }
-
-
-    /**
-     * Method OwnerLoginControl to handle the owner login form submission
-     * @return a direction to the next appropriate page
-     */
-    @PostMapping( value = "/owner_login", params = "owner_login")
-    public String OwnerLoginControl(
-            @RequestParam(name="username", required=false, defaultValue="") String username,
-            @RequestParam(name="password", required=false, defaultValue="") String password,
-            HttpSession session, Model model) {
-        Optional<Owner> result = ownerRepository.findByUsername(username);
-        if (result.isPresent()) {
-            // Add appropriate handling and redirections based on login success or failure
-            Owner owner = result.get();
-            String ownerPassword = owner.getPassword();
-            if(ownerPassword.equals(password)){
-                model.addAttribute("username", username);
-                session.setAttribute("username", username);
-                return "redirect:/owner_portal";
-            }
-        }
-        model.addAttribute("login_error", "Invalid username or password");
-        return "owner_login";
-    }
-
-
-    /**
-     * Method OwnerLogout to handle owner logout
-     * @param session
-     * @return
-     */
-    @GetMapping("/owner_logout")
-    public String OwnerLogout(HttpSession session) {
-        session.setAttribute("username",null);
-        return "redirect:/owner_login";
-    }
 
     @GetMapping("/owner_portal")
     public String Owner(Model model, HttpSession session) {
@@ -198,6 +116,7 @@ public class OwnerController {
         return "upload_book";
     }
 
+    @Transactional
     @PostMapping("/edit_book")
     public String editBook(
             @RequestParam(name = "isbn", required = true) int isbn,
@@ -222,7 +141,6 @@ public class OwnerController {
                 return "redirect:/owner_login";
             }
 
-            // Use the provided methods to edit or delete a book
             BookStoreManagement bookStoreManagement = bookStoreManagementOptional.get();
             if (editBook != null) {
                 // Edit Book
@@ -230,18 +148,13 @@ public class OwnerController {
             } else if (deleteBook != null) {
                 // Delete Book
                 bookStoreManagement.removeBook(isbn);
+
+                // Remove the book from the repository
+                bookRepository.deleteByIsbn(isbn);
             }
 
             // Save the changes to the book store
             bookStoreRepository.save(bookStoreManagement);
-
-            // Save the changes to the book repository
-            for (Book book : bookStoreManagement.getBookList()) {
-                if (book.getIsbn() == isbn && book.getVersion() == bookStoreManagement.getBookList().size()) {
-                    bookRepository.save(book);
-                    break;  // Assuming there is only one book with the specified ISBN and version
-                }
-            }
 
             return "redirect:/owner_portal";
         } catch (NumberFormatException nfe) {
@@ -249,6 +162,7 @@ public class OwnerController {
             return "edit_book";
         }
     }
+
 
 
 }

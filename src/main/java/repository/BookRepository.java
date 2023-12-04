@@ -29,5 +29,7 @@ public interface BookRepository extends CrudRepository <Book, Long>{
     Iterable<Book> findBooksByBookName(String bookName);
     Optional<Book> findById(Book.BookId bookId);
 
+    void deleteByIsbn(int isbn);
+
 
 }

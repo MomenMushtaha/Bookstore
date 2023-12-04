@@ -42,10 +42,10 @@ public class BookStoreManagement implements Serializable{
         bookList.add(book);
     }
 
-    public void removeBook(long id){
+    public void removeBook(long isbn){
         Book bookToDelete = null;
         for (Book book : bookList) {
-            if (book.getId()== id) {
+            if (book.getIsbn()== isbn) {
                 bookToDelete = book;
                 break; // Stop searching once the book is found
             }

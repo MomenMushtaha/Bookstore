@@ -42,10 +42,10 @@ public class BookStoreManagement implements Serializable{
         bookList.add(book);
     }
 
-    public void removeBook(long id){
+    public void removeBook(long isbn){
         Book bookToDelete = null;
         for (Book book : bookList) {
-            if (book.getId()== id) {
+            if (book.getIsbn()== isbn) {
                 bookToDelete = book;
                 break; // Stop searching once the book is found
             }
@@ -56,7 +56,7 @@ public class BookStoreManagement implements Serializable{
         else{System.out.println("Book with ISBN " + id + " not found in inventory.");}
     }
 
-    public void updateQuantity(long id, int amountToAdd) {
+    public void updateQuantity(long isbn, int amountToAdd) {
         if (amountToAdd <= 0) {
             System.out.println("Please enter a number greater than 0");
         }
@@ -64,7 +64,7 @@ public class BookStoreManagement implements Serializable{
         else {
             Book bookToUpdate = null;
             for (Book book : bookList) {
-                if (book.getId() == id) {
+                if (book.getIsbn() == isbn) {
                     bookToUpdate = book;
                     break; // Stop searching once the book is found
                 }

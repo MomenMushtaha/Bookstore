@@ -67,12 +67,13 @@ public class CustomerController {
             @RequestParam(name="search", required=false, defaultValue = "") String search,
             @RequestParam(name="filter", required=false, defaultValue = "") String filter,
             Model model, HttpSession session){
-        if(!search.equals("")){
-            Iterable<Book> books;
-            if(filter.equals("by-publisher")){books = bookRepository.findBooksByPublisher(search);}
-            else if(filter.equals("by-author")){books = bookRepository.findBooksByAuthor(search);}
-            else if(filter.equals("by-name")){books = bookRepository.findBooksByBookName(search);}
-            else {books = bookRepository.findAllByOrderByRecommendedDesc();}
+        if(!search.isEmpty()){
+            Iterable<Book> books = switch (filter) {
+                case "by-publisher" -> bookRepository.findBooksByPublisher(search);
+                case "by-author" -> bookRepository.findBooksByAuthor(search);
+                case "by-name" -> bookRepository.findBooksByBookName(search);
+                default -> bookRepository.findAllByOrderByRecommendedDesc();
+            };
             //If any book is Found
             if(books.iterator().hasNext()){model.addAttribute("books",books);}
             else {model.addAttribute("search_error", "No Books Found With that Name.");}
@@ -120,28 +121,32 @@ public class CustomerController {
             @RequestParam(name="version", required=false, defaultValue = "") int version,
             @RequestParam(name="quantity", required=false, defaultValue = "") int quantity,
             HttpSession session){
-        //Needs work
-        // should look for the id of the book and add it to the cart
-        Book.BookId id = new Book.BookId(isbn,version);
-        Optional<Book> book = bookRepository.findById(id);
+        // Fetch customer and book
         String username = (String) session.getAttribute("username");
         Optional<Customer> customer = customerRepository.findByUsername(username);
-
         Long cartId = (Long) session.getAttribute("cartId");
         Optional<Cart> cart = cartRepository.findById(cartId);
+        Optional<Book> book = bookRepository.findById(new Book.BookId(isbn, version));
 
-        if(book.isPresent() && customer.isPresent() && cart.isPresent()){
+        if (book.isPresent() && customer.isPresent() && cart.isPresent()) {
             Book bookToAdd = book.get();
+            Customer currentCustomer = customer.get();
             Cart currentCart = cart.get();
 
-            bookToAdd.addToCart(quantity); // Adjusting book quantity
-            currentCart.addBook(bookToAdd); // Adding book to the cart
+            // Adjusting book quantity
+            bookToAdd.addToCart(quantity);
+            // Adding book to the cart
+            currentCart.addBook(bookToAdd);
 
             bookRepository.save(bookToAdd);
             cartRepository.save(currentCart);
+
+            return "redirect:/bookstore_portal";
+        } else {
+            return "redirect:/bookstore_portal";
         }
-        return "redirect:/bookstore_portal";
     }
+
 
     // Method to display the shopping cart
     @GetMapping("/cart")

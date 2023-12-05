@@ -38,33 +38,14 @@
 </div>
 <div class="content">
     <p th:text="${owner.username}+' on this page you can edit existing books!'"></p>
-    <h2>Select Books To Edit</h2>
-    <table>
-        <tbody>
-        <tr>
-            <td>
-                <form method="post" action="" th:object="${book}">
-                    <label>Isbn:<input type="text" placeholder="Enter Isbn" name="isbn" /></label
-                    ><br />
-                    <label>Version:<input type="text" placeholder="Enter Version" name="version" /></label
-                    ><br />
-                    <label>Name:<input type="text" placeholder="Enter Name" name="bookName" /></label
-                    ><br />
-                    <label>Publisher:<input type="text" placeholder="Enter Publisher" name="publisher" /></label
-                    ><br />
-                    <label>Author:<input type="text" placeholder="Enter Author" name="author" /></label
-                    ><br />
-                    <label>Quantity:<input type="text" placeholder="Enter Quantity" name="quantity"/></label
-                    ><br />
-                    <label>Price:<input type="text" placeholder="Enter Price" name="price"/></label>
-                    <br />
-                    <input type="submit" value="Select Book To Edit" name="edit_book"/>
-                    <p style="color: red" th:text="${book_search_error}"></p>
-                </form>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <h2>Edit Book</h2>
+    <form method="post" th:action="@{/edit_book}" th:object="${book}">
+        <label>ISBN:<input type="text" placeholder="Enter ISBN" name="isbn" /></label><br />
+        <label>Quantity:<input type="text" placeholder="Enter Quantity" name="quantity" /></label><br />
+        <input type="submit" value="Edit Book" name="edit_book"/>
+        <input type="submit" value="Delete Book" name="delete_book"/>
+        <p style="color: red" th:text="${book_search_error}"></p>
+    </form>
 </div>
 </body>
 </html>

@@ -36,31 +36,6 @@ public class viewController {
     public String Home() {return "home_portal";}
 
 
-    /**
-     * Method HomeInitialize to create a sample owner and bookstore management entity upon accessing the root URL
-     * @return a direction to the next appropriate page
-     */
-    @RequestMapping("/")
-    public @ResponseBody String HomeInitialize() {
-        // Creation of a new owner object
-        Owner owner1 = new Owner("owneremail@gmail.com", "6132113454", "Owner", "ImTheBoss", "Boss", "921bossstreet");
-        System.out.println("owner user created");
-        // Retrieving and saving the owner's bookstore management details
-        BookStoreManagement owner1BookStore = owner1.getOwnersStore();
-        // Save the BookStoreManagement to the database
-        bookStoreRepository.save(owner1BookStore);
-        System.out.println("bookstore saved");
-        // Save the owner to the database
-        ownerRepository.save(owner1);
-        System.out.println("owner user saved");
-        return owner1BookStore.toString();
-    }
-
-
-    /**
-     * Method OwnerSignup to direct users to the owner signup page
-     * @return a direction to the next appropriate page
-     */
     @GetMapping("/owner_signup")
     public String OwnerSignup() {return "owner_signup";}
 
@@ -143,6 +118,27 @@ public class viewController {
     public String OwnerLogout(HttpSession session) {
         session.setAttribute("username",null);
         return "redirect:/owner_login";
+    }
+
+
+    /**
+     * Method HomeInitialize to create a sample owner and bookstore management entity upon accessing the root URL
+     * @return a direction to the next appropriate page
+     */
+    @RequestMapping("/")
+    public @ResponseBody String HomeInitialize() {
+        // Creation of a new owner object
+        Owner owner1 = new Owner("owneremail@gmail.com", "6132113454", "Owner", "ImTheBoss", "Boss", "921bossstreet");
+        System.out.println("owner user created");
+        // Retrieving and saving the owner's bookstore management details
+        BookStoreManagement owner1BookStore = owner1.getOwnersStore();
+        // Save the BookStoreManagement to the database
+        bookStoreRepository.save(owner1BookStore);
+        System.out.println("bookstore saved");
+        // Save the owner to the database
+        ownerRepository.save(owner1);
+        System.out.println("owner user saved");
+        return owner1BookStore.toString();
     }
 
 
@@ -240,4 +236,17 @@ public class viewController {
         model.addAttribute("login_error", "Invalid username or password");
         return "customer_login";
     }
+
+    @GetMapping("/edit_book")
+    public String EditBook(HttpSession session, Model model) {
+        String username = (String) session.getAttribute("username");
+        Optional<Owner> owner = ownerRepository.findByUsername(username);
+        if (owner.isEmpty()) {
+            return "redirect:/owner_login";
+        }
+
+        model.addAttribute("owner", owner.get());
+        return "edit_book";
+    }
+
 }

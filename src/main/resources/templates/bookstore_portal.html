@@ -66,6 +66,7 @@
                             <th>Author</th>
                             <th>Price</th>
                             <th>Quantity</th>
+                            <th>Recommended</th>
                         </thead>
                         <tr th:each="book: ${books}">
                             <td th:text ="${book.isbn}" />
@@ -75,6 +76,10 @@
                             <td th:text="${book.author}" />
                             <td th:text="${book.price}" />
                             <td th:text="${book.quantity}" />
+
+                            <td th:if="${book.recommended}">Yes</td>
+                            <td th:if="${!book.recommended}"></td>
+
 
                             <td>
                                 <form method="post" action="" th:object="${customer}">

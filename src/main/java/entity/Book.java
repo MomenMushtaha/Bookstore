@@ -26,6 +26,7 @@ public class Book implements Serializable{
     private int cartQuantity; // Quantity of this book in the cart
     private long cartId; // Identifier for the cart this book is in
 
+
     //empty constructor for JPA
     public Book() {
 
@@ -39,6 +40,7 @@ public class Book implements Serializable{
         this.quantity = quantity;
         this.price = price;
         this.cartQuantity = 0; // Default quantity in cart is 0, it indicates how many books of the same title is in a customer's cart
+        this.recommended = false;
     }
 
     public static class BookId implements Serializable  {
@@ -133,4 +135,7 @@ public class Book implements Serializable{
                 "Book[id=%d, isbn='%s', bookName='%s', version=%s, author='%s', publisher='%s', quantity='%s', price='%s', cartQuantity='%s']",
                 id, isbn, bookName, version, author, publisher, quantity, price, cartQuantity);
     }
+    public boolean getRecommended() {return recommended;}
+    public void setRecommended(boolean recommended) {this.recommended = recommended;}
+
 }

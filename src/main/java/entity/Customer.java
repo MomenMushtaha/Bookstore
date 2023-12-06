@@ -73,7 +73,7 @@ public class Customer extends User implements Serializable {
         this.purchaseHistory = history;
     }
 
-    public List <Book> getPurchaseHistory(){
+    public List<Book> getPurchaseHistory(){
         return purchaseHistory;
     }
 }

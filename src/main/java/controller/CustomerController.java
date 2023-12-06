@@ -34,10 +34,18 @@ public class CustomerController {
         String username = (String) session.getAttribute("username");
         Optional<Customer> customer = customerRepository.findByUsername(username);
         if (customer.isEmpty()) {return "redirect:/customer_login";}
+        //Set recommendedBooks for customer
+        Customer c = (Customer) customer.get();
+
+        //Reset recommendations and set Recommended books if customer does have previous purchased books.
+        resetRecommendations();
+        if(!c.getPurchaseHistory().isEmpty()){
+            setRecommendedBooks(c);
+        }
         //recommendation code goes here
-        //ex. Iterable<Book> recommendedBooks = bookRepository.findAllByOrderByRecommendedDesc();
-        //model.addAttribute("recommended_books", recommendedBooks);
-        model.addAttribute("customer", customer);
+        Iterable<Book> books = bookRepository.findAllByOrderByRecommendedDesc();
+        model.addAttribute("customer", c);
+        model.addAttribute("books", books);
         return "bookstore_portal";
     }
 
@@ -225,7 +233,6 @@ public class CustomerController {
             cartRepository.save(emptyCart);
             c.setCart(emptyCart);
             customerRepository.save(c);
-
              */
             session.setAttribute("cartId", cart.get().getId());
         }
@@ -256,6 +263,66 @@ public class CustomerController {
         session.setAttribute("username",null);
         session.setAttribute("cartId",null);
         return "redirect:/customer_login";
+    }
+
+    public void resetRecommendations(){
+        //Reset all books to not recommended
+        Iterable<Book> Books = bookRepository.findAll();
+        for(Book book: Books){
+            book.setRecommended(false);
+            bookRepository.save(book);
+        }
+    }
+
+    /**
+     * Sets books as recommended for a given customer based on the purchase history similarity with other customers.
+     * This method compares the purchase history of the current customer with other customers in the database.
+     * If the similarity in purchase history exceeds a predefined threshold, the books purchased by other customers
+     * are marked as recommended for the current customer, provided the current customer has not already purchased them.
+     *
+     * @param customer The customer for whom the book recommendations are to be generated.
+     */
+    private void setRecommendedBooks(Customer customer) {
+        // Retrieve all customer accounts except the current customer
+        Iterable<Customer> customers = customerRepository.findAll();
+        List<Customer> allOtherCustomers = new ArrayList<>();
+        for (Customer c : customers) {
+            if (!c.equals(customer)) {
+                allOtherCustomers.add(c);
+            }
+        }
+
+        double threshold = 50.0;
+        List<Book> customerPurchaseHistory = customer.getPurchaseHistory();
+
+        // Iterate over each customer other than the current customer
+        for (Customer otherCustomer : allOtherCustomers) {
+            List<Book> otherCustomerPurchaseHistory = otherCustomer.getPurchaseHistory();
+            int commonBookCount = 0;
+
+            // Count the number of books purchased by the other customer that match the current customer's purchases
+            for (Book book : customerPurchaseHistory) {
+                if (otherCustomerPurchaseHistory.contains(book)) {
+                    commonBookCount += 1;
+                }
+            }
+
+            // Calculate the similarity percentage based on the total number of books purchased by the current customer
+            double similarity = (double) (commonBookCount * 100) / customerPurchaseHistory.size();
+
+            // Compare the similarity percentage with the threshold
+            if (similarity >= threshold) {
+                // If the similarity exceeds the threshold, mark the other customer's books as recommended
+                for (Book otherBook : otherCustomerPurchaseHistory) {
+
+                    // Set the book as recommended only if it has not been purchased by the current customer
+                    if (!customerPurchaseHistory.contains(otherBook)) {
+                        otherBook.setRecommended(true);
+                        bookRepository.save(otherBook);
+                    }
+                }
+            }
+        }
     }
 
 }

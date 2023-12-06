@@ -111,23 +111,22 @@ public class Book implements Serializable{
         return id;
     }
 
+    public int getCartQuantity(){return cartQuantity;}
+    public void setCartQuantity(int quantity){cartQuantity = quantity;}
+
     // Cart-related methods
     public void addToCart(int quantity) {
         // Check if sufficient stock is available
         if (this.quantity < quantity) {
             throw new IllegalArgumentException("Not enough stock available");
         }
-        this.quantity -= quantity;
+        //this.quantity -= quantity;
         this.cartQuantity += quantity;
     }
 
-    public void removeFromCart(int quantity) {
-        this.quantity += quantity;
-        this.cartQuantity -= quantity;
-        if (this.cartQuantity < 0) {
-            this.cartQuantity = 0;
+    public void updateQuantity (int quantity) {
+        this.quantity = this.quantity- quantity;
         }
-    }
     @Override
     public String toString() {
         return String.format(

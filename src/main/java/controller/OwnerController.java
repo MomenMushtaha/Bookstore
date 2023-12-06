@@ -95,7 +95,7 @@ public class OwnerController {
         }
 
         try {
-            float newPrice = Float.parseFloat(price);
+            double newPrice = Double.parseDouble(price);
             int newQuantity = Integer.parseInt(quantity);
 
             if (newPrice >= 0 && newQuantity >= 0) {

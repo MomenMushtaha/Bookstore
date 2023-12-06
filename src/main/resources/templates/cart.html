@@ -47,14 +47,14 @@
     <th>Price</th>
     <th>Quantity</th>
     </thead>
-    <tr th:each="item: ${cart_items}">
-        <td th:text="${item.book.isbn}" />
-        <td th:text="${item.book.version}" />
-        <td th:text="${item.book.bookName}" />
-        <td th:text="${item.book.publisher}" />
-        <td th:text="${item.book.author}" />
-        <td th:text="${item.book.price}" />
-        <td th:text="${item.quantity}" />
+    <tr th:each="book: ${cart_items}">
+        <td th:text="${book.isbn}" />
+        <td th:text="${book.version}" />
+        <td th:text="${book.bookName}" />
+        <td th:text="${book.publisher}" />
+        <td th:text="${book.author}" />
+        <td th:text="${book.price}" />
+        <td th:text="${book.cartQuantity}" />
     </tr>
     </tbody>
 </table>

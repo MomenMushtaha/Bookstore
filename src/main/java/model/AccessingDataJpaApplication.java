@@ -27,7 +27,7 @@ public class AccessingDataJpaApplication {
 
         SpringApplication.run(AccessingDataJpaApplication.class);
     }
-
+/*
     @Bean
     public CommandLineRunner group22Demo(BookRepository bookRepository,
                                          BookStoreManagementRepository bookStoreRepository,
@@ -95,4 +95,6 @@ public class AccessingDataJpaApplication {
         };
     }
 
+
+ */
 }

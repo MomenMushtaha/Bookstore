@@ -95,7 +95,7 @@ public class CustomerController {
         Optional<Customer> customer = customerRepository.findByUsername(username);
         if(books.isPresent() && customer.isPresent()){
             model.addAttribute("customer", customer.get());
-            model.addAttribute("books", books.get());
+            model.addAttribute("book", books.get());
             return "store_item";
         }
         else{
@@ -117,16 +117,17 @@ public class CustomerController {
     // Method to add a book to the cart
     @PostMapping(value="/store_item", params = "add_to_cart")
     public String AddToCart(
-            @RequestParam(name="isbn", required=false, defaultValue = "") String isbn,
+            @RequestParam(name="isbn", required=false, defaultValue = "") int isbn,
             @RequestParam(name="version", required=false, defaultValue = "") int version,
             @RequestParam(name="quantity", required=false, defaultValue = "") int quantity,
             HttpSession session){
         // Fetch customer and book
         String username = (String) session.getAttribute("username");
         Optional<Customer> customer = customerRepository.findByUsername(username);
-        Long cartId = (Long) session.getAttribute("cartId");
+        Long cartId = customer.get().getCart().getId();
+        //Long cartId = (Long) session.getAttribute("cartId");
         Optional<Cart> cart = cartRepository.findById(cartId);
-        Optional<Book> book = bookRepository.findById(new Book.BookId(isbn, version));
+        Optional<Book> book = bookRepository.findByIsbn(isbn);
 
         if (book.isPresent() && customer.isPresent() && cart.isPresent()) {
             Book bookToAdd = book.get();
@@ -136,7 +137,12 @@ public class CustomerController {
             // Adjusting book quantity
             bookToAdd.addToCart(quantity);
             // Adding book to the cart
-            currentCart.addBook(bookToAdd);
+            try {
+                currentCart.addBook(bookToAdd);
+            }
+            catch (Exception e){
+                return "redirect:/bookstore_portal";
+            }
 
             bookRepository.save(bookToAdd);
             cartRepository.save(currentCart);
@@ -179,12 +185,12 @@ public class CustomerController {
         double price = 0.0;
         if (cart.isPresent()) {
             for (Book book : cart.get().getItems()) {
-                price += book.getPrice() * book.getQuantity(); // Calculate price based on cart quantity
+                price += book.getPrice() * book.getCartQuantity(); // Calculate price based on cart quantity
             }
         }
 
         model.addAttribute("customer", customer.get());
-        model.addAttribute("cart_items", cart.isPresent() ? cart.get().getItems() : Collections.emptyList());
+        model.addAttribute("cart_items", cart.get().getItems());
         model.addAttribute("total_cost", String.format("%.2f", price));
         return "checkout";
     }
@@ -201,18 +207,27 @@ public class CustomerController {
         if (cart.isPresent() && customer.isPresent()) {
             Customer c = customer.get();
             for (Book book : cart.get().getItems()) {
-                c.addToPurchaseHistory(book);
-                book.removeFromCart(book.getQuantity()); // Reset cart quantity
-                bookRepository.save(book);
+                if(!(c.getPurchaseHistory().contains(book))) {
+                    c.addToPurchaseHistory(book);
+                }
+                    book.updateQuantity(book.getCartQuantity()+1);
+                    book.setCartQuantity(0);// Reset cart quantity
+                    bookRepository.save(book);
+
             }
 
+            cart.get().clearCart();
+            cartRepository.save(cart.get());
             // Create new empty Cart for customer
+            /*
             cartRepository.deleteCartById(cartId);
             Cart emptyCart = new Cart(c);
             cartRepository.save(emptyCart);
             c.setCart(emptyCart);
             customerRepository.save(c);
-            session.setAttribute("cartId", emptyCart.getId());
+
+             */
+            session.setAttribute("cartId", cart.get().getId());
         }
 
         return "redirect:/customer_purchased_history";

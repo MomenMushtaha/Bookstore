@@ -95,7 +95,7 @@ public class CustomerController {
         Optional<Customer> customer = customerRepository.findByUsername(username);
         if(books.isPresent() && customer.isPresent()){
             model.addAttribute("customer", customer.get());
-            model.addAttribute("books", books.get());
+            model.addAttribute("book", books.get());
             return "store_item";
         }
         else{
@@ -117,16 +117,17 @@ public class CustomerController {
     // Method to add a book to the cart
     @PostMapping(value="/store_item", params = "add_to_cart")
     public String AddToCart(
-            @RequestParam(name="isbn", required=false, defaultValue = "") String isbn,
+            @RequestParam(name="isbn", required=false, defaultValue = "") int isbn,
             @RequestParam(name="version", required=false, defaultValue = "") int version,
             @RequestParam(name="quantity", required=false, defaultValue = "") int quantity,
             HttpSession session){
         // Fetch customer and book
         String username = (String) session.getAttribute("username");
         Optional<Customer> customer = customerRepository.findByUsername(username);
-        Long cartId = (Long) session.getAttribute("cartId");
+        Long cartId = customer.get().getCart().getId();
+        //Long cartId = (Long) session.getAttribute("cartId");
         Optional<Cart> cart = cartRepository.findById(cartId);
-        Optional<Book> book = bookRepository.findById(new Book.BookId(isbn, version));
+        Optional<Book> book = bookRepository.findByIsbn(isbn);
 
         if (book.isPresent() && customer.isPresent() && cart.isPresent()) {
             Book bookToAdd = book.get();

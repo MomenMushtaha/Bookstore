@@ -111,6 +111,9 @@ public class Book implements Serializable{
         return id;
     }
 
+    public int getCartQuantity(){return cartQuantity;}
+    public void setCartQuantity(int quantity){cartQuantity = quantity;}
+
     // Cart-related methods
     public void addToCart(int quantity) {
         // Check if sufficient stock is available

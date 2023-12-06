@@ -39,9 +39,10 @@ public class Cart implements Serializable {
     public void addBook(Book book) {
         if(book.getQuantity()<=0){
             throw new IllegalArgumentException("Quantity must be greater than zero.");
+
         }
         else{
-            book.reduceQuantity();
+            //book.reduceQuantity();
             items.add(book);}
     }
 

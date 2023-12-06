@@ -137,7 +137,12 @@ public class CustomerController {
             // Adjusting book quantity
             bookToAdd.addToCart(quantity);
             // Adding book to the cart
-            currentCart.addBook(bookToAdd);
+            try {
+                currentCart.addBook(bookToAdd);
+            }
+            catch (Exception e){
+                return "redirect:/bookstore_portal";
+            }
 
             bookRepository.save(bookToAdd);
             cartRepository.save(currentCart);
@@ -180,7 +185,7 @@ public class CustomerController {
         double price = 0.0;
         if (cart.isPresent()) {
             for (Book book : cart.get().getItems()) {
-                price += book.getPrice() * book.getQuantity(); // Calculate price based on cart quantity
+                price += book.getPrice() * book.getCartQuantity(); // Calculate price based on cart quantity
             }
         }
 
@@ -202,9 +207,13 @@ public class CustomerController {
         if (cart.isPresent() && customer.isPresent()) {
             Customer c = customer.get();
             for (Book book : cart.get().getItems()) {
-                c.addToPurchaseHistory(book);
-                book.removeFromCart(book.getQuantity()); // Reset cart quantity
-                bookRepository.save(book);
+                if(!(c.getPurchaseHistory().contains(book))) {
+                    c.addToPurchaseHistory(book);
+                }
+                    book.updateQuantity(book.getCartQuantity()+1);
+                    book.setCartQuantity(0);// Reset cart quantity
+                    bookRepository.save(book);
+
             }
 
             cart.get().clearCart();

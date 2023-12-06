@@ -206,13 +206,18 @@ public class CustomerController {
                 bookRepository.save(book);
             }
 
+            cart.get().clearCart();
+            cartRepository.save(cart.get());
             // Create new empty Cart for customer
+            /*
             cartRepository.deleteCartById(cartId);
             Cart emptyCart = new Cart(c);
             cartRepository.save(emptyCart);
             c.setCart(emptyCart);
             customerRepository.save(c);
-            session.setAttribute("cartId", emptyCart.getId());
+
+             */
+            session.setAttribute("cartId", cart.get().getId());
         }
 
         return "redirect:/customer_purchased_history";

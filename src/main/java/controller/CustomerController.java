@@ -185,7 +185,7 @@ public class CustomerController {
         }
 
         model.addAttribute("customer", customer.get());
-        model.addAttribute("cart_items", cart.isPresent() ? cart.get().getItems() : Collections.emptyList());
+        model.addAttribute("cart_items", cart.get().getItems());
         model.addAttribute("total_cost", String.format("%.2f", price));
         return "checkout";
     }

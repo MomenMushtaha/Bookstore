@@ -34,6 +34,7 @@
         <a th:href="@{/cart}">View Cart</a>
         <a th:href="@{/customer_purchased_history}">Customer Purchased History</a>
         <a th:href="@{/customer_logout}">Log Out</a>
+        <a th:href="@{/}">Return to Home Portal</a>
     </div>
 </div>
 <table style="margin-top: 2em">
@@ -62,6 +63,5 @@
 <form style="margin-top: 2em" th:action="@{/checkout}" method="get">
     <input type="submit" value="Proceed to Checkout" name="checkout"/>
 </form>
-
 </body>
 </html>

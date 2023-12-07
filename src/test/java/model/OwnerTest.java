@@ -9,8 +9,7 @@ import static org.junit.Assert.*;
 
 //TEST CLASS
 //Tests functions of the Owner class
-//addBook and updateQuantity are functioning
-//ToDo FIX REMOVE BOOK FROM BOOKSTORE
+
 public class OwnerTest {
 
     @Test
@@ -28,6 +27,10 @@ public class OwnerTest {
         testOwner.addBookToStore(book);
         testOwner.addBookToStore(book2);
         assertEquals(2, testOwner.getBookStore().size());
+        //After test, remove any contents that may get into the front end/DBs
+        testOwner.removeBookFromStore(book);
+        testOwner.removeBookFromStore(book2);
+        assertEquals(0, testOwner.getBookStore().size());
     }
 
     @Test
@@ -66,6 +69,9 @@ public class OwnerTest {
         testOwner.updateStoreQuantity(123, -3);
         testOwner.updateStoreQuantity(128, 0);
         assertEquals(10, book.getQuantity());
+        //After test, remove any contents that may get into the front end/DBs
+        testOwner.removeBookFromStore(book);
+        assertEquals(0, testOwner.getBookStore().size());
     }
 
 

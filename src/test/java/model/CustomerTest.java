@@ -9,8 +9,7 @@ import static org.junit.Assert.*;
 
 //TEST CLASS
 //Tests functions of the Customer class
-//Currently Bugged.
-//ToDo FIX PURCHASE HISTORY FUNCTIONALITY
+
 public class CustomerTest {
 
     @Test

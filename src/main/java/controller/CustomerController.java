@@ -160,6 +160,31 @@ public class CustomerController {
             return "redirect:/bookstore_portal";
         }
     }
+    @PostMapping(value = "/cart", params = "remove_from_cart")
+    public String removeFromCart(
+            @RequestParam(name = "isbn", required = false, defaultValue = "") int isbn,
+            HttpSession session) {
+        String username = (String) session.getAttribute("username");
+        Optional<Customer> customer = customerRepository.findByUsername(username);
+        Long cartId = customer.get().getCart().getId();
+        Optional<Cart> cart = cartRepository.findById(cartId);
+        Optional<Book> book = bookRepository.findByIsbn(isbn);
+
+        if (book.isPresent() && customer.isPresent() && cart.isPresent()) {
+            Book bookToRemove = book.get();
+            Customer currentCustomer = customer.get();
+            Cart currentCart = cart.get();
+
+            // Remove the book from the cart
+            currentCart.removeBook(bookToRemove);
+            bookRepository.save(bookToRemove);
+            cartRepository.save(currentCart);
+
+            return "redirect:/cart";
+        } else {
+            return "redirect:/cart";
+        }
+    }
 
 
     // Method to display the shopping cart

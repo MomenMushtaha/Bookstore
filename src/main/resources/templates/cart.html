@@ -56,6 +56,12 @@
         <td th:text="${book.author}" />
         <td th:text="${book.price}" />
         <td th:text="${book.cartQuantity}" />
+        <td>
+            <form th:action="@{/cart}" method="post">
+                <input type="hidden" name="isbn" th:value="${book.isbn}" />
+                <input type="submit" value="Remove" name="remove_from_cart" />
+            </form>
+        </td>
     </tr>
     </tbody>
 </table>

@@ -1,7 +1,7 @@
 # BookstoreSYSC4806
 
 ## Group 22
-### Project: Book Store
+### Project: Online book store web app 
 ### Oral Topic: RESTful CRUD out-of-the-box with PostgREST or SQLer
 
 ## Group Members:

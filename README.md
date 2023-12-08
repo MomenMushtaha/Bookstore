@@ -37,7 +37,7 @@
 
 - ## UML Diagram
 ### Title: BookStoreUML drawio-2
-![BookStoreUML drawio-2](https://github.com/Hamzaman10/BookstoreSYSC4806/assets/91337509/ad16276c-b34d-4cc5-9500-30c0e7705931)
+![BookStoreUML drawio](https://github.com/Hamzaman10/BookstoreSYSC4806/assets/91337509/0a211776-1c9d-4363-b2f6-5f59bdc88151)
 
 - ##Schema Diagram
 ### Title: Bookstore Schema diagram

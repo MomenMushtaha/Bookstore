@@ -11,9 +11,9 @@
 - Momen Mushtaha 101114546
 
 ## How to use
-- 1) create an owner account and populate the store with some books
-  2) create a customer account and browse the books and add any to your cart
-  3) checkout and purchase your books and check your purchase history
+- 1) Create an owner account and populate the store with some books
+  2) Create a customer account and browse the books and add any to your cart
+  3) Checkout and purchase your books and check your purchase history
 
 ## Milestone 1 (November 13, 2023)
 - Model (Finished, polish planned)
@@ -23,14 +23,14 @@
 
 ## Milestone 2 (November 27, 2023)
 - Fixed bug with customers and controllers where the cart and customer weren't linked by id
-- added a moccMVC
-- linked our controllers to our views
-- finished most of the required functionality
+- Added a moccMVC
+- Linked our controllers to our views
+- Finished most of the required functionality
 
 
 ## Milestone 3 (November 27, 2023)
 - Fixed bug with editing books
-- fixed tests so they didn;t interfere with databases
+- Fixed tests so they didn;t interfere with databases
 - Completed functionality for adding book to cart and purchasing books
 
 

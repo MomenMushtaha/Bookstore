@@ -15,6 +15,9 @@ import repository.OwnerRepository;
 
 import java.util.Optional;
 
+/**
+ * Controller for handling owner-related operations such as managing the bookstore and books.
+ */
 @Controller
 public class OwnerController {
 
@@ -25,13 +28,14 @@ public class OwnerController {
     private OwnerRepository ownerRepository;
 
     @Autowired
-    BookStoreManagementRepository bookStoreRepository;
+    private BookStoreManagementRepository bookStoreRepository;
 
     /**
-     * Method OwnerSignup to direct users to the owner signup page
-     * @return a direction to the next appropriate page
+     * Directs users to the owner portal page, displaying the owner's bookstore details and books.
+     * @param model The model to add attributes for the view.
+     * @param session The HTTP session to retrieve user attributes.
+     * @return A direction to the owner portal page or login page.
      */
-
     @GetMapping("/owner_portal")
     public String Owner(Model model, HttpSession session) {
         String username = (String) session.getAttribute("username");
@@ -53,6 +57,12 @@ public class OwnerController {
         return "owner_portal";
     }
 
+    /**
+     * Directs users to the book upload page.
+     * @param session The HTTP session to retrieve user attributes.
+     * @param model The model to add attributes for the view.
+     * @return A direction to the book upload page or login page.
+     */
     @GetMapping("/upload_book")
     public String UploadBook(HttpSession session, Model model) {
         String username = (String) session.getAttribute("username");
@@ -65,6 +75,18 @@ public class OwnerController {
         return "upload_book";
     }
 
+    /**
+     * Handles the book upload form submission.
+     * @param isbn The ISBN of the book.
+     * @param bookName The name of the book.
+     * @param publisher The publisher of the book.
+     * @param author The author of the book.
+     * @param quantity The quantity of the book.
+     * @param price The price of the book.
+     * @param session The HTTP session to retrieve user attributes.
+     * @param model The model to add attributes for the view.
+     * @return A direction to the owner portal page or upload book page with an error message.
+     */
     @PostMapping(value = "/upload_book", params = "AddBook")
     public String UploadBookControl(
             @RequestParam(name = "isbn", required = false, defaultValue = "") int isbn,
@@ -90,7 +112,7 @@ public class OwnerController {
         model.addAttribute("owner", owner.get());
 
         if (Integer.toString(isbn).isEmpty() || bookName.isEmpty() || author.isEmpty() || publisher.isEmpty() || quantity.isEmpty() || price.isEmpty()) {
-            model.addAttribute("upload_book_error", "some inputs are missing!");
+            model.addAttribute("upload_book_error", "Some inputs are missing!");
             return "upload_book";
         }
 
@@ -99,9 +121,7 @@ public class OwnerController {
             int newQuantity = Integer.parseInt(quantity);
 
             if (newPrice >= 0 && newQuantity >= 0) {
-
                 Book newBook = new Book(isbn, bookStoreManagement.getBookList().size() + 1, bookName, author, publisher, newQuantity, newPrice);
-
                 bookStoreManagement.addBook(newBook);
                 bookRepository.save(newBook);
                 bookStoreRepository.save(bookStoreManagement);
@@ -116,6 +136,16 @@ public class OwnerController {
         return "upload_book";
     }
 
+    /**
+     * Handles editing or deleting a book.
+     * @param isbn The ISBN of the book.
+     * @param quantity The new quantity of the book.
+     * @param editBook The parameter indicating an edit operation.
+     * @param deleteBook The parameter indicating a delete operation.
+     * @param session The HTTP session to retrieve user attributes.
+     * @param model The model to add attributes for the view.
+     * @return A direction to the owner portal page or edit book page with an error message.
+     */
     @Transactional
     @PostMapping("/edit_book")
     public String editBook(
@@ -148,12 +178,9 @@ public class OwnerController {
             } else if (deleteBook != null) {
                 // Delete Book
                 bookStoreManagement.removeBook(isbn);
-
-                // Remove the book from the repository
                 bookRepository.deleteByIsbn(isbn);
             }
 
-            // Save the changes to the book store
             bookStoreRepository.save(bookStoreManagement);
 
             return "redirect:/owner_portal";
@@ -162,7 +189,4 @@ public class OwnerController {
             return "edit_book";
         }
     }
-
-
-
 }

@@ -17,123 +17,164 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.stereotype.Controller;
 
-
-
+/**
+ * Controller for handling customer-related operations such as viewing the bookstore, searching for books,
+ * purchasing books, and managing the shopping cart and purchase history.
+ */
 @Controller
 public class CustomerController {
     @Autowired
     private CustomerRepository customerRepository;
+
     @Autowired
     private BookRepository bookRepository;
+
     @Autowired
     private CartRepository cartRepository;
 
-
+    /**
+     * Directs users to the bookstore portal page, displaying the available books and customer details.
+     * @param model The model to add attributes for the view.
+     * @param session The HTTP session to retrieve user attributes.
+     * @return A direction to the bookstore portal page or login page.
+     */
     @GetMapping("/bookstore_portal")
     public String customer(Model model, HttpSession session) {
         String username = (String) session.getAttribute("username");
         Optional<Customer> customer = customerRepository.findByUsername(username);
-        if (customer.isEmpty()) {return "redirect:/customer_login";}
-        //Set recommendedBooks for customer
-        Customer c = (Customer) customer.get();
+        if (customer.isEmpty()) {
+            return "redirect:/customer_login";
+        }
+        Customer c = customer.get();
 
-        //Reset recommendations and set Recommended books if customer does have previous purchased books.
+        // Reset recommendations and set recommended books if the customer has previous purchase history.
         resetRecommendations();
-        if(!c.getPurchaseHistory().isEmpty()){
+        if (!c.getPurchaseHistory().isEmpty()) {
             setRecommendedBooks(c);
         }
-        //recommendation code goes here
+
+        // Get all books ordered by recommended status.
         Iterable<Book> books = bookRepository.findAllByOrderByRecommendedDesc();
         model.addAttribute("customer", c);
         model.addAttribute("books", books);
         return "bookstore_portal";
     }
 
-
-    // the param is used to specify what is the thing the input or the operation in the html file will be invoked on
-    //ex.
-    // <label for="search">Search For:</label>
-    // <input type="text" id="search" name="search" value="" /><br />
-    // <input type="submit" value="Search Book" name="search_book"/><br />
-    // <input type="submit" value="View All Books" name="all_books"/>
-    @PostMapping(value="/bookstore_portal", params = "all_books")
-    public String AllBooks(Model model, HttpSession session){
-        //recommendation code goes here
+    /**
+     * Displays all books in the bookstore, ordered by recommended status.
+     * @param model The model to add attributes for the view.
+     * @param session The HTTP session to retrieve user attributes.
+     * @return A direction to the bookstore portal page or login page.
+     */
+    @PostMapping(value = "/bookstore_portal", params = "all_books")
+    public String AllBooks(Model model, HttpSession session) {
         Iterable<Book> books = bookRepository.findAllByOrderByRecommendedDesc();
         String username = (String) session.getAttribute("username");
         Optional<Customer> customer = customerRepository.findByUsername(username);
-        if (customer.isEmpty()) {return "redirect:/customer_login";}
+        if (customer.isEmpty()) {
+            return "redirect:/customer_login";
+        }
 
         model.addAttribute("books", books);
         model.addAttribute("customer", customer.get());
         return "bookstore_portal";
     }
 
-
-    @PostMapping(value="/bookstore_portal", params = "search_book")
+    /**
+     * Searches for books based on the provided search term and filter.
+     * @param search The search term.
+     * @param filter The filter to apply (by publisher, author, or name).
+     * @param model The model to add attributes for the view.
+     * @param session The HTTP session to retrieve user attributes.
+     * @return A direction to the bookstore portal page with the search results or an error message.
+     */
+    @PostMapping(value = "/bookstore_portal", params = "search_book")
     public String SearchBook(
-            @RequestParam(name="search", required=false, defaultValue = "") String search,
-            @RequestParam(name="filter", required=false, defaultValue = "") String filter,
-            Model model, HttpSession session){
-        if(!search.isEmpty()){
+            @RequestParam(name = "search", required = false, defaultValue = "") String search,
+            @RequestParam(name = "filter", required = false, defaultValue = "") String filter,
+            Model model, HttpSession session) {
+        if (!search.isEmpty()) {
             Iterable<Book> books = switch (filter) {
                 case "by-publisher" -> bookRepository.findBooksByPublisher(search);
                 case "by-author" -> bookRepository.findBooksByAuthor(search);
                 case "by-name" -> bookRepository.findBooksByBookName(search);
                 default -> bookRepository.findAllByOrderByRecommendedDesc();
             };
-            //If any book is Found
-            if(books.iterator().hasNext()){model.addAttribute("books",books);}
-            else {model.addAttribute("search_error", "No Books Found With that Name.");}
-        } else{model.addAttribute("search_error", "The Search Bar is Empty");}
+            if (books.iterator().hasNext()) {
+                model.addAttribute("books", books);
+            } else {
+                model.addAttribute("search_error", "No Books Found With that Name.");
+            }
+        } else {
+            model.addAttribute("search_error", "The Search Bar is Empty");
+        }
 
         String username = (String) session.getAttribute("username");
         Optional<Customer> customer = customerRepository.findByUsername(username);
-        if (customer.isEmpty()) {return "redirect:/customer_login";}
+        if (customer.isEmpty()) {
+            return "redirect:/customer_login";
+        }
         model.addAttribute("customer", customer.get());
         return "bookstore_portal";
     }
 
-
-    @PostMapping(value="/bookstore_portal", params = "buy_book")
+    /**
+     * Displays the store item page for the selected book.
+     * @param isbn The ISBN of the selected book.
+     * @param session The HTTP session to retrieve user attributes.
+     * @param model The model to add attributes for the view.
+     * @return A direction to the store item page or bookstore portal page.
+     */
+    @PostMapping(value = "/bookstore_portal", params = "buy_book")
     public String BuyBook(
-            @RequestParam(name="isbn", required=false, defaultValue = "") int isbn, HttpSession session, Model model){
+            @RequestParam(name = "isbn", required = false, defaultValue = "") int isbn, HttpSession session, Model model) {
         Optional<Book> books = bookRepository.findByIsbn(isbn);
         String username = (String) session.getAttribute("username");
         Optional<Customer> customer = customerRepository.findByUsername(username);
-        if(books.isPresent() && customer.isPresent()){
+        if (books.isPresent() && customer.isPresent()) {
             model.addAttribute("customer", customer.get());
             model.addAttribute("book", books.get());
             return "store_item";
-        }
-        else{
+        } else {
             return "redirect:/bookstore_portal";
         }
     }
 
-
+    /**
+     * Redirects to the bookstore portal page.
+     * @return A direction to the bookstore portal page.
+     */
     @GetMapping("/store_item")
     public String getStoreItem() {
         return "redirect:/bookstore_portal";
     }
 
-    @PostMapping(value="/store_item", params = "bookstore_page")
-    public String BookStorePortal(){
+    /**
+     * Redirects to the bookstore portal page.
+     * @return A direction to the bookstore portal page.
+     */
+    @PostMapping(value = "/store_item", params = "bookstore_page")
+    public String BookStorePortal() {
         return "redirect:/bookstore_portal";
     }
 
-    // Method to add a book to the cart
-    @PostMapping(value="/store_item", params = "add_to_cart")
+    /**
+     * Adds a book to the customer's cart.
+     * @param isbn The ISBN of the book to add.
+     * @param version The version of the book to add.
+     * @param quantity The quantity of the book to add.
+     * @param session The HTTP session to retrieve user attributes.
+     * @return A direction to the bookstore portal page.
+     */
+    @PostMapping(value = "/store_item", params = "add_to_cart")
     public String AddToCart(
-            @RequestParam(name="isbn", required=false, defaultValue = "") int isbn,
-            @RequestParam(name="version", required=false, defaultValue = "") int version,
-            @RequestParam(name="quantity", required=false, defaultValue = "") int quantity,
-            HttpSession session){
-        // Fetch customer and book
+            @RequestParam(name = "isbn", required = false, defaultValue = "") int isbn,
+            @RequestParam(name = "version", required = false, defaultValue = "") int version,
+            @RequestParam(name = "quantity", required = false, defaultValue = "") int quantity,
+            HttpSession session) {
         String username = (String) session.getAttribute("username");
         Optional<Customer> customer = customerRepository.findByUsername(username);
         Long cartId = customer.get().getCart().getId();
-        //Long cartId = (Long) session.getAttribute("cartId");
         Optional<Cart> cart = cartRepository.findById(cartId);
         Optional<Book> book = bookRepository.findByIsbn(isbn);
 
@@ -144,11 +185,11 @@ public class CustomerController {
 
             // Adjusting book quantity
             bookToAdd.addToCart(quantity);
+
             // Adding book to the cart
             try {
                 currentCart.addBook(bookToAdd);
-            }
-            catch (Exception e){
+            } catch (Exception e) {
                 return "redirect:/bookstore_portal";
             }
 
@@ -160,6 +201,13 @@ public class CustomerController {
             return "redirect:/bookstore_portal";
         }
     }
+
+    /**
+     * Removes a book from the customer's cart.
+     * @param isbn The ISBN of the book to remove.
+     * @param session The HTTP session to retrieve user attributes.
+     * @return A direction to the cart page.
+     */
     @PostMapping(value = "/cart", params = "remove_from_cart")
     public String removeFromCart(
             @RequestParam(name = "isbn", required = false, defaultValue = "") int isbn,
@@ -172,7 +220,6 @@ public class CustomerController {
 
         if (book.isPresent() && customer.isPresent() && cart.isPresent()) {
             Book bookToRemove = book.get();
-            Customer currentCustomer = customer.get();
             Cart currentCart = cart.get();
 
             // Remove the book from the cart
@@ -186,13 +233,19 @@ public class CustomerController {
         }
     }
 
-
-    // Method to display the shopping cart
+    /**
+     * Displays the shopping cart page with the items in the cart.
+     * @param model The model to add attributes for the view.
+     * @param session The HTTP session to retrieve user attributes.
+     * @return A direction to the shopping cart page or login page.
+     */
     @GetMapping("/cart")
-    public String shoppingCart(Model model, HttpSession session){
+    public String shoppingCart(Model model, HttpSession session) {
         String username = (String) session.getAttribute("username");
         Optional<Customer> customer = customerRepository.findByUsername(username);
-        if (customer.isEmpty()) {return "redirect:/customer_login";}
+        if (customer.isEmpty()) {
+            return "redirect:/customer_login";
+        }
         Long cartId = (Long) session.getAttribute("cartId");
         Optional<Cart> cart = cartRepository.findById(cartId);
         List<Book> items = new ArrayList<>();
@@ -204,6 +257,12 @@ public class CustomerController {
         return "cart";
     }
 
+    /**
+     * Displays the checkout page with the total cost of the items in the cart.
+     * @param model The model to add attributes for the view.
+     * @param session The HTTP session to retrieve user attributes.
+     * @return A direction to the checkout page or login page.
+     */
     @GetMapping("/checkout")
     public String getCheckout(Model model, HttpSession session) {
         String username = (String) session.getAttribute("username");
@@ -228,9 +287,13 @@ public class CustomerController {
         return "checkout";
     }
 
-
+    /**
+     * Confirms the checkout process, updates the purchase history, and clears the cart.
+     * @param session The HTTP session to retrieve user attributes.
+     * @return A direction to the customer's purchase history page.
+     */
     @Transactional
-    @PostMapping(value="/checkout", params="checkout")
+    @PostMapping(value = "/checkout", params = "checkout")
     public String confirmCheckout(HttpSession session) {
         String username = (String) session.getAttribute("username");
         Optional<Customer> customer = customerRepository.findByUsername(username);
@@ -240,32 +303,28 @@ public class CustomerController {
         if (cart.isPresent() && customer.isPresent()) {
             Customer c = customer.get();
             for (Book book : cart.get().getItems()) {
-                if(!(c.getPurchaseHistory().contains(book))) {
+                if (!c.getPurchaseHistory().contains(book)) {
                     c.addToPurchaseHistory(book);
                 }
-                    book.updateQuantity(book.getCartQuantity()+1);
-                    book.setCartQuantity(0);// Reset cart quantity
-                    bookRepository.save(book);
-
+                book.updateQuantity(book.getCartQuantity() + 1);
+                book.setCartQuantity(0); // Reset cart quantity
+                bookRepository.save(book);
             }
 
             cart.get().clearCart();
             cartRepository.save(cart.get());
-            // Create new empty Cart for customer
-            /*
-            cartRepository.deleteCartById(cartId);
-            Cart emptyCart = new Cart(c);
-            cartRepository.save(emptyCart);
-            c.setCart(emptyCart);
-            customerRepository.save(c);
-             */
             session.setAttribute("cartId", cart.get().getId());
         }
 
         return "redirect:/customer_purchased_history";
     }
 
-
+    /**
+     * Displays the customer's purchase history.
+     * @param model The model to add attributes for the view.
+     * @param session The HTTP session to retrieve user attributes.
+     * @return A direction to the purchase history page or login page.
+     */
     @GetMapping("/customer_purchased_history")
     public String purchasedBooks(Model model, HttpSession session) {
         String username = (String) session.getAttribute("username");
@@ -282,18 +341,24 @@ public class CustomerController {
         return "customer_purchased_history";
     }
 
-
+    /**
+     * Logs out the customer by invalidating the session attributes.
+     * @param session The HTTP session to invalidate.
+     * @return A direction to the customer login page.
+     */
     @GetMapping("/customer_logout")
     public String CustomerLogout(HttpSession session) {
-        session.setAttribute("username",null);
-        session.setAttribute("cartId",null);
+        session.setAttribute("username", null);
+        session.setAttribute("cartId", null);
         return "redirect:/customer_login";
     }
 
-    public void resetRecommendations(){
-        //Reset all books to not recommended
-        Iterable<Book> Books = bookRepository.findAll();
-        for(Book book: Books){
+    /**
+     * Resets the recommendation status for all books.
+     */
+    public void resetRecommendations() {
+        Iterable<Book> books = bookRepository.findAll();
+        for (Book book : books) {
             book.setRecommended(false);
             bookRepository.save(book);
         }
@@ -308,7 +373,6 @@ public class CustomerController {
      * @param customer The customer for whom the book recommendations are to be generated.
      */
     private void setRecommendedBooks(Customer customer) {
-        // Retrieve all customer accounts except the current customer
         Iterable<Customer> customers = customerRepository.findAll();
         List<Customer> allOtherCustomers = new ArrayList<>();
         for (Customer c : customers) {
@@ -320,27 +384,20 @@ public class CustomerController {
         double threshold = 50.0;
         List<Book> customerPurchaseHistory = customer.getPurchaseHistory();
 
-        // Iterate over each customer other than the current customer
         for (Customer otherCustomer : allOtherCustomers) {
             List<Book> otherCustomerPurchaseHistory = otherCustomer.getPurchaseHistory();
             int commonBookCount = 0;
 
-            // Count the number of books purchased by the other customer that match the current customer's purchases
             for (Book book : customerPurchaseHistory) {
                 if (otherCustomerPurchaseHistory.contains(book)) {
                     commonBookCount += 1;
                 }
             }
 
-            // Calculate the similarity percentage based on the total number of books purchased by the current customer
             double similarity = (double) (commonBookCount * 100) / customerPurchaseHistory.size();
 
-            // Compare the similarity percentage with the threshold
             if (similarity >= threshold) {
-                // If the similarity exceeds the threshold, mark the other customer's books as recommended
                 for (Book otherBook : otherCustomerPurchaseHistory) {
-
-                    // Set the book as recommended only if it has not been purchased by the current customer
                     if (!customerPurchaseHistory.contains(otherBook)) {
                         otherBook.setRecommended(true);
                         bookRepository.save(otherBook);
@@ -349,5 +406,4 @@ public class CustomerController {
             }
         }
     }
-
 }

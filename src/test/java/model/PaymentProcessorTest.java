@@ -10,108 +10,51 @@ import java.io.PrintStream;
 import static org.junit.Assert.*;
 
 /**
- * JUnit test class for the PaymentProcessor class.
+ * This class is a JUnit test class for the PaymentProcessor class.
+ * It contains methods to test the functionality of the PaymentProcessor class.
+ * It also includes setup and teardown methods for the tests.
  *
  * @author Mahtab Ameli
  */
 public class PaymentProcessorTest {
 
-    // Creates ByteArrayOutputStream for testing System.out content
+    // This ByteArrayOutputStream will capture the output data from System.out
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
 
-    // Stores the original System.out so that it can be restored after testing
+    // This PrintStream holds the original System.out before it is changed for testing
     private final PrintStream originalOut = System.out;
 
     /**
-     * Sets up capturing System.Out output.
+     * This method is executed before each test.
+     * It sets up the environment for capturing System.out output.
      */
     @Before
     public void setUpStreams() {
+        // Redirect System.out to outContent
         System.setOut(new PrintStream(outContent));
     }
 
     /**
-     * Tests the processPayment method for a successful payment.
-     */
-/*    @Test
-    public void testProcessPaymentSuccessful() {
-        // Set up Book, Cart, and Customer for testing
-        BookStoreManagement bookStoreManagement = new BookStoreManagement();
-        Book book = new Book(123, "Book 1", "Author 1", "Publisher 1", 10, 30);
-        bookStoreManagement.addBook(book);
-
-        Cart cart = new Cart();
-        cart.addBook(book, 2);
-        Customer customer = new Customer("customer@example.com", "1234567890", "customer1", "password", 1, "Mahtab Ameli", "333 University Way");
-        customer.setCart(cart);
-
-        // Call processPayment method
-        PaymentProcessor.processPayment(cart);
-
-        // Assert the output contains the expected success message
-        assertTrue(outContent.toString().contains("***** PAYMENT APPROVED *****"));
-    }*/
-
-    /**
-     * Tests the processPayment method for a failed payment with an empty cart.
-     */
-/*
-    @Test
-    public void testProcessPaymentFailed() {
-        // Set up an empty Cart and Customer for testing
-        Cart cart = new Cart();
-        Customer customer = new Customer("customer@example.com", "1234567890", "customer1", "password", 1, "ahtab Ameli", "333 University Way");
-        customer.setCart(cart);
-
-        // Call processPayment method
-        PaymentProcessor.processPayment(cart);
-
-        // Assert the output contains the expected failure message
-        assertTrue(outContent.toString().contains("PAYMENT CANNOT BE PROCESSED: SHOPPING CART IS EMPTY!"));
-    }
-*/
-
-    /**
-     * Tests the processPayment method for an empty cart.
-     */
-/*    @Test
-*//*    public void testProcessPaymentEmptyCart() {
-        // Set up Book, empty Cart, and Customer for testing
-        BookStoreManagement bookStoreManagement = new BookStoreManagement();
-        Book book = new Book(123, "Book 1", "Author 1", "Publisher 1", 10, 29.99);
-        bookStoreManagement.addBook(book);
-
-        Cart cart = new Cart();
-        Customer customer = new Customer("customer@example.com", "1234567890", "customer1", "password", 1, "Mahtab Ameli", "333 University Way");
-        customer.setCart(cart);
-
-        PaymentProcessor.processPayment(cart);
-
-        // Assert the output contains the expected empty cart message
-        assertTrue(outContent.toString().contains("PAYMENT CANNOT BE PROCESSED: SHOPPING CART IS EMPTY!"));
-    }*/
-
-
-
-
-    /**
-     * Tests the generateTransactionNumber method to ensure transaction numbers are incremented correctly.
+     * This method tests the generateTransactionNumber method of the PaymentProcessor class.
+     * It checks if the transaction numbers are incremented correctly.
      */
     @Test
     public void testGenerateTransactionNumber() {
-        // Get two consecutive transaction numbers
+        // Generate two consecutive transaction numbers
         int transactionNumber1 = PaymentProcessor.generateTransactionNumber();
         int transactionNumber2 = PaymentProcessor.generateTransactionNumber();
 
-        // Assert that the transaction numbers are consecutive
+        // Check if the second transaction number is one more than the first one
         assertEquals(transactionNumber1 + 1, transactionNumber2);
     }
 
     /**
-     * Restores the original System.Out after testing
+     * This method is executed after each test.
+     * It restores the original System.out after the test.
      */
     @After
     public void restoreStreams() {
+        // Restore the original System.out
         System.setOut(originalOut);
     }
 }
